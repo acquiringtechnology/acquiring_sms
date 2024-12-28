@@ -1,0 +1,16 @@
+.app-modal {
+    padding-left: 0 !important;
+    &.modal-side.modal-top-right {
+        .modal-dialog {
+            position: absolute;
+            width: 100%;
+            margin: 0;
+            right: 10px;
+            bottom: 10px;
+            top: 10px;
+            @media (min-width: 992px) {
+                --bs-modal-width: 35%;
+            }
+        }
+    }
+}
