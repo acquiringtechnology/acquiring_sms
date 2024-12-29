@@ -13865,7 +13865,7 @@ textarea.is-invalid.tt-hint, .select2-container--default .select2-selection--sin
   --bs-modal-padding: 0.937rem;
   --bs-modal-margin: 10px;
   --bs-modal-color: ;
-  --bs-modal-bg: #f2edf3;
+  --bs-modal-bg: var(--bs-white);
   --bs-modal-border-color: #ebedf2;
   --bs-modal-border-width: 1px;
   --bs-modal-border-radius: var(--bs-border-radius-lg);
