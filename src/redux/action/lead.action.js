@@ -1,4 +1,4 @@
-import { getAllLeads, createLead, updateLead } from "../../services/api/lead";
+import { getAllLeads, createLead, updateLead,deleteLead } from "../../services/api/lead";
 import leadStateSlice from "../slices/lead.slices";
 
 export const leadStateSliceActions = leadStateSlice.actions;
@@ -40,7 +40,23 @@ export function updateLeadData(reqObj, id) {
       const response = await updateLead(reqObj, id); // Fetch leads
       console.log(reqObj);
       dispatch(
-        leadStateSliceActions.setUpdateLeadData({ ...reqObj})
+        leadStateSliceActions.setUpdateLeadData({ ...response})
+      );
+    } catch (error) {
+      dispatch(leadStateSliceActions.setIsCreateUpdateLoader(false));
+      console.error(error);
+    }
+  };
+}
+
+export function deleteLeadData(id) {
+  return async (dispatch) => {
+    try {
+      dispatch(leadStateSliceActions.setIsCreateUpdateLoader(true));
+      const response = await deleteLead(id); // Fetch leads
+      console.log(response);
+      dispatch(
+        leadStateSliceActions.setDeleteLeadData(id)
       );
     } catch (error) {
       dispatch(leadStateSliceActions.setIsCreateUpdateLoader(false));

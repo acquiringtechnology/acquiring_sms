@@ -5,6 +5,7 @@ import {
   addDoc,
   updateDoc,
   doc,
+  deleteDoc,
 } from "firebase/firestore";
 import { Toast } from "../../../services/toast";
 import { DB_NAME } from "../../constants";
@@ -67,12 +68,30 @@ export const updateLead = async (body, id) => {
       userReq
     );
     Toast({ message: "Lead Updated successfully" });
-    console.log(docRef)
+    console.log(docRef);
     return docRef;
   } catch (e) {
     console.error("Error fetching leads:", e);
     let message = e?.message || "Something went wrong";
     Toast({ message, type: "error" });
     throw e; // Propagate error to be handled by the caller
+  }
+};
+
+export const deleteLead = async (body) => {
+  try {
+    const docRef = await deleteDoc(
+      doc(getFirestore(), DB_NAME?.COURSE_ENQUIRY, body)
+    );
+
+    console.log("docRef--", docRef);
+
+    Toast({ message: "Lead successfully Deleted" });
+    return docRef;
+  } catch (e) {
+    // eslint-disable-next-line no-undef
+    const message = error?.message || "Something went wrong";
+    Toast({ message, type: "error" });
+    throw e;
   }
 };

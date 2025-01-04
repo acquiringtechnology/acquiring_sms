@@ -38,6 +38,15 @@ const leadStateSlice = createSlice({
       state.leadListData = [...leadList];
       state.isCreateUpdateLoader = false;
     },
+
+    setDeleteLeadData(state, action) {
+      const leadList = [...state.leadListData]?.filter(
+        (data) => data.id !== action.payload
+      );
+
+      state.leadListData = [...leadList];
+      state.isCreateUpdateLoader = false;
+    },
   },
 });
 

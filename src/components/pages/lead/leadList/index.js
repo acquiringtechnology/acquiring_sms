@@ -2,11 +2,16 @@
 import faces from "../../../../assets/images/faces-clipart/pic-1.png";
 import { COURSE_ENQUIRY_STATUS_LIST } from "../../../../services/constants";
 import * as moment from "moment";
+import Swal from "sweetalert2";
+import { deleteLeadData } from "../../../../redux/action/lead.action";
+import { useAppDispatch } from "../../../../hooks/reducHooks";
 export const LeadList = ({
+  leadSync,
   leadListData = [],
   isLeadListLoader = false,
   onEdit = () => {},
 }) => {
+  const dispatch = useAppDispatch();
   const handleGetStatusTextColour = (status) => {
     const res = COURSE_ENQUIRY_STATUS_LIST.find(
       ({ value }) => value === status
@@ -50,6 +55,22 @@ export const LeadList = ({
       // Return a user-friendly error message
       return "An error occurred while processing the update date.";
     }
+  };
+
+  const handleDeleteLead = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteLeadData(id));
+      }
+    });
   };
 
   return (
@@ -105,6 +126,7 @@ export const LeadList = ({
                           <button
                             type="button"
                             className="btn btn-outline-danger  btn-icon"
+                            onClick={() => handleDeleteLead(lead?.id)}
                           >
                             <i className="mdi mdi-delete-outline"></i>
                           </button>
