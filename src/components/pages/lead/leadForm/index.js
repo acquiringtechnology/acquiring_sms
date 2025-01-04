@@ -1,30 +1,95 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { NormalInput, NormalSelect, NormalButton } from "../../../common";
+import { leadSchemaModule } from "../../../../services/module/lead";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import {
+  COURSE_ENQUIRY_STATUS_LIST,
+  LEAD_TYPE_LIST,
+  COURSE_LIST,
+} from "../../../../services/constants";
+import SimpleReactValidator from "simple-react-validator";
+import {
+  createNewLead,
+  updateLeadData,
+} from "../../../../redux/action/lead.action";
+import { useAppDispatch, useAppSelector } from "../../../../hooks/reducHooks";
+import _ from "lodash";
 
-export const LeadForm = () => {
+export const LeadForm = ({
+  leadSync,
+  editLeadObject = {},
+  onSucess = () => {},
+}) => {
   const [isLoadingFrom, setIsLoadingFrom] = useState();
-
+  const dispatch = useAppDispatch();
+  const simpleValidator = useRef(
+    new SimpleReactValidator({ className: "error-message" })
+  );
+  const [, forceUpdate] = useState();
   const [leadForm, setLeadForm] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    enquiryDate: "",
-    courseId: "",
-    leadType: "",
-    totalFees: 0,
-    leadStatus: "",
-    notes: "",
+    ...editLeadObject,
+    ...leadSchemaModule,
   });
 
-  const courseList = [{ value: "fullstack", label: "Full Stack" }];
+  useEffect(() => {
+    if (!_.isEmpty(editLeadObject)) {
+      console.log("editLeadObject---", editLeadObject);
+      if (!Array.isArray(editLeadObject?.comments)) {
+        setLeadForm({ ...editLeadObject, comments: leadSchemaModule.comments });
+        return;
+      }
+      setLeadForm(editLeadObject);
+    }
+  }, [editLeadObject]);
 
   const handleLeadFormChange = (event) => {
     const { name, value } = event.target;
     setLeadForm((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  const handleSaveLeadFormChange = (event) => {
-    console.log(`Lead's`, leadForm);
+  const handleAddCommentsForm = (data, i) => {
+    const { comments = [] } = leadForm;
+    const commentsList = comments;
+    commentsList[i] = {
+      userId: 0,
+      notes: data,
+      date: new Date(),
+    };
+    setLeadForm({
+      ...leadForm,
+      comments: commentsList,
+    });
+  };
+
+  const handleAddComments = () => {
+    leadForm.comments.push({
+      userId: "",
+      notes: "",
+      date: new Date(),
+    });
+    setLeadForm({
+      ...leadForm,
+    });
+  };
+
+  const handleleadSubmit = async () => {
+    try {
+      const formValid = simpleValidator.current.allValid();
+
+      if (formValid) {
+        setIsLoadingFrom(true);
+        const res = leadForm?.id
+          ? await dispatch(updateLeadData(leadForm, leadForm.id))
+          : await dispatch(createNewLead(leadForm));
+        onSucess();
+      } else {
+        simpleValidator.current.showMessages();
+        forceUpdate(1);
+      }
+    } catch (e) {
+      setIsLoadingFrom(false);
+    }
   };
 
   return (
@@ -36,6 +101,11 @@ export const LeadForm = () => {
           placeholder="Enter Name"
           name="name"
           onChange={handleLeadFormChange}
+          errorMessage={simpleValidator.current.message(
+            "Name",
+            leadForm.name,
+            "required"
+          )}
         />
       </div>
       <div className="col-md-6">
@@ -45,6 +115,11 @@ export const LeadForm = () => {
           value={leadForm.phone}
           placeholder="Enter Phone"
           onChange={handleLeadFormChange}
+          errorMessage={simpleValidator.current.message(
+            "Phone",
+            leadForm.phone,
+            "required"
+          )}
         />
       </div>
       <div className="col-md-6">
@@ -54,32 +129,47 @@ export const LeadForm = () => {
           value={leadForm.email}
           placeholder="Enter Email"
           onChange={handleLeadFormChange}
+          errorMessage={simpleValidator.current.message(
+            "Email",
+            leadForm.email,
+            "required|email"
+          )}
         />
       </div>
       <div className="col-md-6">
         <NormalInput
-          name="enquiryDate"
+          name="enqDate"
           type="date"
           label="Enter Enquiry Date"
           placeholder="Enter Enquiry Date"
-          value={leadForm.enquiryDate}
+          value={leadForm.enqDate}
           onChange={handleLeadFormChange}
+          errorMessage={simpleValidator.current.message(
+            "Enquiry Date",
+            leadForm.enqDate,
+            "required"
+          )}
         />
       </div>
       <div className="col-md-6">
         <NormalSelect
-          option={courseList}
-          name="courseId"
+          option={COURSE_LIST}
+          name="liveClassId"
           label="Select Course"
-          value={leadForm.courseId}
+          value={leadForm.liveClassId}
           onChange={handleLeadFormChange}
+          errorMessage={simpleValidator.current.message(
+            "Course",
+            leadForm.liveClassId,
+            "required"
+          )}
         />
       </div>
       <div className="col-md-6">
         <NormalSelect
-          option={courseList}
           label="Lead Type"
           name="leadType"
+          option={LEAD_TYPE_LIST}
           placeholder="Lead Type"
           value={leadForm.leadType}
           onChange={handleLeadFormChange}
@@ -90,19 +180,29 @@ export const LeadForm = () => {
           type="number"
           label="Total Fees"
           placeholder="Total Fees"
-          name="totalFees"
-          value={leadForm.totalFees}
+          name="totfees"
+          value={leadForm.totfees}
           onChange={handleLeadFormChange}
+          errorMessage={simpleValidator.current.message(
+            "Total Fees",
+            leadForm.totfees,
+            "required"
+          )}
         />
       </div>
       <div className="col-md-6">
         <NormalSelect
-          option={courseList}
           label="Lead Status"
           placeholder="Lead Status"
-          name="leadStatus"
-          value={leadForm.leadStatus}
+          name="status"
+          option={COURSE_ENQUIRY_STATUS_LIST}
+          value={leadForm.status}
           onChange={handleLeadFormChange}
+          errorMessage={simpleValidator.current.message(
+            "Lead Status",
+            leadForm.status,
+            "required"
+          )}
         />
       </div>
       <div className="col-md-6">
@@ -110,34 +210,71 @@ export const LeadForm = () => {
           type="date"
           label="Next Follow up"
           placeholder="Next Follow up"
-          name="nextFollow"
-          value={leadForm.nextFollow}
+          name="nextFollUp"
+          value={leadForm.nextFollUp}
           onChange={handleLeadFormChange}
+          errorMessage={simpleValidator.current.message(
+            "Next Follow up",
+            leadForm.nextFollUp,
+            "required"
+          )}
         />
       </div>
+
       <div className="col-md-12">
-        <NormalInput
-          value={leadForm.notes}
-          name="notes"
-          multiline
-          rows={3}
-          label="Next Follow up"
-          placeholder="Next Follow up"
-          onChange={handleLeadFormChange}
-        />
+        <label className="form-label fw-medium">Comment</label>
+        {Array.isArray(leadForm?.comments) &&
+          leadForm?.comments?.map((comment, i) => (
+            <div className="mb-3">
+              {/* <CKEditor
+              editor={ClassicEditor}
+              data={comment.notes}
+              onReady={(editor) => {
+                // You can store the "editor" and use when it is needed.
+                console.log("Editor is ready to use!", editor);
+              }}
+              onChange={(event, editor) => {
+                console.log(
+                  "event------------>",
+                  // webinarObjectFrom,
+                  editor.getData()
+                );
+                const data = editor.getData();
+                handleAddCommentsForm(data, i);
+              }}
+            /> */}
+              <NormalInput
+                multiline
+                rows={3}
+                placeholder="Next Follow up"
+                // name="nextFollUp"
+                value={comment.notes}
+                onChange={(e) => handleAddCommentsForm(e.target.value, i)}
+                errorMessage={simpleValidator.current.message(
+                  "Comment",
+                  comment.notes,
+                  "required"
+                )}
+              />
+              <div className="form-text text-danger"></div>
+            </div>
+          ))}
       </div>
+      <a className="mb-3" onClick={handleAddComments}>
+        Add Comment
+      </a>
       <div className="col-md-12">
         <NormalButton
           className="me-2 btn-gradient-danger btn-fw"
-          disabled={isLoadingFrom}
+          disabled={leadSync.isCreateUpdateLoader}
           label="Back"
           color="secondary"
           // onChange={handleLeadFormChange}
         />
         <NormalButton
           className="me-2  btn-gradient-success btn-fw"
-          isLoader={false}
-          onClick={handleSaveLeadFormChange}
+          isLoader={leadSync.isCreateUpdateLoader}
+          onClick={handleleadSubmit}
           label="Update Changes"
         />
       </div>

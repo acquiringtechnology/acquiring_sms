@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^44.1.0",
+    "@ckeditor/ckeditor5-react": "^9.4.0",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@fontsource/roboto": "^5.1.0",
@@ -13,8 +15,12 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "bootstrap": "^5.3.3",
+    "ckeditor5": "^44.1.0",
+    "ckeditor5-premium-features": "^44.1.0",
     "compass-mixins": "^0.12.12",
     "firebase": "^11.1.0",
+    "lodash": "^4.17.21",
+    "moment": "^2.30.1",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.7",
     "react-dom": "^19.0.0",
@@ -22,6 +28,7 @@
     "react-router": "^7.1.0",
     "react-scripts": "5.0.1",
     "react-toastify": "^11.0.2",
+    "simple-react-validator": "^1.6.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
