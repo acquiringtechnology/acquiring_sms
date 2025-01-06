@@ -32,6 +32,8 @@ const leadStateSlice = createSlice({
       const index = leadList?.findIndex(
         (data) => data.id === action.payload?.id
       );
+      console.log('index---',index);
+      console.log('indeactionx---',action.payload);
       if (index !== -1) {
         leadList[index] = action.payload;
       }

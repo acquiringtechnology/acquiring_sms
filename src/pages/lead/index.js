@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
 import { Breadcrumb, NormalModal } from "../../components/common";
-import { LeadList, LeadForm } from "../../components/pages";
+import { LeadList, LeadForm, LeadFilter } from "../../components/pages";
 import { getAllLead } from "../../redux/action/lead.action";
 import { useAppDispatch, useAppSelector } from "../../hooks/reducHooks";
+import { multySearchObjects } from "../../services/helperFunctions";
 
 export const LeadPage = () => {
   const [isOpenForm, setIsOpenForm] = useState(false);
+  const [filterObject, setFilterObject] = useState({});
   const [editLeadObject, setEditLeadObject] = useState(null);
   const dispatch = useAppDispatch();
   const leadSync = useAppSelector((state) => state.leadSync);
   useEffect(() => {
     getLeadListData();
   }, []);
-
 
   function getLeadListData() {
     dispatch(getAllLead());
@@ -33,13 +34,21 @@ export const LeadPage = () => {
     setEditLeadObject(lead);
   };
 
+  const handleChangeFilter = (filterObj) => {
+    setFilterObject(filterObj);
+  };
   return (
     <>
-      <Breadcrumb label="Lead" icon="mdi-account-star" />
+      <Breadcrumb
+        label={`Lead ${multySearchObjects(leadSync?.leadListData, filterObject).length || 0}`}
+        icon="mdi-account-star"
+      />
+
+      <LeadFilter leadFromList={leadSync?.leadListData} onChange={handleChangeFilter} />
 
       <LeadList
         onEdit={handleEditLead}
-        leadListData={leadSync?.leadListData}
+        leadListData={multySearchObjects(leadSync?.leadListData, filterObject)}
         isLeadListLoader={leadSync?.isLeadListLoader}
       />
       <NormalModal

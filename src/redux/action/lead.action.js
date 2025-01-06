@@ -40,7 +40,7 @@ export function updateLeadData(reqObj, id) {
       const response = await updateLead(reqObj, id); // Fetch leads
       console.log(reqObj);
       dispatch(
-        leadStateSliceActions.setUpdateLeadData({ ...response})
+        leadStateSliceActions.setUpdateLeadData({ ...reqObj,id:reqObj.id})
       );
     } catch (error) {
       dispatch(leadStateSliceActions.setIsCreateUpdateLoader(false));
