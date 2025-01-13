@@ -7,6 +7,7 @@ import {
   EXIST_LOCAL_STORAGE
 } from '../constants';
 import moment from 'moment';
+import { employeeSchemaModule } from '../module/employee';
 
 export const setStorage = (name = '', data = '') => {
   localStorage.setItem(name, data);
@@ -252,6 +253,14 @@ export const getCurentUserTrainerId = () => {
       : '';
   }
   return '';
+};
+
+
+export const employeeListObjectMakeIdLabel = (list = []) => {
+  return list.map((item) => ({
+    label: `${item.name.first} ${item.name.last}`,
+    value: item.id,
+  }));
 };
 
 export const letterAvatar = (name = '', size = 60, useColour = true) => {

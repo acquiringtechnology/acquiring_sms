@@ -16,10 +16,18 @@ export const MENU =[
         subMenu:[]
     },
     {
-        title: 'User',
+        title: 'Employee',
         path: '/employee',
         exact: true,
         icon:"mdi-user",
+        subMenu:[]
+    },
+
+    {
+        title: 'Batch',
+        path: '/batch',
+        exact: true,
+        icon:"mdi-group",
         subMenu:[]
     },
 

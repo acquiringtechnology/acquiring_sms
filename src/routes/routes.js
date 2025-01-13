@@ -50,6 +50,26 @@ const routers = [
     ],
   },
   {
+    component: "AdminLayout",
+    path: "/batch",
+    auth: false,
+    exact: false,
+    childrens: [
+      {
+        component: "BatchPage",
+        path: "/",
+        auth: false,
+        exact: true,
+      },
+      {
+        component: "UserDetailPage",
+        path: "/detail",
+        auth: false,
+        exact: true,
+      },
+    ],
+  },
+  {
     component: "PageNotFoundPage",
     path: "*",
     auth: false,
