@@ -1,2 +1,2 @@
-export {UserPage} from './list'
+export {EmployeePage} from './list'
 export {UserDetailPage} from './deatail'

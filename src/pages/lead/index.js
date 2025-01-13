@@ -44,7 +44,7 @@ export const LeadPage = () => {
         icon="mdi-account-star"
       />
 
-      <LeadFilter leadFromList={leadSync?.leadListData} onChange={handleChangeFilter} />
+      <LeadFilter leadListData={leadSync?.leadListData} onChange={handleChangeFilter} />
 
       <LeadList
         onEdit={handleEditLead}

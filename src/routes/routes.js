@@ -31,12 +31,12 @@ const routers = [
 
   {
     component: "AdminLayout",
-    path: "/user",
+    path: "/employee",
     auth: false,
     exact: false,
     childrens: [
       {
-        component: "UserPage",
+        component: "EmployeePage",
         path: "/",
         auth: false,
         exact: true,

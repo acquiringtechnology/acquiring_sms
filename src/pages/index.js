@@ -1,4 +1,4 @@
 export { HomePage } from "./home";
-export { UserPage ,UserDetailPage } from "./user";
+export { EmployeePage ,UserDetailPage } from "./employee";
 export { LeadPage} from "./lead";
 export { PageNotFoundPage } from "./pageNotFound";

@@ -141,6 +141,14 @@ export const LeadList = ({
                       </td>
                     </tr>
                   )}
+
+{!isLeadListLoader && leadListData?.length ===0 && (
+                    <tr>
+                      <td colSpan="7" className="text-center">
+                        <h4>NO Data...</h4>
+                      </td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>

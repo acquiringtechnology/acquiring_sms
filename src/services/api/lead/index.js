@@ -6,6 +6,7 @@ import {
   updateDoc,
   doc,
   deleteDoc,
+  serverTimestamp
 } from "firebase/firestore";
 import { Toast } from "../../../services/toast";
 import { DB_NAME } from "../../constants";
@@ -33,7 +34,7 @@ export const createLead = async (body) => {
     const userReq = {
       ...body,
       // createdBy: { name: `${fname} ${lname}`, user_id }
-      createdBy: [{ name: `Anvesh Babu`, user_id: "guest" }],
+      createdBy: { name: `Anvesh Babu`, user_id: "guest",date:serverTimestamp() },
     };
     const docRef = await addDoc(
       collection(getFirestore(), DB_NAME?.COURSE_ENQUIRY),

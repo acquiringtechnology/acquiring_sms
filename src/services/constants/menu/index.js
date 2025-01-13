@@ -17,7 +17,7 @@ export const MENU =[
     },
     {
         title: 'User',
-        path: '/user',
+        path: '/employee',
         exact: true,
         icon:"mdi-user",
         subMenu:[]

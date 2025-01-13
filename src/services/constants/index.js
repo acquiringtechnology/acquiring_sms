@@ -9,8 +9,7 @@ export {
     CLASS_MODE
   } from './flags';
   export {
-    // GENDER_TYPE,
-    USER_LIST,
+    GENDER_TYPE,
     // CLASS_TYPE_LIST,
     // SETTLEMENT_LIST,
     // COURSE_STATUS_LIST,
@@ -24,6 +23,9 @@ export {
     CLASS_MODE_LIST,
     CANDIDATE_CLASS_STATUS_LIST,
     PAY_BANK_LIST,
-    COURSE_LIST
+    COURSE_LIST,
+    EMPLOYEE_STATUS_LIST,
+    EMPLOYEE_DESIGNATION_LIST,
+    USER_ROLE
   } from './options';
   export { EXIST_LOCAL_STORAGE, CURRENT_USER, DB_NAME } from './app';

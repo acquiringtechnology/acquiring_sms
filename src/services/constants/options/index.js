@@ -1,5 +1,5 @@
 import {
-  // GENDER,
+  GENDER,
   USER_TYPE,
   // CLASS_TYPE,
   SETTLEMENT_TYPE,
@@ -7,7 +7,8 @@ import {
   COURSE_ENQUIRY_STATUS,
   LEAD_TYPE,
   CLASS_MODE,
-  CANDIDATE_COURSE_STATUS
+  CANDIDATE_COURSE_STATUS,
+  STATUS
 } from '../flags';
 
 export const COURSE_ENQUIRY_STATUS_LIST = [
@@ -66,7 +67,18 @@ export const CANDIDATE_CLASS_STATUS_LIST = [
   }
 ];
 
-export const USER_LIST = [
+export const GENDER_TYPE = [
+  {
+    label: 'Male',
+    value: GENDER.MALE
+  },
+  {
+    label: 'Female',
+    value: GENDER.FEMALE
+  },
+]
+
+export const USER_ROLE = [
   {
     label: 'Candidate',
     value: USER_TYPE.CANDIDATE
@@ -209,6 +221,33 @@ export const CLASS_MODE_LIST = [
   {
     label: 'Online',
     value: CLASS_MODE.ONLINE
+  }
+];
+
+export const EMPLOYEE_STATUS_LIST = [
+  {
+    label: 'Active',
+    value: STATUS.ACTIVE
+  },
+  {
+    label: 'Inactive',
+    value: STATUS.DE_ACTIVE
+  }
+];
+
+
+export const EMPLOYEE_DESIGNATION_LIST = [
+  {
+    label: 'Front end Developer',
+    value: 0
+  },
+  {
+    label: 'Backend Developer',
+    value: 1
+  },
+  {
+    label: 'Founder',
+    value: 2
   }
 ];
 
