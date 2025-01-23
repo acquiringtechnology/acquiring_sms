@@ -1,20 +1,33 @@
 import { useState, useRef, useEffect } from "react";
 import SimpleReactValidator from "simple-react-validator";
+import _ from "lodash";
 import {
   NormalInput,
   NormalSelect,
   NormalButton,
   NormalCheckbox,
 } from "../../../common";
-import { COURSE_LIST, WEEK_LIST, STATUS,BATCH_STATUS_LIST } from "../../../../services/constants";
+import {
+  COURSE_LIST,
+  WEEK_LIST,
+  STATUS,
+  BATCH_STATUS_LIST,
+} from "../../../../services/constants";
 import { batchSchemaModule } from "../../../../services/module/batch";
 import { employeeListObjectMakeIdLabel } from "../../../../services/helperFunctions";
+import {
+  createNewBatch,
+  updateBatchData,
+} from "../../../../redux/action/batch.action";
+import { useAppDispatch } from "../../../../hooks/reducHooks";
 
 export const BatchFrom = ({
+  batchSync = null,
   employeeListData = [],
   onSucess = () => {},
   editBatchObject = null,
 }) => {
+  const dispatch = useAppDispatch();
   const simpleValidator = useRef(
     new SimpleReactValidator({ className: "error-message" })
   );
@@ -25,12 +38,13 @@ export const BatchFrom = ({
   const [, forceUpdate] = useState();
 
   useEffect(() => {
-    if (!batchFormObject.id) {
-      setBatchFormObject({
-        ...batchFormObject,
-      });
+    if (!_.isEmpty(editBatchObject)) {
+      const trainer = editBatchObject.trainerIds.find(
+        ({ status }) => status === STATUS.ACTIVE
+      );
+      setBatchFormObject({ ...editBatchObject, trainerId: trainer?.trainerId });
     }
-  }, []);
+  }, [editBatchObject]);
 
   const handleBatchFormChange = (event) => {
     const { value, checked, type, name } = event.target;
@@ -61,7 +75,7 @@ export const BatchFrom = ({
   const handleBatchSubmit = async () => {
     try {
       const formValid = simpleValidator.current.allValid();
-      console.log('formValid-----',simpleValidator.current)
+      console.log("formValid-----", simpleValidator.current);
       if (formValid) {
         const { trainerId, trainerIds, ...restOfBatchForm } = batchFormObject;
 
@@ -80,16 +94,17 @@ export const BatchFrom = ({
 
         const body = { ...restOfBatchForm, trainerIds: updatedTrainerIds };
 
-        console.log('body-----',body)
+        console.log("body-----", body);
 
+        // const res = await dispatch(createNewBatch(body));
         // If needed, uncomment the next lines to handle API calls:
-        // const res = batchFormObject?.id
-        //   ? await updateBatch(body, batchFormObject.id)
-        //   : await createBatch(body);
+        const res = batchFormObject?.id
+          ? await dispatch(updateBatchData(body, batchFormObject.id))
+          : await dispatch(createNewBatch(body));
 
         onSucess();
       } else {
-        console.log('body-----',batchFormObject)
+        console.log("body-----", batchFormObject);
         simpleValidator.current.showMessages();
         forceUpdate(1); // Consider removing this if possible
       }
@@ -124,66 +139,66 @@ export const BatchFrom = ({
           placeholder="Select Trainer"
           name="trainerId"
           onChange={handleBatchFormChange}
-            errorMessage={simpleValidator.current.message(
-              "Trainer",
-              batchFormObject.trainerId,
-              "required"
-            )}
+          errorMessage={simpleValidator.current.message(
+            "Trainer",
+            batchFormObject.trainerId,
+            "required"
+          )}
         />
       </div>
       <div className="col-md-6">
-      <NormalInput
+        <NormalInput
           type="date"
           label="Enter Start Date"
           onChange={handleBatchFormChange}
           value={batchFormObject.stDate}
           name="stDate"
           errorMessage={simpleValidator.current.message(
-            'Start Date',
+            "Start Date",
             batchFormObject.stDate,
-            'required'
+            "required"
           )}
         />
       </div>
       <div className="col-md-6">
-      <NormalInput
+        <NormalInput
           type="date"
           label="Enter End Date"
           onChange={handleBatchFormChange}
           value={batchFormObject.endDate}
           name="endDate"
           errorMessage={simpleValidator.current.message(
-            'End Date',
+            "End Date",
             batchFormObject.endDate,
-            'required'
+            "required"
           )}
         />
       </div>
       <div className="col-md-6">
-      <NormalInput
+        <NormalInput
           type="time"
           label="Enter Batch Start Time"
           onChange={handleBatchFormChange}
           value={batchFormObject.batSTime}
           name="batSTime"
           errorMessage={simpleValidator.current.message(
-            'Batch Start Time',
+            "Batch Start Time",
             batchFormObject.batSTime,
-            'required'
+            "required"
           )}
         />
       </div>
       <div className="col-md-6">
-      <NormalInput
+        <NormalInput
           type="time"
           label="Enter Batch End Time"
           onChange={handleBatchFormChange}
           value={batchFormObject.batETime}
           name="batETime"
           errorMessage={simpleValidator.current.message(
-            'Batch End Time',
+            "Batch End Time",
             batchFormObject.batETime,
-            'required'
+            "required"
           )}
         />
       </div>
@@ -196,9 +211,9 @@ export const BatchFrom = ({
           onChange={handleBatchFormChange}
           value={batchFormObject.status}
           errorMessage={simpleValidator.current.message(
-            'Batch Status',
+            "Batch Status",
             batchFormObject.status,
-            'required'
+            "required"
           )}
         />
       </div>
@@ -219,16 +234,16 @@ export const BatchFrom = ({
       <div className="col-md-12">
         <NormalButton
           className="me-2 btn-danger"
-          // disabled={isLoadingFrom}
+          disabled={batchSync?.isCreateUpdateLoader}
           label="Cancel"
           color="primary"
         />
         <NormalButton
           className="me-2 btn-primary"
-          // isLoader={isLoadingFrom}
+          disabled={batchSync?.isCreateUpdateLoader}
           onClick={handleBatchSubmit}
           // eslint-disable-next-line no-constant-condition
-          label={`${batchFormObject?.id ? "Update" : "Save"} Changes`}
+          label={`${batchFormObject.id ? "Update" : "Save"} Changes`}
         />
       </div>
     </div>

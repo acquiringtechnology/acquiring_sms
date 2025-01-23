@@ -87,7 +87,7 @@ export const createEmployee = async (body) => {
       collection(getFirestore(), DB_NAME?.EMPLOYEE),
       userReq
     );
-    // Toast({ message: "Employee Add successfully" });
+    Toast({ message: "Employee Add successfully" });
     return{id: docRef.id,...userReq}
   } catch (e) {
     console.error("Error fetching Employee's:", e);

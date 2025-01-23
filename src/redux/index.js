@@ -1,11 +1,13 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import leadStateSlice from './slices/lead.slices';
 import employeeStateSlice from './slices/employee.slices';
+import batchStateSlice from './slices/batch.slices';
 
 const combinedReducer = combineReducers(
     {
         leadSync: leadStateSlice.reducer,
         employeeSync: employeeStateSlice.reducer,
+        batchSync: batchStateSlice.reducer,
     }
 )
 

@@ -187,19 +187,23 @@ export const YES_NO_LIST = [
 export const BATCH_STATUS_LIST = [
   {
     label: 'Not Yet',
-    value: 0
+    value: 0,
+    color: 'secondary'
   },
   {
     label: 'Processing',
-    value: 1
+    value: 1,
+    color: 'primary'
   },
   {
     label: 'Complited',
-    value: 2
+    value: 2,
+     color: 'success'
   },
   {
     label: 'Hold',
-    value: 3
+    value: 3,
+      color: 'warning'
   }
 ];
 

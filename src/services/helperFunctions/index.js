@@ -329,3 +329,11 @@ export const getLoginUserDetail = () => {
     }, 100); // You can adjust the interval time as needed
   });
 };
+
+
+ export const handleGetStatusTextColour = (list=[] ,status) => {
+    const res = list?.find(
+      ({ value }) => value === status
+    );
+    return res?.color;
+  };
