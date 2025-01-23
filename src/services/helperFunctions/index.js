@@ -337,3 +337,11 @@ export const getLoginUserDetail = () => {
     );
     return res?.color;
   };
+
+
+  export const getMultyBatchId = (batchList,batchIds ) => {
+
+    // batchList.map(()=>)
+
+    // return userList?.find(({ email: userEmail }) => userEmail === email);
+  };

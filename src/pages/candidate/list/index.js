@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { Breadcrumb, NormalModal } from "../../../components/common";
-import { CandidateList,LeadFilter } from "../../../components/pages";
+import { CandidateList, CandidateFilter } from "../../../components/pages";
 import { getAllCandidates } from "../../../redux/action/candidate.action";
 import { useAppDispatch, useAppSelector } from "../../../hooks/reducHooks";
 import { multySearchObjects } from "../../../services/helperFunctions";
+import { getAllBatch } from "../../../redux/action/batch.action";
 
 export const CandidatePage = () => {
   const [isOpenForm, setIsOpenForm] = useState(false);
@@ -11,13 +12,26 @@ export const CandidatePage = () => {
   const [editCandidateObject, setEditCandidateObject] = useState(null);
   const dispatch = useAppDispatch();
   const candidateSync = useAppSelector((state) => state.candidateSync);
+  const batchSync = useAppSelector((state) => state.batchSync);
   useEffect(() => {
     getCandidateListData();
+    handleGetonLoadFunction()
   }, []);
 
   function getCandidateListData() {
     dispatch(getAllCandidates());
   }
+
+  const handleGetonLoadFunction = () => {
+    console.log('handleGetonLoadFunction',batchSync?.batchListData?.length)
+    if (batchSync?.batchListData?.length === 0) {
+      dispatch(getAllBatch());
+    }
+  };
+
+  useEffect(()=>{
+    console.log('handleGetonLoadFunction',batchSync?.batchListData?.length)
+  },[batchSync])
 
   const handleSaveCandidate = () => {
     setIsOpenForm(false);
@@ -39,24 +53,33 @@ export const CandidatePage = () => {
   return (
     <>
       <Breadcrumb
-        label={`Candidate ${multySearchObjects(candidateSync?.candidateListData, filterObject).length || 0}`}
+        label={`Candidate ${
+          multySearchObjects(candidateSync?.candidateListData, filterObject)
+            .length || 0
+        }`}
         icon="mdi-account-star"
       />
 
-      <LeadFilter candidateListData={candidateSync?.candidateListData} onChange={handleChangeFilter} />
+      <CandidateFilter
+        candidateListData={candidateSync?.candidateListData}
+        onChange={handleChangeFilter}
+        batchListData={batchSync.batchListData}
+      />
 
       <CandidateList
         onEdit={handleEditCandidate}
-        candidateListData={multySearchObjects(candidateSync?.candidateListData, filterObject)}
+        candidateListData={multySearchObjects(
+          candidateSync?.candidateListData,
+          filterObject
+        )}
         isCandidateListLoader={candidateSync?.isCandidateListLoader}
+        batchListData={batchSync.batchListData}
       />
       <NormalModal
         toggle={handleOpenCandidateModal}
         isShow={isOpenForm}
         title="Candidate Form"
-      >
-   
-      </NormalModal>
+      ></NormalModal>
     </>
   );
 };

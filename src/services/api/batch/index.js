@@ -23,6 +23,8 @@ import {
       const data = querySnapshot.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id,
+        value:doc.id,
+        label:doc.data().batchCode,
       }));
       return data;
     } catch (e) {

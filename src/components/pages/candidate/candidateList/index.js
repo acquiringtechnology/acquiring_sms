@@ -1,13 +1,16 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import faces from "../../../../assets/images/faces-clipart/pic-1.png";
+import { BatchOneUp} from "../../../../components/common";
 import { COURSE_ENQUIRY_STATUS_LIST } from "../../../../services/constants";
 import * as moment from "moment";
 import Swal from "sweetalert2";
 import { deleteLeadData } from "../../../../redux/action/lead.action";
 import { useAppDispatch } from "../../../../hooks/reducHooks";
+
 export const CandidateList = ({
   candidateListData = [],
   isCandidateListLoader = false,
+  batchListData=[],
   onEdit = () => {},
 }) => {
   const dispatch = useAppDispatch();
@@ -94,47 +97,47 @@ export const CandidateList = ({
                 </thead>
                 <tbody>
                   {!isCandidateListLoader &&
-                    candidateListData?.map((lead, i) => (
+                    candidateListData?.map((candidate, i) => (
                       <tr key={i}>
                         <td>{i + 1}</td>
                         <td>
                                                    <div class="d-flex align-items-center">
                             <div class="flex-shrink-0">
-                              <img src={faces} alt={lead?.name} />
+                              <img src={faces} alt={candidate?.name} />
                             </div>
                             <div class="flex-grow-1 ms-3">
-                              {lead?.name}
+                              {candidate?.name}
                               <small className="d-flex mt-2 text-muted">
-                                {lead?.candidateCode || '000'}
+                                {candidate?.candidateCode || '000'}
                               </small>
                             </div>
                           </div>
                         </td>
-                        <td>{lead?.email}</td>
-                        <td> {lead?.phone}</td>
+                        <td>{candidate?.email}</td>
+                        <td> {candidate?.phone}</td>
                         <td>
                           <label
                             className={`badge badge-gradient-${
-                              handleGetStatusTextColour(lead.status).color
+                              handleGetStatusTextColour(candidate.status).color
                             }`}
                           >
-                            {handleGetStatusTextColour(lead.status).label}
+                            {handleGetStatusTextColour(candidate.status).label}
                           </label>
                         </td>
-                        <td>{handleLatestUpdate(lead)}</td>
-                        <td> WD-12345 </td>
+                        <td>{handleLatestUpdate(candidate)}</td>
+                        <td> <BatchOneUp  batchListData={batchListData} batchIds={candidate?.batchIds} /></td>
                         <td>
                           <button
                             type="button"
                             className="btn btn-outline-success btn-icon me-2"
-                            onClick={() => onEdit(lead)}
+                            onClick={() => onEdit(candidate)}
                           >
                             <i className="mdi mdi-pencil-outline"></i>
                           </button>
                           <button
                             type="button"
                             className="btn btn-outline-danger  btn-icon"
-                            onClick={() => handleDeleteLead(lead?.id)}
+                            onClick={() => handleDeleteLead(candidate?.id)}
                           >
                             <i className="mdi mdi-delete-outline"></i>
                           </button>
