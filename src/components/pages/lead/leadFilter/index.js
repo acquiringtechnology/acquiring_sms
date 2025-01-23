@@ -6,6 +6,8 @@ import {
 } from "../../../../services/constants";
 import { useState } from "react";
 import Swal from "sweetalert2";
+import { createCandidate } from "../../../../services/api/candidate";
+import { candidateSchemaModule } from "../../../../services/module/candidate";
 
 export const LeadFilter = ({ onChange = () => {}, leadListData = [] }) => {
   const [filterObject, setFilterObject] = useState({
@@ -31,6 +33,14 @@ export const LeadFilter = ({ onChange = () => {}, leadListData = [] }) => {
     onChange(filterValue);
   };
 
+//   function getATCCode(input) {
+//     if (typeof input === 'number' && input > 0) {
+//         let formattedInput = input < 10 ? `0${input}` : input;
+//         return `ATC-FSWD${formattedInput}`;
+//     }
+//     return 'Invalid input';
+// }
+
   const handleClearFilter = () => {
     const filterValue = {
       name: "",
@@ -43,13 +53,41 @@ export const LeadFilter = ({ onChange = () => {}, leadListData = [] }) => {
     setFilterObject(filterValue);
   };
 
-  const handleMoveLeadToCandidate = () => {
+  const handleMoveLeadToCandidate = async () => {
     const joinedList = leadListData?.filter(
       ({ status }) => status === COURSE_ENQUIRY_STATUS.JOINED
     );
+    // 7 112
 
-    const latestDuplicates = findLatestDuplicates(joinedList);
-    console.log(latestDuplicates, "-------latestDuplicates");
+    const latestDuplicates = await findLatestDuplicates(joinedList);
+    // const latestDuplicatessec = findLatestDuplicates(latestDuplicates);
+    console.log(
+      latestDuplicates,
+      "-------latestDuplicates"
+    );
+    // latestDuplicates.forEach( async (data, i) => {
+    //   let candidateData = {
+    //     ...candidateSchemaModule,
+    //     ...data,
+    //     leadId: data.id,
+    //     comments:[],
+    //     updatedBy:[],
+    //     createdBy:{},
+    //     candidateCode:getATCCode(i++),
+    //     batchIds:[
+    //       {
+    //         id:'DYP3pbTSNXmNpMB5gGSz',
+    //         trainerId:"85WmhADQdeKjMVcHoHXf",
+    //         sDate: new Date(),
+    //         status: 1,
+    //         eDate:"",
+    //         totfees:0
+    //       }
+    //     ]
+    //   };
+    // await  createCandidate(candidateData)
+    //   console.log("candidateData---", candidateData);
+    // });
 
     if (!joinedList && joinedList?.length === 0) {
       console.warn("Join list is empty");
@@ -79,9 +117,10 @@ export const LeadFilter = ({ onChange = () => {}, leadListData = [] }) => {
     arr.reverse().forEach((item) => {
       const key = `${item.phone}-${item.name}`; // Combine phone and name to form a unique key
       if (seen.includes(key)) {
-        latestDuplicates.push(item); // If we've already seen this key, it's a duplicate
+        // latestDuplicates.push(item); // If we've already seen this key, it's a duplicate
       } else {
         seen.push(key); // Mark this combination as seen
+        latestDuplicates.push(item); // Ma
       }
     });
 

@@ -22,8 +22,6 @@ const batchStateSlice = createSlice({
     },
 
     setNewBatchData(state, action) {
-      console.log("action.payload,", action.payload);
-      console.log("action.payload,", [action.payload, ...state.batchListData]);
       state.batchListData = [action.payload, ...state.batchListData];
       state.isCreateUpdateLoader = false;
     },

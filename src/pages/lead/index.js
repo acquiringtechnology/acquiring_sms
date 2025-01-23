@@ -5,6 +5,7 @@ import { getAllLead } from "../../redux/action/lead.action";
 import { useAppDispatch, useAppSelector } from "../../hooks/reducHooks";
 import { multySearchObjects } from "../../services/helperFunctions";
 
+
 export const LeadPage = () => {
   const [isOpenForm, setIsOpenForm] = useState(false);
   const [filterObject, setFilterObject] = useState({});

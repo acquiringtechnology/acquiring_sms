@@ -70,6 +70,26 @@ const routers = [
     ],
   },
   {
+    component: "AdminLayout",
+    path: "/candidate",
+    auth: false,
+    exact: false,
+    childrens: [
+      {
+        component: "CandidatePage",
+        path: "/",
+        auth: false,
+        exact: true,
+      },
+      {
+        component: "UserDetailPage",
+        path: "/detail",
+        auth: false,
+        exact: true,
+      },
+    ],
+  },
+  {
     component: "PageNotFoundPage",
     path: "*",
     auth: false,

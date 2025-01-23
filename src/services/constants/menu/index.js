@@ -35,19 +35,26 @@ export const MENU =[
         title: 'Candidate',
         exact: true,
         icon:"mdi-user",
-        subMenu:[
-            {
-                title: 'Candidate List',
-                path: '/candidate',
-                exact: true,
-            },
-            {
-                title: 'Candidate Rank',
-                path: '/candidate',
-                exact: true,
-            }
-        ]
+        path: '/candidate',
+        subMenu:[]
     },
+    // {
+    //     title: 'Candidate',
+    //     exact: true,
+    //     icon:"mdi-user",
+    //     subMenu:[
+    //         {
+    //             title: 'Candidate List',
+    //             path: '/candidate',
+    //             exact: true,
+    //         },
+    //         {
+    //             title: 'Candidate Rank',
+    //             path: '/candidate',
+    //             exact: true,
+    //         }
+    //     ]
+    // },
     {
         title: 'Payment 2',
         exact: true,

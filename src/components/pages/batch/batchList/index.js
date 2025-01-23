@@ -39,7 +39,7 @@ export const BatchList = ({
 
   return (
     <div className="row">
-      {batchListData?.map((batch) => (
+      {!isBatchListLoader && batchListData?.map((batch) => (
         <div className="col-md-3 mb-4">
           <div className="card rounded border">
             <div className="card-body">

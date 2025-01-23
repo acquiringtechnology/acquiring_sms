@@ -22,7 +22,6 @@ export const leadSchemaModule = {
   gitAccountId: '',
   gitAccount: YES_NO_STATUS.NO,
   projectLink: '',
-  classStatus: 0,
   batchIds: [],
   comments: [
     {
