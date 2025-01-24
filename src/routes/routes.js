@@ -55,6 +55,12 @@ const routers = [
         auth: false,
         exact: true,
       },
+      {
+        component: "BatchDetail",
+        path: "detail/:batchId",
+        auth: false,
+        exact: true,
+      },
     ],
   },
   {
@@ -102,7 +108,6 @@ const routers = [
     path: "*",
     auth: false,
     exact: false,
-   
   },
 ];
 

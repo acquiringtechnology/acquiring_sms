@@ -6,3 +6,4 @@ export { NormalButton } from "./button";
 export { NormalSearch } from "./search";
 export { NormalCheckbox } from "./checkbox";
 export { BatchOneUp } from "./batchOneUp";
+export { CKeditorBox } from "./ckEditor";

@@ -10,6 +10,7 @@ import { BATCH_STATUS_LIST } from "../../../../services/constants";
 import Skeleton from "@mui/material/Skeleton";
 import { deleteBatchData } from "../../../../redux/action/batch.action";
 import { useAppDispatch } from "../../../../hooks/reducHooks";
+import {useNavigate} from 'react-router'
 export const BatchList = ({
   isBatchListLoader = false,
   batchListData = [],
@@ -17,8 +18,7 @@ export const BatchList = ({
   onEdit=()=>{}
 }) => {
   const dispatch = useAppDispatch();
-
-
+  const navigate = useNavigate();
 
   const handleDeleteBatch = (id) => {
     Swal.fire({
@@ -37,10 +37,15 @@ export const BatchList = ({
   };
 
 
+
+  const handleGoDetailPage=(id)=>{
+    navigate(`/batch/detail/${id}`);
+  }
+
   return (
     <div className="row">
       {!isBatchListLoader && batchListData?.map((batch) => (
-        <div className="col-md-3 mb-4">
+        <div className="col-md-3 mb-4" >
           <div className="card rounded border">
             <div className="card-body">
               <label
@@ -48,10 +53,11 @@ export const BatchList = ({
                   BATCH_STATUS_LIST,
                   batch?.status
                 )} rounded-pill float-end`}
+               
               >
                 {getBatchStatus(batch?.status)}
               </label>
-              <h4 className="card-title">{batch?.batchCode}</h4>
+              <h4 className="card-title text-primary"  onClick={()=>handleGoDetailPage(batch?.id)}>{batch?.batchCode}</h4>
 
               <div className="card-content mt-2">
                 <div className="d-flex align-items-center mb-2">
