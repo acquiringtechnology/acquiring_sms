@@ -4,4 +4,4 @@ export { LeadPage} from "./lead";
 export { BatchPage} from "./batch";
 export { PageNotFoundPage } from "./pageNotFound";
 export { CandidatePage } from "./candidate";
-export { SessionclassListPage } from "./sessionclass";
+export { SessionclassListPage ,SessionclassDetailPage } from "./sessionclass";

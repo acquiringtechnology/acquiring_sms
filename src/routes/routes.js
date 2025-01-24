@@ -69,6 +69,12 @@ const routers = [
         auth: false,
         exact: true,
       },
+      {
+        component: "SessionclassDetailPage",
+        path: "detail/:classId",
+        auth: false,
+        exact: true,
+      },
     ],
   },
   {

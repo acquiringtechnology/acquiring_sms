@@ -1,6 +1,11 @@
 import { NormalButton } from "../../../common";
-
+import {useNavigate} from 'react-router'
 export const SessionclassList = () => {
+  const navigate = useNavigate();
+
+  const handleGoDetailPage=()=>{
+    navigate(`/class/detail/d5eb2822-507c-11ee-be56-0242ac120002`)
+  }
   return (
     <div className="row">
       <div className="col-md-3">
@@ -41,6 +46,7 @@ export const SessionclassList = () => {
                     className="me-2 mt-3 btn-gradient-primary float-end btn-rounded btn-fw btn-sm"
                     label="View Course Content"
                     color="primary"
+                    onClick={handleGoDetailPage}
                   />
                   {/* </div> */}
                 </div>
