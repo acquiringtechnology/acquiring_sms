@@ -41,12 +41,6 @@ const routers = [
         auth: false,
         exact: true,
       },
-      {
-        component: "UserDetailPage",
-        path: "/detail",
-        auth: false,
-        exact: true,
-      },
     ],
   },
   {
@@ -61,9 +55,17 @@ const routers = [
         auth: false,
         exact: true,
       },
+    ],
+  },
+  {
+    component: "AdminLayout",
+    path: "/class",
+    auth: false,
+    exact: false,
+    childrens: [
       {
-        component: "UserDetailPage",
-        path: "/detail",
+        component: "SessionclassListPage",
+        path: "/",
         auth: false,
         exact: true,
       },

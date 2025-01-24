@@ -9,13 +9,23 @@ import face4 from '../../assets/images/faces/face4.jpg'
 
 
 export const Header =()=>{
+
+
+  const handleSideBarMinimize=()=>{
+
+    document.body.classList.toggle('sidebar-icon-only');
+
+  }
+
+
+
     return  <nav className="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
     <div className="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
       <a className="navbar-brand brand-logo" href="index.html"><img src={logo} alt="logo" /></a>
       <a className="navbar-brand brand-logo-mini" href="index.html"><img src={logoMini} alt="logo" /></a>
     </div>
     <div className="navbar-menu-wrapper d-flex align-items-stretch">
-      <button className="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+      <button className="navbar-toggler navbar-toggler align-self-center" onClick={handleSideBarMinimize} type="button" data-toggle="minimize">
         <span className="mdi mdi-menu"></span>
       </button>
       <div className="search-field d-none d-md-block">
