@@ -3,6 +3,7 @@ import leadStateSlice from './slices/lead.slices';
 import employeeStateSlice from './slices/employee.slices';
 import batchStateSlice from './slices/batch.slices';
 import candidateStateSlice from './slices/candidate.slices';
+import batchRecordingSlice from './slices/batchRecording.slices';
 
 const combinedReducer = combineReducers(
     {
@@ -10,6 +11,7 @@ const combinedReducer = combineReducers(
         employeeSync: employeeStateSlice.reducer,
         batchSync: batchStateSlice.reducer,
         candidateSync: candidateStateSlice.reducer,
+        batchRecordingSync: batchRecordingSlice.reducer,
     }
 )
 

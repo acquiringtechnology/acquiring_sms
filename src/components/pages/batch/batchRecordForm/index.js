@@ -5,8 +5,11 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import SimpleReactValidator from "simple-react-validator";
 import { useParams } from "react-router";
-export const BatchRecordForm = () => {
+import { useAppDispatch } from "../../../../hooks/reducHooks";
+import { createNewBatchRecording } from "../../../../redux/action/batchRecording.action";
+export const BatchRecordForm = ({batchRecordingSync=null,onSucess=()=>{}}) => {
   const { batchId } = useParams();
+  const dispatch = useAppDispatch();
   const simpleValidator = useRef(
     new SimpleReactValidator({ className: "error-message" })
   );
@@ -27,7 +30,7 @@ export const BatchRecordForm = () => {
     });
   };
 
-  const handleleadSubmit = () => {
+  const handleleadSubmit = async () => {
     try {
       const formValid = simpleValidator.current.allValid();
       if (formValid) {
@@ -36,8 +39,8 @@ export const BatchRecordForm = () => {
           batchId,
         };
         console.log("reqBody----", reqBody);
-        //   const recClassRes = await createRecordingClass(reqBody);
-        //   onSucess(reqBody, recClassRes);
+        const recClassRes = await dispatch(createNewBatchRecording(reqBody));
+          onSucess();
         //   setIsLoadingFrom(false);
       } else {
         simpleValidator.current.showMessages();
@@ -106,13 +109,13 @@ export const BatchRecordForm = () => {
       <div className="col-md-12">
         <NormalButton
           className="me-2 btn-gradient-danger"
-          //   disabled={isLoadingFrom}
+            disabled={batchRecordingSync?.isCreateUpdateLoader}
           label="Cancel"
           color="primary"
         />
         <NormalButton
           className="me-2 btn-gradient-primary"
-          //   isLoader={isLoadingFrom}
+            isLoader={batchRecordingSync?.isCreateUpdateLoader}
           onClick={handleleadSubmit}
           label="Save Changes"
         />

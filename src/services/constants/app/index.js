@@ -21,7 +21,7 @@ export const DB_NAME = {
   COURSE: 'course',
   LEAD: 'lead',
   CANDIDATE: 'candidate',
-  RECORDING_CLASSES: 'recordingClasses',
+  BATCH_RECORDING_CLASSES: 'batchRecordingClasses',
   COURSE_ENQUIRY:"courseEnquiry",
   EMPLOYEE:"employee"
 };
