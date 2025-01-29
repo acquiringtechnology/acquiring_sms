@@ -77,7 +77,7 @@ const routers = [
       },
       {
         component: "SessionclassDetailPage",
-        path: "detail/:classId",
+        path: "detail/:batchId",
         auth: false,
         exact: true,
       },

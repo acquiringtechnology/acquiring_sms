@@ -4,7 +4,7 @@ export const SessionclassList = () => {
   const navigate = useNavigate();
 
   const handleGoDetailPage=()=>{
-    navigate(`/class/detail/d5eb2822-507c-11ee-be56-0242ac120002`)
+    navigate(`/class/detail/DYP3pbTSNXmNpMB5gGSz`)
   }
   return (
     <div className="row">

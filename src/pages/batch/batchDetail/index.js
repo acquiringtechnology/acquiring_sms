@@ -17,6 +17,7 @@ export const BatchDetail = () => {
 
 
   const handleGetBatchRecordingList=()=>{
+    console.log('batchId----',batchId)
    dispatch(getBatchRecordingById(batchId));
   }
 

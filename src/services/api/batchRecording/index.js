@@ -27,7 +27,7 @@ export const getBatchRecordingListById = async (batchId) => {
       ...doc.data(),
       id: doc.id,
     }));
-    return data;
+    return data.sort((a, b) => new Date(a.date) - new Date(b.date));
   } catch (e) {
     console.error("Error fetching leads:", e);
     let message = e?.message || "Something went wrong";

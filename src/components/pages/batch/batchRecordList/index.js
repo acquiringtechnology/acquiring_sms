@@ -15,9 +15,9 @@ export const BatchRecordList = ({batchRecordingData=[]}) => {
             </thead>
 
             <tbody>
-              {batchRecordingData?.map((batchRecording) =>
+              {batchRecordingData?.map((batchRecording,i) =>
                <tr>
-               <td>1</td>
+               <td>{i+1}</td>
                <td>{batchRecording?.date}</td>
                <td>
                  <a href={batchRecording?.recClassLink} target="_blank">
