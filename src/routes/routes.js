@@ -1,5 +1,25 @@
 const routers = [
   {
+    component: "AuthorizationLayout",
+    path: "/",
+    auth: false,
+    exact: false,
+    childrens: [
+      {
+        component: "WhoIAmPage",
+        path: "/",
+        auth: false,
+        exact: true,
+      },
+      {
+        component: "LoginPage",
+        path: "/login",
+        auth: false,
+        exact: true,
+      },
+    ],
+  },
+  {
     component: "AdminLayout",
     path: "/home",
     auth: false,

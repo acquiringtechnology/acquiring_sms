@@ -5,3 +5,4 @@ export { BatchPage ,BatchDetail} from "./batch";
 export { PageNotFoundPage } from "./pageNotFound";
 export { CandidatePage } from "./candidate";
 export { SessionclassListPage ,SessionclassDetailPage } from "./sessionclass";
+export { LoginPage ,WhoIAmPage } from "./auth";

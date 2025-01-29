@@ -1,0 +1,20 @@
+.whoiAm{
+
+    .whoiAm-container{
+        width: 60%;
+    }
+    .whoiAm-card{
+        cursor: pointer;
+        transition: transform 0.3s ease-in-out;
+        &:hover{
+            border: 1px solid #9a55ff !important;
+        }
+    }
+.brand-logo {
+        width: 13rem;
+        margin-bottom: .5rem;
+    }
+}
+.brand-logo-layout{
+    width: 35%;
+}
