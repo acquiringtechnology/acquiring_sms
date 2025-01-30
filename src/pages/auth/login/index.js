@@ -86,6 +86,7 @@ export const LoginPage = ({ loginType = null }) => {
           <div className="col-md-12">
             <NormalInput
               label="Email Password"
+              type="password"
               value={loginForm.password}
               placeholder="Enter Password"
               name="password"
