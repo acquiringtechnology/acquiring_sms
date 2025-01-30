@@ -24,6 +24,11 @@ export const getAllCandidate = async () => {
       ...doc.data(),
       id: doc.id,
     }));
+    // data.map((doc) => {
+    //   console.log({...doc,password:"Acquiring@1001"});
+    //   updateCandidate(doc,doc.id)
+    // })
+
     return data;
   } catch (e) {
     console.error("Error fetching leads:", e);
@@ -76,7 +81,7 @@ export const createCandidate = async (body) => {
   try {
     const userReq = {
       ...body,
-    //   candidateCode: await getLatestCandidate(),
+      candidateCode: await getLatestCandidate(),
       // createdBy: { name: `${fname} ${lname}`, user_id }
       createdBy: {
         name: `Anvesh Babu`,
@@ -112,6 +117,36 @@ export const createCandidate = async (body) => {
     return docRef.id;
   } catch (e) {
     console.log("failer");
+    console.error("Error fetching leads:", e);
+    let message = e?.message || "Something went wrong";
+    Toast({ message, type: "error" });
+    throw e; // Propagate error to be handled by the caller
+  }
+};
+
+
+export const updateCandidate = async (body, id) => {
+  try {
+    const userReq = {
+      ...body, // Spread the properties of 'body'
+      updatedBy: [
+        ...(body.updatedBy || []), // Ensure 'updatedBy' is an array
+        {
+          name: `Anvesh Babu`,
+          userId: "guest",
+          date: new Date().toISOString(),
+        },
+      ],
+    };
+    delete userReq.id;
+    const docRef = await updateDoc(
+      doc(getFirestore(), DB_NAME.CANDIDATE, id),
+      userReq
+    );
+    Toast({ message: "Candidate Updated successfully" });
+    console.log(docRef);
+    return docRef;
+  } catch (e) {
     console.error("Error fetching leads:", e);
     let message = e?.message || "Something went wrong";
     Toast({ message, type: "error" });

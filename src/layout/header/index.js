@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/img-redundant-alt */
-import logo from '../../assets/images/logo.svg'
+import logo from '../../assets/images/purple_logo.svg'
 import logoMini from '../../assets/images/logo-mini.svg'
 import face1 from '../../assets/images/faces/face1.jpg'
 import face2 from '../../assets/images/faces/face2.jpg'
