@@ -63,8 +63,8 @@ export const LoginPage = ({ loginType = null }) => {
         <div className="row mb-4">
           <div className="col-md-12 text-center">
             <img src={purple_logo} className="brand-logo" />
-            <h2> Sign up has Mentor.</h2>
-            <p>Start Managing your Learners from one place</p>
+            <h2> Sign up has {loginType === LOGIN_TYPE.EMPLOYEE?"Mentor":"Learner"}.</h2>
+            <p>{loginType === LOGIN_TYPE.EMPLOYEE?"Start your journey with us today!":"Start Managing your Learners from one place"}</p>
           </div>
         </div>
 
