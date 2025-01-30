@@ -6,6 +6,11 @@ export const USER_TYPE = {
   BRANCH_ADMIN: 4
 };
 
+export const LOGIN_TYPE = {
+  CANDIDATE: 0,
+  EMPLOYEE: 1
+};
+
 export const GENDER = {
   MALE: 0,
   FEMALE: 1

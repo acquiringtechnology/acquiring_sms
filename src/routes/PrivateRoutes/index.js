@@ -1,0 +1,26 @@
+import { Outlet, Navigate } from 'react-router';
+import { EXIST_LOCAL_STORAGE, USER_TYPE } from '../../services/constants';
+import { getStorage } from '../../services/helperFunctions';
+
+const PrivateRoutes = ({ Layout }) => {
+  const AuthToken = getStorage(EXIST_LOCAL_STORAGE.AUTHTOKEN);
+  let user = getStorage(EXIST_LOCAL_STORAGE.CURRENT_USER);
+  user = JSON.parse(user);
+  console.log('user----',AuthToken)
+  return (
+    // <Layout>
+    // <h4>fdfdfdfd</h4>
+    !!AuthToken ? (
+      <Layout>
+        {' '}
+        <Outlet />
+      </Layout>
+    ) : (
+      <Navigate to="/" />
+    )
+
+    // </Layout>
+  );
+};
+
+export default PrivateRoutes;

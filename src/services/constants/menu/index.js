@@ -1,9 +1,12 @@
+import {LOGIN_TYPE} from '../flags'
+
 export const MENU = [
   {
     title: "Home",
     path: "/home",
     exact: true,
     icon: "mdi-home",
+    loginType:LOGIN_TYPE.EMPLOYEE,
     subMenu: [],
   },
   {
@@ -11,6 +14,7 @@ export const MENU = [
     path: "/lead",
     exact: true,
     icon: "mdi-table-account",
+    loginType:LOGIN_TYPE.EMPLOYEE,
     subMenu: [],
   },
   {
@@ -18,6 +22,7 @@ export const MENU = [
     path: "/employee",
     exact: true,
     icon: "mdi-badge-account",
+    loginType:LOGIN_TYPE.EMPLOYEE,
     subMenu: [],
   },
 
@@ -26,6 +31,7 @@ export const MENU = [
     path: "/batch",
     exact: true,
     icon: "mdi-group",
+    loginType:LOGIN_TYPE.EMPLOYEE,
     subMenu: [],
   },
 
@@ -33,11 +39,21 @@ export const MENU = [
     title: "Candidate",
     exact: true,
     icon: "mdi-account-group",
+    loginType:LOGIN_TYPE.EMPLOYEE,
     path: "/candidate",
     subMenu: [],
   },
   {
+    title: "AT Quiz",
+    exact: true,
+    icon: "mdi-lightning-bolt",
+    loginType:LOGIN_TYPE.EMPLOYEE,
+    path: "/atQuiz",
+    subMenu: [],
+  },
+  {
     title: "class",
+    loginType:LOGIN_TYPE.CANDIDATE,
     exact: true,
     icon: "mdi-book-open-blank-variant",
     path: "/class",
@@ -64,6 +80,7 @@ export const MENU = [
     title: "Payment 2",
     exact: true,
     icon: "mdi-user",
+    loginType:LOGIN_TYPE.EMPLOYEE,
     subMenu: [
       {
         title: "Payment List",

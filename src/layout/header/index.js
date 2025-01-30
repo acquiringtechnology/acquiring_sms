@@ -6,10 +6,27 @@ import face1 from '../../assets/images/faces/face1.jpg'
 import face2 from '../../assets/images/faces/face2.jpg'
 import face3 from '../../assets/images/faces/face3.jpg'
 import face4 from '../../assets/images/faces/face4.jpg'
+import { useEffect, useState } from 'react';
+import {getStorage} from '../../services/helperFunctions'
+import {EXIST_LOCAL_STORAGE} from '../../services/constants'
 
 
 export const Header =()=>{
 
+  const [userDetail,setUserDetail] =useState(null)
+
+
+  useEffect(() => {
+    try {
+      const storedUser = getStorage(EXIST_LOCAL_STORAGE.CURRENT_USER);
+      if (storedUser) {
+        const user = JSON.parse(storedUser);
+        setUserDetail(user);
+      }
+    } catch (error) {
+      console.error('Error parsing user data from localStorage:', error);
+    }
+  }, []);
 
   const handleSideBarMinimize=()=>{
 
@@ -46,7 +63,7 @@ export const Header =()=>{
               <span className="availability-status online"></span>
             </div>
             <div className="nav-profile-text">
-              <p className="mb-1 text-black">David Greymaax</p>
+              <p className="mb-1 text-black">{userDetail?.name?.first || ''} {userDetail?.name?.last || ''}</p>
             </div>
           </a>
           <div className="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">

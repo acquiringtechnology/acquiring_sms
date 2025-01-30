@@ -1,2 +1,2 @@
-export {LoginPage} from './login'
+export {TrainerLoginPage} from './trainerLogin';
 export {WhoIAmPage} from './whoiAm'

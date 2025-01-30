@@ -6,7 +6,8 @@ export {
     CANDIDATE_COURSE_STATUS,
     STATUS,
     YES_NO_STATUS,
-    CLASS_MODE
+    CLASS_MODE,
+    LOGIN_TYPE
   } from './flags';
   export {
     GENDER_TYPE,
@@ -26,6 +27,7 @@ export {
     COURSE_LIST,
     EMPLOYEE_STATUS_LIST,
     EMPLOYEE_DESIGNATION_LIST,
-    USER_ROLE
+    USER_ROLE,
+    
   } from './options';
   export { EXIST_LOCAL_STORAGE, CURRENT_USER, DB_NAME } from './app';

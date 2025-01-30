@@ -252,6 +252,10 @@ export const EMPLOYEE_DESIGNATION_LIST = [
   {
     label: 'Founder',
     value: 2
+  },
+  {
+    label: 'CEO',
+    value: 3
   }
 ];
 

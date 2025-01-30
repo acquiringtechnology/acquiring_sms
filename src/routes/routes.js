@@ -12,8 +12,8 @@ const routers = [
         exact: true,
       },
       {
-        component: "LoginPage",
-        path: "/login",
+        component: "TrainerLoginPage",
+        path: "/trainer",
         auth: false,
         exact: true,
       },
@@ -22,13 +22,13 @@ const routers = [
   {
     component: "AdminLayout",
     path: "/home",
-    auth: false,
+    auth: true,
     exact: false,
     childrens: [
       {
         component: "HomePage",
         path: "/",
-        auth: false,
+        auth: true,
         exact: true,
       },
     ],
@@ -37,13 +37,13 @@ const routers = [
   {
     component: "AdminLayout",
     path: "/lead",
-    auth: false,
+    auth: true,
     exact: false,
     childrens: [
       {
         component: "LeadPage",
         path: "/",
-        auth: false,
+        auth: true,
         exact: true,
       },
     ],
@@ -52,13 +52,13 @@ const routers = [
   {
     component: "AdminLayout",
     path: "/employee",
-    auth: false,
+    auth: true,
     exact: false,
     childrens: [
       {
         component: "EmployeePage",
         path: "/",
-        auth: false,
+        auth: true,
         exact: true,
       },
     ],
@@ -66,19 +66,19 @@ const routers = [
   {
     component: "AdminLayout",
     path: "/batch",
-    auth: false,
+    auth: true,
     exact: false,
     childrens: [
       {
         component: "BatchPage",
         path: "/",
-        auth: false,
+        auth: true,
         exact: true,
       },
       {
         component: "BatchDetail",
         path: "detail/:batchId",
-        auth: false,
+        auth: true,
         exact: true,
       },
     ],
@@ -86,39 +86,53 @@ const routers = [
   {
     component: "AdminLayout",
     path: "/class",
-    auth: false,
+    auth: true,
     exact: false,
     childrens: [
       {
         component: "SessionclassListPage",
         path: "/",
-        auth: false,
+        auth: true,
         exact: true,
       },
       {
         component: "SessionclassDetailPage",
         path: "detail/:batchId",
-        auth: false,
+        auth: true,
         exact: true,
       },
     ],
   },
   {
     component: "AdminLayout",
+    path: "/atQuiz",
+    auth: true,
+    exact: false,
+    childrens: [
+      {
+        component: "AtQuizPage",
+        path: "/",
+        auth: true,
+        exact: true,
+      }
+    ],
+  },
+  {
+    component: "AdminLayout",
     path: "/candidate",
-    auth: false,
+    auth: true,
     exact: false,
     childrens: [
       {
         component: "CandidatePage",
         path: "/",
-        auth: false,
+        auth: true,
         exact: true,
       },
       {
         component: "UserDetailPage",
         path: "/detail",
-        auth: false,
+        auth: true,
         exact: true,
       },
     ],
