@@ -43,20 +43,21 @@ export const MENU = [
     path: "/candidate",
     subMenu: [],
   },
-  {
-    title: "AT Quiz",
-    exact: true,
-    icon: "mdi-lightning-bolt",
-    loginType:LOGIN_TYPE.EMPLOYEE,
-    path: "/atQuiz",
-    subMenu: [],
-  },
+
   {
     title: "class",
     loginType:LOGIN_TYPE.CANDIDATE,
     exact: true,
     icon: "mdi-book-open-blank-variant",
     path: "/class",
+    subMenu: [],
+  },
+  {
+    title: "AT Quiz",
+    exact: true,
+    icon: "mdi-lightning-bolt",
+    loginType:LOGIN_TYPE.CANDIDATE,
+    path: "/atQuiz",
     subMenu: [],
   },
   // {

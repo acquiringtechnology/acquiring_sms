@@ -4,16 +4,17 @@ import {
   COURSE_ENQUIRY_STATUS,
   LEAD_TYPE,
   USER_TYPE,
-  EXIST_LOCAL_STORAGE
-} from '../constants';
-import moment from 'moment';
-import { employeeSchemaModule } from '../module/employee';
+  EXIST_LOCAL_STORAGE,
+  LOGIN_TYPE,
+} from "../constants";
+import moment from "moment";
+import { employeeSchemaModule } from "../module/employee";
 
-export const setStorage = (name = '', data = '') => {
+export const setStorage = (name = "", data = "") => {
   localStorage.setItem(name, data);
 };
 
-export const getStorage = (name = '') => {
+export const getStorage = (name = "") => {
   return localStorage.getItem(name);
 };
 
@@ -22,7 +23,7 @@ export function generateOTP() {
   return Math.floor(1000 + Math.random() * 9000);
 }
 
-export const removeStorage = (name = '') => {
+export const removeStorage = (name = "") => {
   if (name) {
     localStorage.removeItem(name);
   } else {
@@ -33,81 +34,81 @@ export const removeStorage = (name = '') => {
 export const getUserType = (userType) => {
   switch (userType) {
     case USER_TYPE.SUPPER_ADMIN:
-      return 'Supper Admin';
+      return "Supper Admin";
     case USER_TYPE.ADMIN:
-      return 'Admin';
+      return "Admin";
     case USER_TYPE.CANDIDATE:
-      return 'Candidate';
+      return "Candidate";
     case USER_TYPE.TRAINER:
-      return 'Trainer';
+      return "Trainer";
     case USER_TYPE.BRANCH_ADMIN:
-      return 'Branch Admin';
+      return "Branch Admin";
     default:
-      return 'No User';
+      return "No User";
   }
 };
 
 export const getJoinAndLeadStatus = (status) => {
   switch (status) {
     case COURSE_ENQUIRY_STATUS.REQUESTED:
-      return 'Requested';
+      return "Requested";
     case COURSE_ENQUIRY_STATUS.NOT_RESPONDING:
-      return 'Not Responding';
+      return "Not Responding";
     case COURSE_ENQUIRY_STATUS.PROCESSING:
-      return 'Processing';
+      return "Processing";
     case COURSE_ENQUIRY_STATUS.INTERESTED:
-      return 'Interested';
+      return "Interested";
     case COURSE_ENQUIRY_STATUS.NOT_INTERESTED:
-      return 'Not Interested';
+      return "Not Interested";
     case COURSE_ENQUIRY_STATUS.JOINED:
-      return 'Joined';
+      return "Joined";
     default:
-      return 'No Status';
+      return "No Status";
   }
 };
 
 export const getBatchStatus = (status) => {
   switch (status) {
     case 0:
-      return 'Not Yet';
+      return "Not Yet";
     case 1:
-      return 'Processing';
+      return "Processing";
     case 2:
-      return 'Complited';
+      return "Complited";
     case 3:
-      return 'Hold';
+      return "Hold";
     case COURSE_ENQUIRY_STATUS.NOT_INTERESTED:
-      return 'Not Interested';
+      return "Not Interested";
     case COURSE_ENQUIRY_STATUS.JOINED:
-      return 'Joined';
+      return "Joined";
     default:
-      return 'No Status';
+      return "No Status";
   }
 };
 
 export const getYesNotStatus = (status) => {
   switch (status) {
     case 0:
-      return 'No';
+      return "No";
     case 1:
-      return 'Yes';
+      return "Yes";
     default:
-      return 'No Status';
+      return "No Status";
   }
 };
 
 export const getLeadType = (type) => {
   switch (type) {
     case LEAD_TYPE.ADMIN:
-      return 'Admin';
+      return "Admin";
     case LEAD_TYPE.BRANCH:
-      return 'Branch';
+      return "Branch";
     case LEAD_TYPE.TRAINER:
-      return 'Trainer';
+      return "Trainer";
     case LEAD_TYPE.INSTAGRAM:
-      return 'Instagram';
+      return "Instagram";
     default:
-      return 'No lead type found';
+      return "No lead type found";
   }
 };
 
@@ -117,15 +118,15 @@ export const getIdByLabel = (list = [], id) => {
       if (Array.isArray(id)) {
         return id.map(
           (iss) =>
-            list?.find(({ value }) => value === iss)?.label ?? 'No Batch Found'
+            list?.find(({ value }) => value === iss)?.label ?? "No Batch Found"
         );
       }
       const res = list?.find(({ value }) => value === id);
-      return res.label ? res.label : 'No User';
+      return res.label ? res.label : "No User";
     }
-    return 'No User List';
+    return "No User List";
   } catch (e) {
-    return 'some error occurred ';
+    return "some error occurred ";
   }
 };
 
@@ -142,15 +143,13 @@ export const getCoursebyIdLabel = (list = [], id = []) => {
   }
 };
 
-
-
 export const isEmptyObj = (obj = {}) => {
   return Object?.keys(obj).length === 0;
 };
 
 export const convertStringToHTML = (htmlString) => {
   const parser = new DOMParser();
-  const html = parser.parseFromString(htmlString, 'text/html');
+  const html = parser.parseFromString(htmlString, "text/html");
 
   return html.body.toString();
 };
@@ -160,14 +159,14 @@ export const multySearchObjects = (array = [], searchCriteria = {}) => {
   // debugger;
   try {
     const criteriaKeys = Object.keys(searchCriteria).filter(
-      (key) => searchCriteria[key] !== ''
+      (key) => searchCriteria[key] !== ""
     );
 
     return array.filter((item) => {
       return criteriaKeys.every((key) => {
         const value = searchCriteria[key];
-        if (typeof value === 'string') {
-          if (key === 'userName') {
+        if (typeof value === "string") {
+          if (key === "userName") {
             const name = `${item?.fname} ${item?.lname}`;
             return name?.toString().toLowerCase().includes(value.toLowerCase());
           }
@@ -176,14 +175,14 @@ export const multySearchObjects = (array = [], searchCriteria = {}) => {
             .toLowerCase()
             .includes(value.toLowerCase());
         }
-        if (typeof value === 'number' && Array.isArray(item[key])) {
+        if (typeof value === "number" && Array.isArray(item[key])) {
           return item[key]?.includes(value);
         }
         return item[key] === value;
       });
     });
   } catch (e) {
-    console.log('-------', e);
+    console.log("-------", e);
     return array;
   }
 };
@@ -211,11 +210,11 @@ export const candidateComplitePer = (batchList, batchId) => {
     const batch = batchList?.find(({ value }) => value === batchId);
     if (batch) {
       const current = moment();
-      const stDate = moment(batch.stDate, 'YYYY-MM-DD');
-      const endDate = moment(batch.endDate, 'YYYY-MM-DD');
-      const complitedDays = current.diff(stDate, 'days');
-      const overDays = endDate.diff(stDate, 'days');
-      console.log('diff-------', complitedDays, overDays);
+      const stDate = moment(batch.stDate, "YYYY-MM-DD");
+      const endDate = moment(batch.endDate, "YYYY-MM-DD");
+      const complitedDays = current.diff(stDate, "days");
+      const overDays = endDate.diff(stDate, "days");
+      console.log("diff-------", complitedDays, overDays);
 
       return Math.round((complitedDays * 100) / overDays);
     }
@@ -228,11 +227,11 @@ export const batchComplitePer = (batch) => {
   try {
     if (batch) {
       const current = moment();
-      const stDate = moment(batch.stDate, 'YYYY-MM-DD');
-      const endDate = moment(batch.endDate, 'YYYY-MM-DD');
-      const complitedDays = current.diff(stDate, 'days');
-      const overDays = endDate.diff(stDate, 'days');
-      console.log('diff-------', complitedDays, overDays);
+      const stDate = moment(batch.stDate, "YYYY-MM-DD");
+      const endDate = moment(batch.endDate, "YYYY-MM-DD");
+      const complitedDays = current.diff(stDate, "days");
+      const overDays = endDate.diff(stDate, "days");
+      console.log("diff-------", complitedDays, overDays);
 
       return Math.round((complitedDays * 100) / overDays);
     }
@@ -250,11 +249,10 @@ export const getCurentUserTrainerId = () => {
       curentUser.userType
     )
       ? curentUser.userId
-      : '';
+      : "";
   }
-  return '';
+  return "";
 };
-
 
 export const employeeListObjectMakeIdLabel = (list = []) => {
   return list.map((item) => ({
@@ -263,31 +261,31 @@ export const employeeListObjectMakeIdLabel = (list = []) => {
   }));
 };
 
-export const letterAvatar = (name = '', size = 60, useColour = true) => {
+export const letterAvatar = (name = "", size = 60, useColour = true) => {
   const colours = [
-    '#1abc9c',
-    '#2ecc71',
-    '#3498db',
-    '#9b59b6',
-    '#34495e',
-    '#16a085',
-    '#27ae60',
-    '#2980b9',
-    '#8e44ad',
-    '#2c3e50',
-    '#f1c40f',
-    '#e67e22',
-    '#e74c3c',
-    '#ecf0f1',
-    '#95a5a6',
-    '#f39c12',
-    '#d35400',
-    '#c0392b',
-    '#bdc3c7',
-    '#7f8c8d'
+    "#1abc9c",
+    "#2ecc71",
+    "#3498db",
+    "#9b59b6",
+    "#34495e",
+    "#16a085",
+    "#27ae60",
+    "#2980b9",
+    "#8e44ad",
+    "#2c3e50",
+    "#f1c40f",
+    "#e67e22",
+    "#e74c3c",
+    "#ecf0f1",
+    "#95a5a6",
+    "#f39c12",
+    "#d35400",
+    "#c0392b",
+    "#bdc3c7",
+    "#7f8c8d",
   ];
 
-  const nameSplit = name.toUpperCase().split(' ');
+  const nameSplit = name.toUpperCase().split(" ");
   const initials =
     nameSplit.length === 1
       ? nameSplit[0].charAt(0)
@@ -296,20 +294,20 @@ export const letterAvatar = (name = '', size = 60, useColour = true) => {
   const pixelRatio = window.devicePixelRatio || 1;
   size *= pixelRatio;
 
-  const charIndex = initials === '?' ? 72 : initials.charCodeAt(0);
+  const charIndex = initials === "?" ? 72 : initials.charCodeAt(0);
   const colourIndex = (charIndex - 65) % 20;
 
-  const canvas = document.createElement('canvas');
+  const canvas = document.createElement("canvas");
   canvas.width = size;
   canvas.height = size;
-  const context = canvas.getContext('2d');
+  const context = canvas.getContext("2d");
 
-  context.fillStyle = useColour ? colours[colourIndex] : 'transparent';
+  context.fillStyle = useColour ? colours[colourIndex] : "transparent";
   context.fillRect(0, 0, canvas.width, canvas.height);
 
   context.font = `${Math.round(canvas.width / 2.2)}px Arial`;
-  context.textAlign = 'center';
-  context.fillStyle = useColour ? '#FFF' : '#454545';
+  context.textAlign = "center";
+  context.fillStyle = useColour ? "#FFF" : "#454545";
   context.fillText(initials, size / 2, size / 1.5);
 
   const dataURI = canvas.toDataURL();
@@ -321,7 +319,7 @@ export const getLoginUserDetail = () => {
   return new Promise((resolve) => {
     const myInterval = setInterval(() => {
       const userData = getStorage(EXIST_LOCAL_STORAGE.CURRENT_USER);
-      console.log(userData, '-userData--');
+      console.log(userData, "-userData--");
       if (userData) {
         clearInterval(myInterval);
         resolve(JSON.parse(userData)); // Resolving the promise once data is found
@@ -330,18 +328,27 @@ export const getLoginUserDetail = () => {
   });
 };
 
+export const handleGetStatusTextColour = (list = [], status) => {
+  const res = list?.find(({ value }) => value === status);
+  return res?.color;
+};
 
- export const handleGetStatusTextColour = (list=[] ,status) => {
-    const res = list?.find(
-      ({ value }) => value === status
-    );
-    return res?.color;
-  };
+export const getMultyBatchId = (batchList, batchIds) => {
+  // batchList.map(()=>)
+  // return userList?.find(({ email: userEmail }) => userEmail === email);
+};
 
+export const getDisplayName = () => {
+  const storedUser = getStorage(EXIST_LOCAL_STORAGE.CURRENT_USER);
+  if (storedUser) {
+    const user = JSON.parse(storedUser);
 
-  export const getMultyBatchId = (batchList,batchIds ) => {
-
-    // batchList.map(()=>)
-
-    // return userList?.find(({ email: userEmail }) => userEmail === email);
-  };
+    if (user.loginType === LOGIN_TYPE.CANDIDATE) {
+      return `${user.name}`;
+    } else if (user.loginType === LOGIN_TYPE.EMPLOYEE) {
+      return `${user?.name?.first} ${user?.name?.last}`;
+    } else {
+      return "User Name";
+    }
+  }
+};

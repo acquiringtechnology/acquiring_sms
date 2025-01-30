@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { NavLink } from "react-router";
-import { MENU } from "../../services/constants";
+import { LOGIN_TYPE, MENU } from "../../services/constants";
 import face1 from "../../assets/images/faces/face1.jpg";
-import {getStorage,getIdByLabel} from '../../services/helperFunctions'
+import {getStorage,getIdByLabel ,getDisplayName} from '../../services/helperFunctions'
 import { useEffect, useState } from 'react';
 import {EXIST_LOCAL_STORAGE ,EMPLOYEE_DESIGNATION_LIST} from '../../services/constants'
 export const Sidebar = () => {
@@ -40,8 +40,8 @@ export const Sidebar = () => {
               {/* <!--change to offline or busy as needed--> */}
             </div>
             <div className="nav-profile-text d-flex flex-column">
-              <span className="font-weight-bold mb-2">{userDetail?.name?.first || ''} {userDetail?.name?.last || ''}</span>
-              <span className="text-secondary text-small">{getIdByLabel(EMPLOYEE_DESIGNATION_LIST,userDetail?.role) || ''}</span>
+              <span className="font-weight-bold mb-2">{getDisplayName()}</span>
+              <span className="text-secondary text-small">{userDetail?.loginType === LOGIN_TYPE.EMPLOYEE ?getIdByLabel(EMPLOYEE_DESIGNATION_LIST,userDetail?.role):"Candidate"}</span>
             </div>
             <i className="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
           </a>

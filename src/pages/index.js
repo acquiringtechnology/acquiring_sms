@@ -5,5 +5,5 @@ export { BatchPage ,BatchDetail} from "./batch";
 export { PageNotFoundPage } from "./pageNotFound";
 export { CandidatePage } from "./candidate";
 export { SessionclassListPage ,SessionclassDetailPage } from "./sessionclass";
-export { TrainerLoginPage ,WhoIAmPage } from "./auth";
+export { TrainerLoginPage ,WhoIAmPage ,CandidateLoginPage } from "./auth";
 export { AtQuizPage } from "./atQuiz";

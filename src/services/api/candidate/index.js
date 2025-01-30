@@ -26,8 +26,9 @@ export const getAllCandidate = async () => {
     }));
     // data.map((doc) => {
     //   console.log({...doc,password:"Acquiring@1001"});
-    //   updateCandidate(doc,doc.id)
+    //   updateCandidate({...doc,password:"Acquiring@1001"},doc.id)
     // })
+    console.log('done----',data);
 
     return data;
   } catch (e) {

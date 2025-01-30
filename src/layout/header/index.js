@@ -7,14 +7,16 @@ import face2 from '../../assets/images/faces/face2.jpg'
 import face3 from '../../assets/images/faces/face3.jpg'
 import face4 from '../../assets/images/faces/face4.jpg'
 import { useEffect, useState } from 'react';
-import {getStorage} from '../../services/helperFunctions'
-import {EXIST_LOCAL_STORAGE} from '../../services/constants'
+import {getStorage,getDisplayName} from '../../services/helperFunctions'
+import {EXIST_LOCAL_STORAGE} from '../../services/constants';
+import Swal from "sweetalert2";
+import {useNavigate} from 'react-router'
 
 
 export const Header =()=>{
 
   const [userDetail,setUserDetail] =useState(null)
-
+  const navigate = useNavigate();
 
   useEffect(() => {
     try {
@@ -33,6 +35,22 @@ export const Header =()=>{
     document.body.classList.toggle('sidebar-icon-only');
 
   }
+
+  const handleLogin = () => {
+    Swal.fire({
+      title: 'Are you sure you want to logout!',
+      // text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navigate('/');
+      }
+    });
+  };
 
 
 
@@ -63,7 +81,7 @@ export const Header =()=>{
               <span className="availability-status online"></span>
             </div>
             <div className="nav-profile-text">
-              <p className="mb-1 text-black">{userDetail?.name?.first || ''} {userDetail?.name?.last || ''}</p>
+              <p className="mb-1 text-black">{getDisplayName()}</p>
             </div>
           </a>
           <div className="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
@@ -168,7 +186,7 @@ export const Header =()=>{
           </div>
         </li>
         <li className="nav-item nav-logout d-none d-lg-block">
-          <a className="nav-link" href="#">
+          <a className="nav-link" href="#" onClick={handleLogin}>
             <i className="mdi mdi-power"></i>
           </a>
         </li>

@@ -13,7 +13,13 @@ const routers = [
       },
       {
         component: "TrainerLoginPage",
-        path: "/trainer",
+        path: "/trainerLogin",
+        auth: false,
+        exact: true,
+      },
+      {
+        component: "CandidateLoginPage",
+        path: "/candidateLogin",
         auth: false,
         exact: true,
       },
