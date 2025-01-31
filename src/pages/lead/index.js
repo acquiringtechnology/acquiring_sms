@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Breadcrumb, NormalModal } from "../../components/common";
 import { LeadList, LeadForm, LeadFilter } from "../../components/pages";
 import { getAllLead } from "../../redux/action/lead.action";
+import { getAllBatch } from "../../redux/action/batch.action";
 import { useAppDispatch, useAppSelector } from "../../hooks/reducHooks";
 import { multySearchObjects } from "../../services/helperFunctions";
 
@@ -12,8 +13,10 @@ export const LeadPage = () => {
   const [editLeadObject, setEditLeadObject] = useState(null);
   const dispatch = useAppDispatch();
   const leadSync = useAppSelector((state) => state.leadSync);
+  const batchSync = useAppSelector((state) => state.batchSync);
   useEffect(() => {
     getLeadListData();
+    getBatchListData();
   }, []);
 
   function getLeadListData() {
@@ -24,6 +27,10 @@ export const LeadPage = () => {
     setIsOpenForm(false);
     // getLeadListData();
   };
+
+    function getBatchListData() {
+      dispatch(getAllBatch());
+    }
 
   const handleOpenLeadModal = () => {
     setIsOpenForm(!isOpenForm);
@@ -58,6 +65,7 @@ export const LeadPage = () => {
         title="Lead Form"
       >
         <LeadForm
+         batchListData={batchSync?.batchListData}
           leadSync={leadSync}
           editLeadObject={editLeadObject}
           onSucess={handleSaveLeade}

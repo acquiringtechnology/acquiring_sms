@@ -7,6 +7,8 @@ import {
   COURSE_ENQUIRY_STATUS_LIST,
   LEAD_TYPE_LIST,
   COURSE_LIST,
+  COURSE_ENQUIRY_STATUS,
+  STATUS,
 } from "../../../../services/constants";
 import SimpleReactValidator from "simple-react-validator";
 import {
@@ -15,11 +17,14 @@ import {
 } from "../../../../redux/action/lead.action";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/reducHooks";
 import _ from "lodash";
+import { candidateSchemaModule } from "../../../../services/module/candidate";
+import { createNewCandidate } from "../../../../redux/action/candidate.action";
 
 export const LeadForm = ({
   leadSync,
   editLeadObject = {},
   onSucess = () => {},
+  batchListData = [],
 }) => {
   const [isLoadingFrom, setIsLoadingFrom] = useState();
   const dispatch = useAppDispatch();
@@ -78,6 +83,10 @@ export const LeadForm = ({
       const formValid = simpleValidator.current.allValid();
 
       if (formValid) {
+        if (leadForm.status === COURSE_ENQUIRY_STATUS.JOINED) {
+          handledMoveToCandidate();
+        }
+
         setIsLoadingFrom(true);
         const res = leadForm?.id
           ? await dispatch(updateLeadData(leadForm, leadForm.id))
@@ -90,6 +99,34 @@ export const LeadForm = ({
     } catch (e) {
       setIsLoadingFrom(false);
     }
+  };
+
+  const handledMoveToCandidate = () => {
+    const { batchId, batchIds, ...restOfLeadForm } = leadForm;
+    const batchDtails = batchListData?.find(({ id }) => id === batchId);
+    const trainerId = batchDtails?.trainerIds?.find(
+      ({ status }) => status === STATUS.ACTIVE
+    )?.trainerId;
+
+    const candidateData = {
+      ...candidateSchemaModule,
+      ...restOfLeadForm,
+      leadId: leadForm.id,
+      comments: [],
+      updatedBy: [],
+      createdBy: {},
+      batchIds: [
+        {
+          id: batchId,
+          trainerId,
+          sDate: new Date(),
+          status: 1,
+          eDate: "",
+          totfees: 0,
+        },
+      ],
+    };
+    dispatch(createNewCandidate(candidateData));
   };
 
   return (
@@ -201,6 +238,21 @@ export const LeadForm = ({
           errorMessage={simpleValidator.current.message(
             "Lead Status",
             leadForm.status,
+            "required"
+          )}
+        />
+      </div>
+      <div className="col-md-6">
+        <NormalSelect
+          label="Batch"
+          placeholder="Select batch"
+          name="batchId"
+          option={batchListData}
+          value={leadForm.batchId}
+          onChange={handleLeadFormChange}
+          errorMessage={simpleValidator.current.message(
+            "Batch",
+            leadForm.batchId,
             "required"
           )}
         />

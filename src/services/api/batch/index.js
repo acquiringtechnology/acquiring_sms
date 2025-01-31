@@ -10,6 +10,7 @@ import {
     query,
     orderBy,
     limit,
+    getDoc
   } from "firebase/firestore";
   import { Toast } from "../../../services/toast";
   import { DB_NAME } from "../../constants";
@@ -29,6 +30,27 @@ import {
       return data;
     } catch (e) {
       console.error("Error fetching leads:", e);
+      let message = e?.message || "Something went wrong";
+      Toast({ message, type: "error" });
+      throw e; // Propagate error to be handled by the caller
+    }
+  };
+
+  export const getBatchById = async (docId) => {
+    try {
+      const docRef = doc(getFirestore(), DB_NAME.BATCH, docId);
+      const docSnap = await getDoc(docRef); // Fetch document
+      console.log('docSnap.data()--',docSnap.data())
+      if (docSnap.exists()) {
+        return docSnap.data();
+      } else {
+        console.log("No such document!");
+        return null;
+      
+      }
+      
+    } catch (e) {
+      console.error("Error fetching batch:", e);
       let message = e?.message || "Something went wrong";
       Toast({ message, type: "error" });
       throw e; // Propagate error to be handled by the caller

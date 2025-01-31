@@ -3,6 +3,7 @@ import {
   getAllBatchList,
   updateBatch,
   deleteBatch,
+  getBatchById
 } from "../../services/api/batch";
 import batchStateSlice from "../slices/batch.slices";
 
@@ -22,6 +23,22 @@ export function getAllBatch() {
     }
   };
 }
+
+export function getBatchDetailsById(batchId) {
+  return async (dispatch) => {
+    try {
+      dispatch(batchStateSliceActions.setBatchDetailByIdLoader(true)); // Set loading state to true
+      const response = await getBatchById(batchId); // Fetch leads
+      dispatch(batchStateSliceActions.setBatchDetailById(response)); // Update state with leads
+    } catch (error) {
+      console.error("Failed to fetch leads:", error); // Log any errors that occur
+      dispatch(batchStateSliceActions.setBatchDetailById(null)); // Optionally, reset data on error
+    } finally {
+      dispatch(batchStateSliceActions.setBatchDetailByIdLoader(false)); // Set loading state to false regardless of success/failure
+    }
+  };
+}
+
 export function createNewBatch(reqObj) {
   return async (dispatch) => {
     try {

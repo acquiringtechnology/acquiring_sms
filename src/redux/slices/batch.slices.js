@@ -4,6 +4,8 @@ const initialBatchState = {
   batchListData: [],
   isBatchListLoader: false,
   isCreateUpdateLoader: false,
+  batchDetail: '',
+  isBatchDetailByIdLoader: '',
 };
 
 const batchStateSlice = createSlice({
@@ -20,7 +22,13 @@ const batchStateSlice = createSlice({
     setIsCreateUpdateLoader(state, action) {
       state.isCreateUpdateLoader = action?.payload;
     },
-
+    setBatchDetailById(state, action) {
+      state.batchDetail = action.payload;
+      state.isBatchDetailByIdLoader = false;
+    },
+    setBatchDetailByIdLoader(state, action) {
+      state.isBatchDetailByIdLoader =  action?.payload;
+    },
     setNewBatchData(state, action) {
       state.batchListData = [action.payload, ...state.batchListData];
       state.isCreateUpdateLoader = false;

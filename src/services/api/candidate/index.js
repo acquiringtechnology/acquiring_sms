@@ -55,20 +55,21 @@ async function getLatestCandidate() {
       // The first document (the most recent one)
       console.log("querySnapshot.docs[0]---", querySnapshot.docs[0].data());
       const latestEmployee = querySnapshot.docs[0].data();
-      const lastCode = latestEmployee.empCode; // Assuming employee code is the document ID
+      const lastCode = latestEmployee.candidateCode; // Assuming employee code is the document ID
 
+      console.log('lastCode.replace("ATC-FSWD", "")---',lastCode)
       // Extract the numeric part of the code
-      const lastCodeNumber = parseInt(lastCode.replace("ATC", "")) || 100; // Default to 100 if parsing fails
+      const lastCodeNumber = parseInt(lastCode.replace("ATC-FSWD", "")) || 100; // Default to 100 if parsing fails
 
       // Generate the new employee code
       const newCodeNumber = lastCodeNumber + 1;
-      const newEmployeeCode = "ATC" + newCodeNumber.toString().padStart(3, "0");
+      const newEmployeeCode = "ATC-FSWD" + newCodeNumber.toString().padStart(3, "0");
 
       console.log("New Employee Code:", newEmployeeCode);
       return newEmployeeCode;
     } else {
       // If no employee found, start from ATE101
-      return "ATC101";
+      return "ATC-FSWD01";
     }
   } catch (e) {
     console.error("Error fetching employee:", e);
@@ -84,6 +85,7 @@ export const createCandidate = async (body) => {
       ...body,
       candidateCode: await getLatestCandidate(),
       // createdBy: { name: `${fname} ${lname}`, user_id }
+      password:"Acquiring@1001",
       createdBy: {
         name: `Anvesh Babu`,
         user_id: "guest",
@@ -114,7 +116,7 @@ export const createCandidate = async (body) => {
       userReq
     );
     console.log("successfully");
-    // Toast({ message: "Lead Add successfully" });
+    Toast({ message: "candidate Add successfully" });
     return docRef.id;
   } catch (e) {
     console.log("failer");

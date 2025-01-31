@@ -4,7 +4,10 @@ import { NormalButton } from "../../../common";
 import { convertStringToHTML } from "../../../../services/helperFunctions";
 import moment from "moment";
 
-export const SessionclassDetail = ({ batchRecordingData = [] }) => {
+export const SessionclassDetail = ({
+  batchRecordingData = [],
+  batchDetail = null,
+}) => {
   const [selectedSession, setSelectedSession] = useState(null);
   const [sessionList, setSessionList] = useState([]);
   const [sessionId, setSessionId] = useState(null);
@@ -55,7 +58,7 @@ export const SessionclassDetail = ({ batchRecordingData = [] }) => {
                   label=""
                   color="primary"
                   target="_blank"
-                  href={selectedSession?.recClassLink || "www.google.com"}
+                  href={selectedSession?.recClassLink || batchDetail?.classLink}
                 >
                   {selectedSession?.recClassLink
                     ? "Play Recording"
@@ -108,7 +111,7 @@ export const SessionclassDetail = ({ batchRecordingData = [] }) => {
                       {item?.key}
                     </div>
                     <div class="justify-content-center align-items-center mt-3">
-                      {i+1 !==  chunk.length && (
+                      {i + 1 !== chunk.length && (
                         <svg
                           class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
                           focusable="false"

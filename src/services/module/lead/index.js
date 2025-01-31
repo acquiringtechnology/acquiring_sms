@@ -13,6 +13,7 @@ export const leadSchemaModule = {
   demoBy: '',
   demoStatus: '',
   enqDate: '',
+  batchId:"",
 //   courses: [],
   branch: '',
   payedfees: 0,

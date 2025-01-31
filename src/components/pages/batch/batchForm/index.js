@@ -203,6 +203,20 @@ export const BatchFrom = ({
         />
       </div>
       <div className="col-md-6">
+        <NormalInput
+          type="text"
+          label="Enter Class Link"
+          onChange={handleBatchFormChange}
+          value={batchFormObject.classLink}
+          name="classLink"
+          errorMessage={simpleValidator.current.message(
+            "Class Link",
+            batchFormObject.classLink,
+            "required"
+          )}
+        />
+      </div>
+      <div className="col-md-6">
         <NormalSelect
           //   multiple
           label="Batch Status"
