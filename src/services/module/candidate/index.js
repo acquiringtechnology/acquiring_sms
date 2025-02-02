@@ -14,6 +14,7 @@ export const candidateSchemaModule = {
   projectLink: "",
   batchIds: [],
   classStartDate: "",
+  password:"",
   classEndDate: "",
   candidateCode:"",
   billingInfo: [

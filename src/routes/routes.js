@@ -144,6 +144,21 @@ const routers = [
     ],
   },
   {
+    component: "AdminLayout",
+    path: "/profile",
+    auth: true,
+    exact: false,
+    childrens: [
+      {
+        component: "ProfilePage",
+        path: "/",
+        auth: true,
+        exact: true,
+      },
+      
+    ],
+  },
+  {
     component: "PageNotFoundPage",
     path: "*",
     auth: false,

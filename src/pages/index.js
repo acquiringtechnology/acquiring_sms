@@ -7,3 +7,4 @@ export { CandidatePage } from "./candidate";
 export { SessionclassListPage ,SessionclassDetailPage } from "./sessionclass";
 export { TrainerLoginPage ,WhoIAmPage ,CandidateLoginPage } from "./auth";
 export { AtQuizPage } from "./atQuiz";
+export { ProfilePage } from "./profile";

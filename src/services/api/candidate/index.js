@@ -10,6 +10,7 @@ import {
   limit,
   serverTimestamp,
   query,
+  deleteField,
   where,
 } from "firebase/firestore";
 import { Toast } from "../../../services/toast";
@@ -25,10 +26,9 @@ export const getAllCandidate = async () => {
       id: doc.id,
     }));
     // data.map((doc) => {
-    //   console.log({...doc,password:"Acquiring@1001"});
-    //   updateCandidate({...doc,password:"Acquiring@1001"},doc.id)
+    //   updateCandidate({...doc,password:"Acquiring@1001"},doc.testId)
     // })
-    console.log('done----',data);
+    console.log("done----", data);
 
     return data;
   } catch (e) {
@@ -57,13 +57,14 @@ async function getLatestCandidate() {
       const latestEmployee = querySnapshot.docs[0].data();
       const lastCode = latestEmployee.candidateCode; // Assuming employee code is the document ID
 
-      console.log('lastCode.replace("ATC-FSWD", "")---',lastCode)
+      console.log('lastCode.replace("ATC-FSWD", "")---', lastCode);
       // Extract the numeric part of the code
       const lastCodeNumber = parseInt(lastCode.replace("ATC-FSWD", "")) || 100; // Default to 100 if parsing fails
 
       // Generate the new employee code
       const newCodeNumber = lastCodeNumber + 1;
-      const newEmployeeCode = "ATC-FSWD" + newCodeNumber.toString().padStart(3, "0");
+      const newEmployeeCode =
+        "ATC-FSWD" + newCodeNumber.toString().padStart(3, "0");
 
       console.log("New Employee Code:", newEmployeeCode);
       return newEmployeeCode;
@@ -85,7 +86,7 @@ export const createCandidate = async (body) => {
       ...body,
       candidateCode: await getLatestCandidate(),
       // createdBy: { name: `${fname} ${lname}`, user_id }
-      password:"Acquiring@1001",
+      password: "Acquiring@1001",
       createdBy: {
         name: `Anvesh Babu`,
         user_id: "guest",
@@ -127,7 +128,6 @@ export const createCandidate = async (body) => {
   }
 };
 
-
 export const updateCandidate = async (body, id) => {
   try {
     const userReq = {
@@ -146,7 +146,10 @@ export const updateCandidate = async (body, id) => {
       doc(getFirestore(), DB_NAME.CANDIDATE, id),
       userReq
     );
-    Toast({ message: "Candidate Updated successfully" });
+    // await updateDoc(docRef, {
+    //   fieldName: deleteField()
+    // });
+    Toast({ message: "Updated successfully" });
     console.log(docRef);
     return docRef;
   } catch (e) {

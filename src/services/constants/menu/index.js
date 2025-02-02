@@ -53,6 +53,14 @@ export const MENU = [
     subMenu: [],
   },
   {
+    title: "My Profile",
+    exact: true,
+    icon: "mdi-account",
+    loginType:LOGIN_TYPE.CANDIDATE,
+    path: "/profile",
+    subMenu: [],
+  },
+  {
     title: "AT Quiz",
     exact: true,
     icon: "mdi-lightning-bolt",

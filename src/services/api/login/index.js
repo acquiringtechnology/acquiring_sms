@@ -64,8 +64,11 @@ export const userSignIn = async (body) => {
     }
 
     // Extract the first user data
-    const userData = querySnapshot.docs[0].data();
-    console.log("User Login Successful", userData);
+       // Extract the first document
+       const userDoc = querySnapshot.docs[0];
+       const userData = userDoc.data();
+       const userId = userDoc.id; // Get the document ID
+       console.log("User Login Successful, Document ID:", userId);
     // Check if the password matches
     if (userData.password === body.password) {
       // Remove password from the user data
@@ -74,7 +77,7 @@ export const userSignIn = async (body) => {
       Toast({ message: "User Login Successful", type: "success" });
       localStorage.setItem(
         EXIST_LOCAL_STORAGE.CURRENT_USER,
-        JSON.stringify({ ...user, loginType: body.loginType })
+        JSON.stringify({ ...user,userId, loginType: body.loginType })
       );
       localStorage.setItem(
         EXIST_LOCAL_STORAGE.AUTHTOKEN,
