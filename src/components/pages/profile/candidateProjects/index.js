@@ -213,7 +213,7 @@ export const CandidateProjects = ({ userDetail = null }) => {
                     )}
                   />
                 </div>
-                {loginDetail?.loginType !== LOGIN_TYPE.EMPLOYEE && (
+                {loginDetail?.loginType === LOGIN_TYPE.EMPLOYEE && (
                   <div className="col-md-2">
                     <NormalInput
                       value={project?.mark}
@@ -228,7 +228,7 @@ export const CandidateProjects = ({ userDetail = null }) => {
                     />
                   </div>
                 )}
-                {loginDetail?.loginType !== LOGIN_TYPE.EMPLOYEE && (
+                {loginDetail?.loginType === LOGIN_TYPE.EMPLOYEE && (
                   <div className="col-md-1 d-flex align-items-center">
                     <NormalCheckbox
                       checked={project?.status === PROJECT_STATUS.APPROVAL}
@@ -243,7 +243,7 @@ export const CandidateProjects = ({ userDetail = null }) => {
                     )}
                   </div>
                 )}
-                {loginDetail?.loginType == LOGIN_TYPE.EMPLOYEE && (
+                {loginDetail?.loginType !== LOGIN_TYPE.EMPLOYEE && (
                   <div className="col-md-1 d-flex align-items-center">
                     <NormalButton
                       onClick={handleAddnewProject}
