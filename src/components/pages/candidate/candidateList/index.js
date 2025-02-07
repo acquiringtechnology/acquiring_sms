@@ -6,6 +6,7 @@ import * as moment from "moment";
 import Swal from "sweetalert2";
 import { deleteLeadData } from "../../../../redux/action/lead.action";
 import { useAppDispatch } from "../../../../hooks/reducHooks";
+import { useNavigate } from "react-router";
 
 export const CandidateList = ({
   candidateListData = [],
@@ -13,6 +14,7 @@ export const CandidateList = ({
   batchListData=[],
   onEdit = () => {},
 }) => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const handleGetStatusTextColour = (status) => {
     const res = COURSE_ENQUIRY_STATUS_LIST.find(
@@ -75,6 +77,10 @@ export const CandidateList = ({
     });
   };
 
+  const handleGoDetailPage=(id)=>{
+    navigate(`/candidate/detail/${id}`);
+  }
+
   return (
     <div className="row">
       <div className="col-12 grid-margin">
@@ -106,7 +112,7 @@ export const CandidateList = ({
                               <img src={faces} alt={candidate?.name} />
                             </div>
                             <div class="flex-grow-1 ms-3">
-                              {candidate?.name}
+                             <span onClick={()=>handleGoDetailPage(candidate?.id)}> {candidate?.name}</span>
                               <small className="d-flex mt-2 text-muted">
                                 {candidate?.candidateCode || '000'}
                               </small>

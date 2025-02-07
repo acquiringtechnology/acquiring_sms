@@ -12,6 +12,7 @@ import {
   query,
   deleteField,
   where,
+  getDoc,
 } from "firebase/firestore";
 import { Toast } from "../../../services/toast";
 import { DB_NAME } from "../../constants";
@@ -31,6 +32,19 @@ export const getAllCandidate = async () => {
     console.log("done----", data);
 
     return data;
+  } catch (e) {
+    console.error("Error fetching leads:", e);
+    let message = e?.message || "Something went wrong";
+    Toast({ message, type: "error" });
+    throw e; // Propagate error to be handled by the caller
+  }
+};
+
+export const getIdByCandidateDetail = async (id) => {
+  try {
+    const snap = await getDoc(doc(getFirestore(), DB_NAME.CANDIDATE, id));
+    if (snap.exists()) return snap.data();
+    else return null;
   } catch (e) {
     console.error("Error fetching leads:", e);
     let message = e?.message || "Something went wrong";
@@ -150,8 +164,8 @@ export const updateCandidate = async (body, id) => {
     //   fieldName: deleteField()
     // });
     Toast({ message: "Updated successfully" });
-    console.log(docRef);
-    return docRef;
+    console.log(docRef,'pdated successfully');
+    return body;
   } catch (e) {
     console.error("Error fetching leads:", e);
     let message = e?.message || "Something went wrong";

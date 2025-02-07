@@ -3,15 +3,36 @@ import face1 from "../../../../assets/images/faces/face1.jpg";
 import {
   getStorage,
   getDisplayName,
-  letterAvatar
+  letterAvatar,
 } from "../../../../services/helperFunctions";
 import moment from "moment";
 import "./profileCard.scss";
-import {CandidateOverview} from '../candidateOverview'
-import {ChangePassword} from '../changePassword'
+import { CandidateOverview } from "../candidateOverview";
+import { CandidateProjects } from "../candidateProjects";
+import { Normaltabs } from "../../../common";
+import { ChangePassword } from "../changePassword";
 import { useState } from "react";
-export const ProfileCard = ({ userDetail = null }) => {
-const [seletctTab,setSelectTab] =useState(0)
+export const ProfileCard = ({ userDetail = null, isCandidate = false }) => {
+  const [seletctTab, setSelectTab] = useState(0);
+
+  const tabData = [
+    {
+      label: "overview",
+      value: 0,
+    },
+    {
+      label: "Projects",
+      value: 1,
+    },
+    {
+      label: "Change password",
+      value: 2,
+    },
+  ];
+
+  const handleChangeTab = (value) => {
+    setSelectTab(value);
+  };
 
   return (
     <div className="row">
@@ -19,9 +40,16 @@ const [seletctTab,setSelectTab] =useState(0)
         <div className="card profile-card mb-4">
           <div className="card-body pt-9 pb-0">
             <div className="d-flex mt-2 align-items-top mb-4">
-              <img src={letterAvatar(getDisplayName(),160)} className="profile-img me-3" alt="image" />
+              <img
+                src={letterAvatar(
+                  isCandidate ? userDetail?.name : getDisplayName(),
+                  160
+                )}
+                className="profile-img me-3"
+                alt="image"
+              />
               <div className="mb-0 flex-grow">
-                <h3 className="me-2 mb-2">{getDisplayName()}</h3>
+                <h3 className="me-2 mb-2">{isCandidate ? userDetail?.name : getDisplayName()}</h3>
                 <div className="d-flex">
                   <div className="d-flex align-items-center text-muted font-weight-light">
                     <i className="mdi  mdi-calendar icon-sm me-2"></i>
@@ -80,24 +108,13 @@ const [seletctTab,setSelectTab] =useState(0)
                 <i className="mdi mdi-heart-outline text-muted"></i>
               </div>
             </div>
-            <ul className="nav nav-underline">
-              <li className="nav-item">
-                <a className={`nav-link ${seletctTab ===0 && 'active'} `}  onClick={()=>setSelectTab(0)} aria-current="page" href="#">
-                  overview
-                </a>
-              </li>
-              <li class="nav-item">
-                <a className={`nav-link ${seletctTab ===1 && 'active'} `} onClick={()=>setSelectTab(1)} href="#">
-                  Change password
-                </a>
-              </li>
-            </ul>
+            <Normaltabs data={tabData} onChange={handleChangeTab} />
           </div>
         </div>
 
-{seletctTab ===0 && <CandidateOverview userDetail={userDetail}/>}
-{seletctTab ===1 && <ChangePassword userDetail={userDetail}/>}
-        
+        {seletctTab === 0 && <CandidateOverview  isCandidate={isCandidate} userDetail={userDetail} />}
+        {seletctTab === 1 && <CandidateProjects userDetail={userDetail} />}
+        {seletctTab === 2 && <ChangePassword userDetail={userDetail} />}
       </div>
     </div>
   );

@@ -2,6 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialCandidateState = {
   candidateListData: [],
+  candidateData: null,
+  isCandidateDataLoader: false,
   isCandidateListLoader: false,
   isCreateUpdateLoader: false,
 };
@@ -13,6 +15,13 @@ const candidateStateSlice = createSlice({
     setCandidateDataList(state, action) {
       state.candidateListData = action.payload;
       state.isCandidateListLoader = false;
+    },
+    setCandidateData(state, action) {
+      state.isCandidateDataLoader = false;
+      state.candidateData = action.payload;
+    },
+    setIsCandidateDataLoader(state, action) {
+      state.isCandidateDataLoader = action?.payload;
     },
     setisCandidateListLoader(state, action) {
       state.isCandidateListLoader = action?.payload;

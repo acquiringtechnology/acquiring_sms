@@ -136,8 +136,8 @@ const routers = [
         exact: true,
       },
       {
-        component: "UserDetailPage",
-        path: "/detail",
+        component: "CandidateDetailPage",
+        path: "/detail/:candidateId",
         auth: true,
         exact: true,
       },

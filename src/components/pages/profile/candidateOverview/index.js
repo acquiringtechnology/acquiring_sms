@@ -11,7 +11,7 @@ import { updateCandidate } from "../../../../services/api/candidate";
 import { EXIST_LOCAL_STORAGE } from "../../../../services/constants";
 import _ from "lodash";
 
-export const CandidateOverview = ({ userDetail = null }) => {
+export const CandidateOverview = ({ userDetail = null ,isCandidate=false }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [candidateForm, setcandidateForm] = useState({
@@ -118,7 +118,7 @@ export const CandidateOverview = ({ userDetail = null }) => {
               ) : (
                 <div class="col-lg-8">
                   <span class="fw-bold fs-6 text-gray-800">
-                    {getDisplayName()}
+                    {isCandidate ? userDetail?.name : getDisplayName()}
                   </span>
                 </div>
               )}

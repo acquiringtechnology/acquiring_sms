@@ -63,3 +63,8 @@ export const CLASS_MODE = {
   OFFLINE: 0,
   ONLINE: 1
 };
+export const PROJECT_STATUS = {
+  NOT_APPROVAL: 0,
+  APPROVAL: 1,
+ 
+};

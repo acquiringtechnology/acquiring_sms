@@ -1,4 +1,4 @@
-import { YES_NO_STATUS, CLASS_MODE } from "../../constants";
+import { YES_NO_STATUS, CLASS_MODE, PROJECT_STATUS } from "../../constants";
 import { leadSchemaModule } from "../lead";
 
 export const candidateSchemaModule = {
@@ -12,11 +12,20 @@ export const candidateSchemaModule = {
   gitAccountId: "",
   gitAccount: YES_NO_STATUS.NO,
   projectLink: "",
+  projects: [
+    {
+      projectLink: "",
+      mark: "",
+      gitLink: "",
+      id: "",
+      status: PROJECT_STATUS.NOT_APPROVAL,
+    },
+  ],
   batchIds: [],
   classStartDate: "",
-  password:"",
+  password: "",
   classEndDate: "",
-  candidateCode:"",
+  candidateCode: "",
   billingInfo: [
     {
       payFees: "",
