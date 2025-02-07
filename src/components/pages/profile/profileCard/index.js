@@ -45,7 +45,7 @@ export const ProfileCard = ({ userDetail = null, isCandidate = false }) => {
                   isCandidate ? userDetail?.name : getDisplayName(),
                   160
                 )}
-                className="profile-img me-3"
+                className="profile-img me-3 border-rounded"
                 alt="image"
               />
               <div className="mb-0 flex-grow">
