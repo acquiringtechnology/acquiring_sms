@@ -72,7 +72,7 @@ export const userSignIn = async (body) => {
     // Check if the password matches
     if (userData.password === body.password) {
       // Remove password from the user data
-      const { password, ...user } = userData;
+      const {...user } = userData;
 
       Toast({ message: "User Login Successful", type: "success" });
       localStorage.setItem(
