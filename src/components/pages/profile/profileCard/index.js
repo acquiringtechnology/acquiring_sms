@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import face1 from "../../../../assets/images/faces/face1.jpg";
 import {
-  getStorage,
+  calculateProfileStrength,
   getDisplayName,
   letterAvatar,
 } from "../../../../services/helperFunctions";
@@ -12,6 +12,9 @@ import { CandidateProjects } from "../candidateProjects";
 import { Normaltabs } from "../../../common";
 import { ChangePassword } from "../changePassword";
 import { useState } from "react";
+import {
+  PROJECT_STATUS,
+} from "../../../../services/constants";
 export const ProfileCard = ({ userDetail = null, isCandidate = false }) => {
   const [seletctTab, setSelectTab] = useState(0);
 
@@ -33,6 +36,35 @@ export const ProfileCard = ({ userDetail = null, isCandidate = false }) => {
   const handleChangeTab = (value) => {
     setSelectTab(value);
   };
+
+  const handleGetProjectComplitCount =()=>{
+
+    return userDetail?.projects?.filter((project)=>project?.status === PROJECT_STATUS.APPROVAL)?.length || 0;
+
+
+  }
+
+
+  const handleGetRanPer =()=>{
+
+    // const totalMarks = userDetail?.projects?.reduce((sum, project) => sum + (project?.mark || 0), 0) || 0;
+    const totalMarks = 100;
+
+    const overAllMark = userDetail?.projects
+      ?.filter((project) => project?.status === PROJECT_STATUS.APPROVAL)
+      ?.reduce((sum, project) => sum + (project?.mark || 0), 0) || 0;
+    
+      return totalMarks > 0 ? (overAllMark / totalMarks) * 100 : 0;
+  
+
+  }
+
+
+  const findProfileStrength=()=>{
+    const requiredKeys = ["projects", "name", "email", "phone", "age", "address","state","pincode","city",""];
+
+    return calculateProfileStrength(userDetail, requiredKeys)
+  }
 
   return (
     <div className="row">
@@ -65,14 +97,14 @@ export const ProfileCard = ({ userDetail = null, isCandidate = false }) => {
                       <div className="border border-gray-300 border-dashed rounded min-w-125px py-2 px-4 me-6 mb-3">
                         <div class="d-flex align-items-center">
                           <i class="mdi mdi-arrow-up-thin fs-3 text-success me-2"></i>{" "}
-                          <div class="fs-2 fw-bold counted">0/5</div>
+                          <div class="fs-2 fw-bold counted">{handleGetProjectComplitCount()}/5</div>
                         </div>
                         <div class="fw-semibold fs-6 text-muted">Project</div>
                       </div>
                       <div className="border border-gray-300 border-dashed rounded min-w-125px py-2 px-4 me-6 mb-3 ms-2">
                         <div class="d-flex align-items-center">
                           <i class="mdi mdi-arrow-up-thin fs-3 text-success me-2"></i>{" "}
-                          <div class="fs-2 fw-bold counted">0%</div>
+                          <div class="fs-2 fw-bold counted">{handleGetRanPer()}%</div>
                         </div>
                         <div class="fw-semibold fs-6 text-muted">Rank Per.</div>
                       </div>
@@ -84,7 +116,7 @@ export const ProfileCard = ({ userDetail = null, isCandidate = false }) => {
                       <span className="fw-semibold fs-6 text-gray-500">
                         Profile Compleation
                       </span>
-                      <span className="fw-bold fs-6">50%</span>
+                      <span className="fw-bold fs-6">{findProfileStrength()}</span>
                     </div>
                     <div class="h-5px mx-3 w-100 bg-light mb-3">
                       <div
@@ -97,7 +129,7 @@ export const ProfileCard = ({ userDetail = null, isCandidate = false }) => {
                       >
                         <div
                           class="progress-bar bg-gradient-primary h-100"
-                          style={{ width: "50%" }}
+                          style={{ width: findProfileStrength() }}
                         ></div>
                       </div>
                     </div>

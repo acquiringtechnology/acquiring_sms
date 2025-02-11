@@ -138,7 +138,7 @@ export const CandidateProjects = ({ userDetail = null }) => {
         if (result.isConfirmed) {
           setcandidateForm((prevState) => ({
             ...prevState,
-            projects: prevState.projects.filter((_, index) => index !== i),
+            projects: prevState?.projects?.filter((_, index) => index !== i),
           }));
         }
       });

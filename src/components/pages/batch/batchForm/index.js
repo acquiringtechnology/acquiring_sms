@@ -15,6 +15,7 @@ import {
 } from "../../../../services/constants";
 import { batchSchemaModule } from "../../../../services/module/batch";
 import { employeeListObjectMakeIdLabel } from "../../../../services/helperFunctions";
+import { QUIZ_LIST } from "../../../../services/data/quiz";
 import {
   createNewBatch,
   updateBatchData,
@@ -36,6 +37,16 @@ export const BatchFrom = ({
     ...editBatchObject,
   });
   const [, forceUpdate] = useState();
+  const [quizList, setQuizList] = useState([]);
+
+
+  useEffect(()=>{
+
+    const quiz =QUIZ_LIST.map(({title,id})=> ({label:title,value:id}));
+
+    setQuizList(quiz);
+
+  },[])
 
   useEffect(() => {
     if (!_.isEmpty(editBatchObject)) {
@@ -229,6 +240,21 @@ export const BatchFrom = ({
             batchFormObject.status,
             "required"
           )}
+        />
+      </div>
+      <div className="col-md-6">
+        <NormalSelect
+            multiple
+          label="Quiz"
+          name="quizIds"
+          option={quizList}
+          onChange={handleBatchFormChange}
+          value={batchFormObject.quizIds}
+          // errorMessage={simpleValidator.current.message(
+          //   "Quiz",
+          //   batchFormObject.quizIds,
+          //   "required"
+          // )}
         />
       </div>
       <div className="col-md-12">

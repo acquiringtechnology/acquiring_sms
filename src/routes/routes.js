@@ -116,8 +116,14 @@ const routers = [
     exact: false,
     childrens: [
       {
-        component: "AtQuizPage",
+        component: "AtQuizeListPage",
         path: "/",
+        auth: true,
+        exact: true,
+      },
+      {
+        component: "AtQuizPage",
+        path: "/detail/:quizId",
         auth: true,
         exact: true,
       }

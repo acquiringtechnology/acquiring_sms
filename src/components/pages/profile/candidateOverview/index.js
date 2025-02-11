@@ -9,6 +9,7 @@ import { candidateSchemaModule } from "../../../../services/module/candidate";
 import { indianStatesDistricts } from "../../../../services/data/indianStatesDistricts";
 import { updateCandidate } from "../../../../services/api/candidate";
 import { EXIST_LOCAL_STORAGE } from "../../../../services/constants";
+import { setStorage } from "../../../../services/helperFunctions";
 import _ from "lodash";
 
 export const CandidateOverview = ({ userDetail = null ,isCandidate=false }) => {
@@ -46,8 +47,7 @@ export const CandidateOverview = ({ userDetail = null ,isCandidate=false }) => {
           { ...candidateForm },
           candidateForm?.userId
         );
-        console.log("userDetail----", JSON.stringify(userDetail));
-        localStorage.setItem(
+        setStorage(
           EXIST_LOCAL_STORAGE.CURRENT_USER,
           JSON.stringify({ ...candidateForm })
         );

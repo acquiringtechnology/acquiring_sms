@@ -10,12 +10,31 @@ import {
 import moment from "moment";
 import { employeeSchemaModule } from "../module/employee";
 
+import CryptoJS from 'crypto-js';
+
+// First, include CryptoJS if you're in Node.js environment
+
+// Encryption function
+function encrypt(text) {
+  // return CryptoJS.AES.encrypt(text, "acquiringAT2023").toString();
+  return window.btoa(text);
+}
+
+function decrypt(encryptedBase64) {
+  // let bytes = CryptoJS.AES.decrypt(encryptedBase64, "acquiringAT2023");
+  // return bytes.toString(CryptoJS.enc.Utf8);
+  return window.atob(encryptedBase64);
+}
+
 export const setStorage = (name = "", data = "") => {
-  localStorage.setItem(name, data);
+  window.localStorage.setItem(encrypt(name), encrypt(data));
 };
 
 export const getStorage = (name = "") => {
-  return localStorage.getItem(name);
+  let data = window.localStorage.getItem(encrypt(name));
+  // console.log('data---',data,encrypt(name),name)
+  if (!data) return data;
+  return decrypt(data);
 };
 
 export function generateOTP() {
@@ -352,3 +371,26 @@ export const getDisplayName = () => {
     }
   }
 };
+
+export function getTimePeriodPercentage(startDate, endDate) {
+  const now = new Date();
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+
+  if (now < start) return 0; // Not started yet
+  if (now > end) return 100; // Already finished
+
+  const percentage = ((now - start) / (end - start)) * 100;
+  return `${percentage?.toFixed()}%`; // Returns percentage with 2 decimal places
+}
+
+export function calculateProfileStrength(obj = {}, requiredKeys = []) {
+  try {
+    const totalKeys = requiredKeys?.length;
+    const presentKeys = requiredKeys?.filter((key) => key in obj)?.length || 0;
+
+    return `${((presentKeys / totalKeys) * 100).toFixed()}%`; // Rounded to 2 decimal places
+  } catch (e) {
+    return 0;
+  }
+}

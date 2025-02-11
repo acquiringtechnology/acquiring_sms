@@ -40,7 +40,7 @@ import {
     try {
       const docRef = doc(getFirestore(), DB_NAME.BATCH, docId);
       const docSnap = await getDoc(docRef); // Fetch document
-      console.log('docSnap.data()--',docSnap.data())
+      console.log('docSnap.data() getBatchById--',docSnap.data())
       if (docSnap.exists()) {
         return docSnap.data();
       } else {

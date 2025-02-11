@@ -9,3 +9,4 @@ export { BatchOneUp } from "./batchOneUp";
 export { CKeditorBox } from "./ckEditor";
 export { Normaltabs } from "./tab";
 export { NormalSwitch } from "./switch";
+export { NoDataFound } from "./noDataFound";

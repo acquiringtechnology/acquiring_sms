@@ -46,24 +46,27 @@ export function NormalSelect(props) {
   };
 
   React.useEffect(() => {
-    if (multiple) {
-      const val = typeof value === "string" ? value.split(",") : value;
-      setMultySelectValue(val);
-    } else {
-      console.log("-----", value);
-      setSelectValue(String(value));
-    }
+    handleValueUpdate();
   }, []);
 
   React.useEffect(() => {
+    handleValueUpdate();
+  }, [value]);
+
+  const handleValueUpdate = () => {
     if (multiple) {
-      const val = typeof value === "string" ? value.split(",") : value;
-      setMultySelectValue(val);
+      const val =
+        typeof value === "string" && value?.length ? value.split(",") : value;
+
+      if (val?.length > 0) {
+        setMultySelectValue(val);
+      } else {
+        setMultySelectValue([]);
+      }
     } else {
-      console.log("-----", value);
       setSelectValue(String(value));
     }
-  }, [value]);
+  };
 
   // eslint-disable-next-line consistent-return
   const handleRenderValue = () => {

@@ -8,6 +8,7 @@ import { candidateSchemaModule } from "../../../../services/module/candidate";
 import { indianStatesDistricts } from "../../../../services/data/indianStatesDistricts";
 import { updateCandidate } from "../../../../services/api/candidate";
 import { EXIST_LOCAL_STORAGE } from "../../../../services/constants";
+import { setStorage } from "../../../../services/helperFunctions";
 import _, { set } from "lodash";
 
 export const ChangePassword = ({ userDetail = null }) => {
@@ -51,7 +52,7 @@ export const ChangePassword = ({ userDetail = null }) => {
           { ...candidateForm },
           candidateForm?.userId
         );
-        localStorage.setItem(
+        setStorage(
           EXIST_LOCAL_STORAGE.CURRENT_USER,
           JSON.stringify({ ...candidateForm })
         );

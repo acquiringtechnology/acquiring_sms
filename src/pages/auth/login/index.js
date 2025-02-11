@@ -6,6 +6,7 @@ import { userSignIn } from "../../../services/api/login";
 import { useNavigate } from "react-router";
 import { LOGIN_TYPE } from "../../../services/constants";
 import _ from "lodash";
+
 export const LoginPage = ({ loginType = null }) => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
@@ -39,6 +40,7 @@ export const LoginPage = ({ loginType = null }) => {
         setIsLoading(true);
         const resOpt = await userSignIn(body);
         setIsLoading(false);
+        console.log("resOpt------", JSON.stringify(resOpt));
         if (!_.isEmpty(resOpt)) {
           if (loginType === LOGIN_TYPE.EMPLOYEE) {
             navigate("/home", { replace: true });
@@ -46,7 +48,7 @@ export const LoginPage = ({ loginType = null }) => {
             navigate("/class", { replace: true });
           }
         }
-        console.log("resOpt------", JSON.stringify(resOpt));
+  
       } else {
         simpleValidator.current.showMessages();
         forceUpdate(1); // Consider removing this if possible
@@ -102,7 +104,7 @@ export const LoginPage = ({ loginType = null }) => {
             <NormalButton
               isLoader={isLoading}
               className="btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn"
-              label={"Send OTP"}
+              label={"Sign in"}
               onClick={handleSendOtp}
             />{" "}
           </div>

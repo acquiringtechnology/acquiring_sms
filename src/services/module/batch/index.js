@@ -11,6 +11,7 @@ export const batchSchemaModule = {
     stDate: '',
     endDate: '',
     updatedBy: [],
-    classDays: []
+    classDays: [],
+    quizIds: []
   };
   

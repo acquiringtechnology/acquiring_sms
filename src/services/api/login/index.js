@@ -12,6 +12,7 @@ import {
   where,
 } from "firebase/firestore";
 import { Toast } from "../../../services/toast";
+import { setStorage} from "../../helperFunctions";
 import { DB_NAME, LOGIN_TYPE,EXIST_LOCAL_STORAGE } from "../../constants";
 
 export const sendLoginOtp = async (body) => {
@@ -75,11 +76,11 @@ export const userSignIn = async (body) => {
       const {...user } = userData;
 
       Toast({ message: "User Login Successful", type: "success" });
-      localStorage.setItem(
+      setStorage(
         EXIST_LOCAL_STORAGE.CURRENT_USER,
         JSON.stringify({ ...user,userId, loginType: body.loginType })
       );
-      localStorage.setItem(
+      setStorage(
         EXIST_LOCAL_STORAGE.AUTHTOKEN,
         true
       );
