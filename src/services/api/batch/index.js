@@ -74,17 +74,17 @@ import {
         const lastCode = latestBatch.batchCode; // Assuming batch code is the document ID
   
         // Extract the numeric part of the code
-        const lastCodeNumber = parseInt(lastCode.replace("ATEFSWD", "")) || 1000; // Default to 100 if parsing fails
+        const lastCodeNumber = parseInt(lastCode.replace("ATBFSWD", "")) || 1000; // Default to 100 if parsing fails
   
         // Generate the new batchCode code
         const newCodeNumber = lastCodeNumber + 1;
-        const newBatchCode = "ATE" + newCodeNumber.toString().padStart(7, "0");
+        const newBatchCode = "ATB" + newCodeNumber.toString().padStart(7, "0");
   
         console.log("New batchCode Code:", newBatchCode);
         return newBatchCode;
       } else {
         // If no batch found, start from ATEFSWD1001
-        return "ATEFSWD1001";
+        return "ATBFSWD1001";
       }
     } catch (e) {
       console.error("Error fetching batch:", e);
