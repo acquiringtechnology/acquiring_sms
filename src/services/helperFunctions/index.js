@@ -10,7 +10,7 @@ import {
 import moment from "moment";
 import { employeeSchemaModule } from "../module/employee";
 
-import CryptoJS from 'crypto-js';
+import CryptoJS from "crypto-js";
 
 // First, include CryptoJS if you're in Node.js environment
 
@@ -173,6 +173,16 @@ export const convertStringToHTML = (htmlString) => {
   return html.body.toString();
 };
 
+ export const formatTimestamp = (date) => {
+        if (date?.seconds && date?.nanoseconds) {
+          const timestampInMilliseconds =
+            date.seconds * 1000 + date.nanoseconds / 1000000;
+          return moment(timestampInMilliseconds).format("DD MMM YYYY");
+        }
+        return moment(date).format("DD MMM YYYY");
+      };
+
+
 export const multySearchObjects = (array = [], searchCriteria = {}) => {
   // eslint-disable-next-line no-debugger
   // debugger;
@@ -188,6 +198,12 @@ export const multySearchObjects = (array = [], searchCriteria = {}) => {
           if (key === "userName") {
             const name = `${item?.fname} ${item?.lname}`;
             return name?.toString().toLowerCase().includes(value.toLowerCase());
+          }
+          if (key === "createdBy") {
+            const createdByDate = item?.createdBy?.[0]?.date;
+            if (createdByDate) {
+              return moment(value).isSame(moment(formatTimestamp(createdByDate)), 'month');
+            }
           }
           return item[key]
             ?.toString()

@@ -260,7 +260,7 @@ export const EMPLOYEE_DESIGNATION_LIST = [
 
 export const COURSE_LIST = [
   {
-    label: "Full Stack",
+    label: "Full Stack Web Devlopment",
     value: "d5eb2822-507c-11ee-be56-0242ac120002",
   },
 ];

@@ -1,12 +1,12 @@
 import { QuizList } from "../../../components/pages";
-import { Breadcrumb, NormalModal } from "../../../components/common";
+import { Breadcrumb } from "../../../components/common";
 import { useAppDispatch, useAppSelector } from "../../../hooks/reducHooks";
 import { getBatchDetailsById } from "../../../redux/action/batch.action";
 import { QUIZ_LIST } from "../../../services/data/quiz";
 import { getStorage } from "../../../services/helperFunctions";
 import { EXIST_LOCAL_STORAGE, STATUS } from "../../../services/constants";
 import { useEffect, useState } from "react";
-export const AtQuizeListPage = () => {
+export const AtQuizPageList= () => {
   const dispatch = useAppDispatch();
   const batchSync = useAppSelector((state) => state.batchSync);
   const [quizList, setQuizList] = useState([]);

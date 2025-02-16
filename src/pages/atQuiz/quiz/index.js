@@ -1,7 +1,7 @@
 import { QUIZ_LIST } from "../../../services/data/quiz";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { Breadcrumb, NormalModal } from "../../../components/common";
+import { Breadcrumb } from "../../../components/common";
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import { getStorage } from "../../../services/helperFunctions";

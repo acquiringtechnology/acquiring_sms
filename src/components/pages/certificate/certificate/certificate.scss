@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Damion&family=Monsieur+La+Doulaise&family=Pacifico&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+.certificate-container {
+    background-color: #fff; /* White background for the certificate */
+    /* border: 2px solid #000;  */
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    position: relative;
+    /* background-image: url('./assets/certificate_bg.svg'); */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    text-align: center;
+}
+.logo{
+    width: 237px;
+    /* height: 80px; */
+    margin-top: 5rem;
+}
+.heading{
+    font-size: 4rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    background: linear-gradient(96deg, rgba(191,25,34,1) 0%, rgba(11,27,31,1) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent; /* Make the text transparent to show the gradient */
+}
+.sub-heading{
+    color: rgba(18, 18, 18, 0.3);
+    font-size: 2.5rem;
+}
+.candidate-name{
+  color:   rgba(190, 154, 69, 1);
+  font-size: 8rem;
+  font-family: "Damion", serif;
+  font-style: normal;
+}
+.candidate-name>span{
+    border-bottom: 5px dashed;
+    padding: 0 8rem;
+}
+.certificate-id{
+
+}
+.certificate-coursename{
+    color: rgba(18, 18, 18, 0.3);
+}
+
+.continer{
+    width: 80%;
+    margin: 0 auto;
+}
+
+.founder-sig{
+  
+}
+
+.founder-sig >span{
+    border-bottom: 5px dashed #7D141D;
+    padding: 0 8rem;
+   
+}
+.text-app{
+    color: #7D141D;
+}

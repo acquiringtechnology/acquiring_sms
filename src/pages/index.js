@@ -6,5 +6,6 @@ export { PageNotFoundPage } from "./pageNotFound";
 export { CandidatePage, CandidateDetailPage } from "./candidate";
 export { SessionclassListPage, SessionclassDetailPage } from "./sessionclass";
 export { TrainerLoginPage, WhoIAmPage, CandidateLoginPage } from "./auth";
-export { AtQuizeListPage, AtQuizPage } from "./atQuiz";
+export { AtQuizPageList, AtQuizPage } from "./atQuiz";
 export { ProfilePage } from "./profile";
+export { CertificateListPage } from "./certificate";

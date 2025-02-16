@@ -23,7 +23,7 @@ export const NormalInput = (props) => {
       error={!!errorMessage}
       className={`mb-3 ${className}`}
     >
-      <label className="form-label fw-medium">{label}</label>
+    {label &&  <label className="form-label fw-medium">{label}</label>}
       {outlinedInput ? (
         <OutlinedInput
           {...props}

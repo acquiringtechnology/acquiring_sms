@@ -1,4 +1,5 @@
 import { NormalButton, NoDataFound } from "../../../common";
+import { CertificateDoc} from "../../../pages";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import Skeleton from "@mui/material/Skeleton";
@@ -173,6 +174,7 @@ export const QuizList = ({ quizList = [], batchSync = null }) => {
       {!batchSync?.isBatchDetailByIdLoader && (
         <NoDataFound image={noQuizFoundImg} title="No quiz" />
       )}
+
     </>
   );
 };

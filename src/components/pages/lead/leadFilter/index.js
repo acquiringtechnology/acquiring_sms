@@ -1,4 +1,4 @@
-import { NormalSearch, NormalSelect, NormalButton } from "../../../common";
+import { NormalSearch, NormalSelect, NormalButton, NormalInput } from "../../../common";
 import {
   LEAD_TYPE_LIST,
   COURSE_ENQUIRY_STATUS_LIST,
@@ -16,6 +16,7 @@ export const LeadFilter = ({ onChange = () => {}, leadListData = [] }) => {
     leadFrom: "",
     leadType: "",
     status: "",
+    createdBy:""
   });
 
   const handleInputChange = (event) => {
@@ -150,6 +151,17 @@ export const LeadFilter = ({ onChange = () => {}, leadListData = [] }) => {
       </div>
 
       <div className="col-md-2">
+        <NormalInput
+          option={LEAD_TYPE_LIST}
+          type='month'
+          isLabel={false}
+          name="createdBy"
+          value={filterObject.createdBy}
+          onChange={handleInputChange}
+          // label="Select Month"
+        />
+      </div>
+      {/* <div className="col-md-2">
         <NormalSelect
           option={LEAD_TYPE_LIST}
           isLabel={false}
@@ -158,7 +170,7 @@ export const LeadFilter = ({ onChange = () => {}, leadListData = [] }) => {
           onChange={handleInputChange}
           label="Lead Type"
         />
-      </div>
+      </div> */}
       <div className="col-md-1">
         {/* <NormalButton label="Search" /> */}
         <NormalButton

@@ -1,2 +1,2 @@
-export { AtQuizeListPage } from "./list";
+export { AtQuizPageList } from "./list";
 export { AtQuizPage } from "./quiz";

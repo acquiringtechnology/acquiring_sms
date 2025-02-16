@@ -116,7 +116,7 @@ const routers = [
     exact: false,
     childrens: [
       {
-        component: "AtQuizeListPage",
+        component: "AtQuizPageList",
         path: "/",
         auth: true,
         exact: true,
@@ -157,6 +157,21 @@ const routers = [
     childrens: [
       {
         component: "ProfilePage",
+        path: "/",
+        auth: true,
+        exact: true,
+      },
+      
+    ],
+  },
+  {
+    component: "AdminLayout",
+    path: "/certificate",
+    auth: true,
+    exact: false,
+    childrens: [
+      {
+        component: "CertificateListPage",
         path: "/",
         auth: true,
         exact: true,
