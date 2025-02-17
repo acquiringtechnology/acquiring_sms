@@ -6,7 +6,7 @@ export const MENU = [
     path: "/home",
     exact: true,
     icon: "mdi-home",
-    loginType:LOGIN_TYPE.EMPLOYEE,
+    loginType:LOGIN_TYPE.BOTH,
     subMenu: [],
   },
   {

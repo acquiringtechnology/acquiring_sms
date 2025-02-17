@@ -50,6 +50,11 @@ export const CandidatePage = () => {
   const handleChangeFilter = (filterObj) => {
     setFilterObject(filterObj);
   };
+
+const handleGetCandidateFilterObject=()=>{
+  
+}
+
   return (
     <>
       <Breadcrumb

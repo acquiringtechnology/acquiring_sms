@@ -6,6 +6,8 @@ import {
   USER_TYPE,
   EXIST_LOCAL_STORAGE,
   LOGIN_TYPE,
+  PROJECTS_LIST,
+  PROJECT_STATUS
 } from "../constants";
 import moment from "moment";
 import { employeeSchemaModule } from "../module/employee";
@@ -183,44 +185,80 @@ export const convertStringToHTML = (htmlString) => {
       };
 
 
-export const multySearchObjects = (array = [], searchCriteria = {}) => {
-  // eslint-disable-next-line no-debugger
-  // debugger;
-  try {
-    const criteriaKeys = Object.keys(searchCriteria).filter(
-      (key) => searchCriteria[key] !== ""
-    );
-
-    return array.filter((item) => {
-      return criteriaKeys.every((key) => {
-        const value = searchCriteria[key];
-        if (typeof value === "string") {
-          if (key === "userName") {
-            const name = `${item?.fname} ${item?.lname}`;
-            return name?.toString().toLowerCase().includes(value.toLowerCase());
-          }
-          if (key === "createdBy") {
-            const createdByDate = item?.createdBy?.[0]?.date;
-            if (createdByDate) {
-              return moment(value).isSame(moment(formatTimestamp(createdByDate)), 'month');
+      export const multySearchObjects = (array = [], searchCriteria = {}) => {
+        try {
+          const criteriaKeys = Object.keys(searchCriteria).filter(
+            (key) => searchCriteria[key] !== ""
+          );
+      
+          if (criteriaKeys.length === 0) return array;
+      
+          const criteriaPredicates = criteriaKeys.map(key => {
+            const value = searchCriteria[key];
+            try {
+              // Handle special search cases
+              if (key === 'userName') {
+                const searchTerm = value.toLowerCase();
+                return (item) => {
+                  try {
+                    const fname = item?.fname ?? '';
+                    const lname = item?.lname ?? '';
+                    return `${fname} ${lname}`.trim().toLowerCase().includes(searchTerm);
+                  } catch {
+                    return false;
+                  }
+                };
+              }
+      
+              if (key === 'createdBy') {
+                const searchDate = moment(value);
+                if (!searchDate.isValid()) return () => false;
+                
+                return (item) => {
+                  try {
+                    const itemDate = moment(formatTimestamp(item?.createdBy?.[0]?.date));
+                    return itemDate.isValid() && searchDate.isSame(itemDate, 'month');
+                  } catch {
+                    return false;
+                  }
+                };
+              }
+      
+              if (key === 'projectId') {
+                return (item) => 
+                  item?.projects?.some(project => project?.id === value) ?? false;
+              }
+      
+              // Handle generic cases
+              if (typeof value === 'string') {
+                const searchTerm = value.toLowerCase();
+                return (item) => 
+                  String(item[key] ?? '').toLowerCase().includes(searchTerm);
+              }
+      
+              if (typeof value === 'number') {
+                return (item) => 
+                  Array.isArray(item[key]) && item[key].includes(value);
+              }
+      
+              // Default equality check
+              return (item) => item[key] === value;
+      
+            } catch {
+              return () => false;
             }
-          }
-          return item[key]
-            ?.toString()
-            .toLowerCase()
-            .includes(value.toLowerCase());
+          });
+      
+          return array.filter(item => {
+            if (!item || typeof item !== 'object') return false;
+            return criteriaPredicates.every(predicate => predicate(item));
+          });
+      
+        } catch (e) {
+          console.error('Search error:', e);
+          return array;
         }
-        if (typeof value === "number" && Array.isArray(item[key])) {
-          return item[key]?.includes(value);
-        }
-        return item[key] === value;
-      });
-    });
-  } catch (e) {
-    console.log("-------", e);
-    return array;
-  }
-};
+      };
 
 export const getRandomThreeDigitNumber = () => {
   return `${new Date().getSeconds()}-${Math.floor(Math.random() * 900) + 100}`;
@@ -409,4 +447,24 @@ export function calculateProfileStrength(obj = {}, requiredKeys = []) {
   } catch (e) {
     return 0;
   }
-}
+};
+
+export const handleGetProjectCompletedCount = (project = [], candidate) => {
+  const projects = PROJECTS_LIST?.find(({ id }) => id === candidate.liveClassId)?.projectList;
+
+  // Return '0/0' if no projects or project list is not found
+  if (!projects || !Array.isArray(projects)) return '0/0';
+
+  const totalProjects = projects.length;
+  const completedProjects = project.length;
+  const verifiedCount = project.filter(({ status }) => status === PROJECT_STATUS.APPROVAL).length;
+  return (
+    <span>
+      Completed <strong>{completedProjects}</strong> projects,{' '}
+      <strong>{verifiedCount}</strong> verified by management, out of{' '}
+      <strong>{totalProjects}</strong> total.
+    </span>
+  );
+};
+
+

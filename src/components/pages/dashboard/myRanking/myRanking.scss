@@ -1,0 +1,11 @@
+.ranking-card{
+ 
+    max-height: 570px;
+    overflow-x: auto;
+    .card-body{
+        // overflow-x: auto;
+        .user-name{
+            font-size: 1rem;
+        }
+    }
+}

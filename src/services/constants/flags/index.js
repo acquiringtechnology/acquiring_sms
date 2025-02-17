@@ -8,7 +8,8 @@ export const USER_TYPE = {
 
 export const LOGIN_TYPE = {
   CANDIDATE: 0,
-  EMPLOYEE: 1
+  EMPLOYEE: 1,
+  BOTH: 2,
 };
 
 export const GENDER = {

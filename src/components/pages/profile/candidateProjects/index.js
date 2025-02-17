@@ -65,6 +65,7 @@ export const CandidateProjects = ({ userDetail = null }) => {
     setcandidateForm((prevState) => {
       // Create a new copy of the projects array
       const updatedProjects = [...prevState.projects];
+      console.log(' type === "checkbox" ? (checked ? 1 : 0) : value---', type === "checkbox" ? (checked ? 1 : 0) : value)
 
       // Update the project at index i
       updatedProjects[i] = {
@@ -85,7 +86,7 @@ export const CandidateProjects = ({ userDetail = null }) => {
     try {
       simpleValidator.current.purgeFields();
       const formValid = simpleValidator.current.allValid();
-      console.log("formValid-----", simpleValidator.current);
+      console.log("formValid-----", candidateForm);
       if (formValid) {
         setIsLoading(true);
         const userDetail = await dispatch(

@@ -45,7 +45,7 @@ export const LoginPage = ({ loginType = null }) => {
           if (loginType === LOGIN_TYPE.EMPLOYEE) {
             navigate("/home", { replace: true });
           } else {
-            navigate("/class", { replace: true });
+            navigate("/home", { replace: true });
           }
         }
   

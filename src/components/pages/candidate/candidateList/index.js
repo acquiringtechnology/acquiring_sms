@@ -2,6 +2,7 @@
 import faces from "../../../../assets/images/faces-clipart/pic-1.png";
 import { BatchOneUp} from "../../../../components/common";
 import { COURSE_ENQUIRY_STATUS_LIST } from "../../../../services/constants";
+import { handleGetProjectCompletedCount } from "../../../../services/helperFunctions";
 import * as moment from "moment";
 import Swal from "sweetalert2";
 import { deleteLeadData } from "../../../../redux/action/lead.action";
@@ -95,6 +96,7 @@ export const CandidateList = ({
                     <th> Name </th>
                     <th> Email </th>
                     <th> Phone </th>
+                    <th> Projects </th>
                     <th> Status </th>
                     <th> Last Update </th>
                     <th> Batch ID </th>
@@ -121,6 +123,7 @@ export const CandidateList = ({
                         </td>
                         <td>{candidate?.email}</td>
                         <td> {candidate?.phone}</td>
+                        <td> {handleGetProjectCompletedCount(candidate?.projects,candidate)}</td>
                         <td>
                           <label
                             className={`badge badge-gradient-${

@@ -10,6 +10,15 @@ import {
   CANDIDATE_COURSE_STATUS,
   STATUS,
 } from "../flags";
+import Ecom from '../../../assets/images/projects/Ecom.svg'
+import Restaurant from '../../../assets/images/projects//Restaurant.svg'
+import bookMyShow from '../../../assets/images/projects/bookMyShow.svg'
+import bulkEmail from '../../../assets/images/projects/bulkEmail.svg'
+import loginSignUp from '../../../assets/images/projects/loginSignUp.svg'
+import netflix from '../../../assets/images/projects/netflix.svg'
+import portfolio from '../../../assets/images/projects/portfolio.svg'
+import toDoList from '../../../assets/images/projects/toDoList.svg'
+import weather from '../../../assets/images/projects/weather.svg'
 
 export const COURSE_ENQUIRY_STATUS_LIST = [
   {
@@ -273,34 +282,42 @@ export const PROJECTS_LIST = [
       {
         label: "portfolio",
         value: "1",
+        img:portfolio
       },
       {
         label: "Restaurant",
         value: "2",
+        img: Restaurant
       },
       {
         label: "To-Do List",
         value: "3",
+        img: toDoList
       },
       {
         label: "E-Commerce",
         value: "4",
+        img: Ecom
       },
       {
         label: "weather application ",
         value: "5",
+        img: weather
       },
       {
         label: "bulk mail application ",
         value: "6",
+        img: bulkEmail
       },
       {
         label: "Netflix Clone ",
         value: "7",
+        img: netflix
       },
       {
         label: "Bookmyshow Clone ",
         value: "8",
+        img: bookMyShow
       },
     ],
   },

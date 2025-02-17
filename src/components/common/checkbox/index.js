@@ -14,7 +14,7 @@ export const NormalCheckbox = (props) => {
   return  (
     <div className="form-check">
     <label className="form-check-label">
-      <input type="checkbox" className="form-check-input"/> {label} <i class="input-helper"></i></label>
+      <input type="checkbox" className="form-check-input" {...props}/> {label} <i class="input-helper"></i></label>
   </div>
   );
 };

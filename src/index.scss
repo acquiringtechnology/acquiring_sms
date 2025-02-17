@@ -121,3 +121,17 @@
 // .css-17jyosd-MuiSwitch-thumb {
 //     background: linear-gradient(to right, #da8cff, #9a55ff) !important; 
 // }
+
+.project-table  td img {
+    width: 45px;
+    height: 45px;
+    border-radius: 0;
+}
+
+.table-sm > :not(caption) > * > * {
+    padding: 0.25rem !important;
+}
+
+.project-table .project-name{
+    font-size: 1rem;
+}

@@ -6,3 +6,4 @@ export { SessionclassList, SessionclassDetail } from "./sessionclass";
 export { ProfileCard} from "./profile";
 export { QuizeComplite,QuizeTestCard,GetStartQuize ,QuizList} from "./quiztest";
 export {CertificateList,CertificateDoc} from "./certificate";
+export {MyProjectStatus ,MyRanking} from "./dashboard";

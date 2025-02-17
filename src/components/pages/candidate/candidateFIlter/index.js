@@ -1,5 +1,5 @@
 import { NormalSearch, NormalSelect, NormalButton } from "../../../common";
-import { CLASS_MODE_LIST } from "../../../../services/constants";
+import { CLASS_MODE_LIST,PROJECTS_LIST } from "../../../../services/constants";
 import { useState } from "react";
 
 export const CandidateFilter = ({ onChange = () => {}, batchListData = [] }) => {
@@ -8,6 +8,7 @@ export const CandidateFilter = ({ onChange = () => {}, batchListData = [] }) => 
     branch: "",
     batchId: "",
     classMode: "",
+    projectId:""
   });
 
   const handleInputChange = (event) => {
@@ -31,6 +32,7 @@ export const CandidateFilter = ({ onChange = () => {}, batchListData = [] }) => 
       branch: "",
       batchId: "",
       classMode: "",
+      projectId:""
     };
     onChange(filterValue);
     setFilterObject(filterValue);
@@ -73,6 +75,16 @@ export const CandidateFilter = ({ onChange = () => {}, batchListData = [] }) => 
           value={filterObject.classMode}
           onChange={handleInputChange}
           label="Class Mode"
+        />
+      </div>
+      <div className="col-md-2">
+        <NormalSelect
+          option={PROJECTS_LIST[0]?.projectList}
+          isLabel={false}
+          name="projectId"
+          value={filterObject.projectId}
+          onChange={handleInputChange}
+          label="Project"
         />
       </div>
       <div className="col-md-2">
