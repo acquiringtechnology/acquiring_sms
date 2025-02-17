@@ -79,6 +79,7 @@ export const LeadForm = ({
   };
 
   const handleleadSubmit = async () => {
+    simpleValidator.current.purgeFields();
     try {
       const formValid = simpleValidator.current.allValid();
 
@@ -242,7 +243,7 @@ export const LeadForm = ({
           )}
         />
       </div>
-      <div className="col-md-6">
+      {leadForm.status === COURSE_ENQUIRY_STATUS.JOINED &&  <div className="col-md-6">
         <NormalSelect
           label="Batch"
           placeholder="Select batch"
@@ -256,7 +257,8 @@ export const LeadForm = ({
             "required"
           )}
         />
-      </div>
+      </div>}
+     
       <div className="col-md-6">
         <NormalInput
           type="date"
