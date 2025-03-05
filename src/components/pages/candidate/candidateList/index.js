@@ -7,6 +7,7 @@ import * as moment from "moment";
 import Swal from "sweetalert2";
 import { deleteLeadData } from "../../../../redux/action/lead.action";
 import { useAppDispatch } from "../../../../hooks/reducHooks";
+// import { updateCandidate } from "../../../../services/api/candidate";
 import { useNavigate } from "react-router";
 
 export const CandidateList = ({
@@ -82,9 +83,25 @@ export const CandidateList = ({
     navigate(`/candidate/detail/${id}`);
   }
 
+  // const  handleUp=  ()=>{
+
+  //   candidateListData?.map(async (candidate,i)=>{
+  //     const userDetail = await updateCandidate(
+  //       { ...candidate, candidateCode: (i + 1).toString().padStart(2, '0') },
+  //       candidate?.id
+  //     );
+
+  //   })
+
+    
+
+  // }
+
   return (
     <div className="row">
       <div className="col-12 grid-margin">
+
+        {/* <button onClick={handleUp}>Handle UPdate</button> */}
         <div className="card">
           <div className="card-body">
             {/* <h4 className="card-title">Recent Tickets</h4> */}
@@ -105,7 +122,7 @@ export const CandidateList = ({
                 </thead>
                 <tbody>
                   {!isCandidateListLoader &&
-                    candidateListData?.map((candidate, i) => (
+                    candidateListData?.map((candidate, i) => candidate?.name && (
                       <tr key={i}>
                         <td>{i + 1}</td>
                         <td>
@@ -127,10 +144,10 @@ export const CandidateList = ({
                         <td>
                           <label
                             className={`badge badge-gradient-${
-                              handleGetStatusTextColour(candidate.status).color
+                              handleGetStatusTextColour(candidate?.status)?.color
                             }`}
                           >
-                            {handleGetStatusTextColour(candidate.status).label}
+                            {handleGetStatusTextColour(candidate?.status)?.label}
                           </label>
                         </td>
                         <td>{handleLatestUpdate(candidate)}</td>

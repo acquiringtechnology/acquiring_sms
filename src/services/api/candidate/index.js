@@ -22,10 +22,20 @@ export const getAllCandidate = async () => {
     const querySnapshot = await getDocs(
       collection(getFirestore(), DB_NAME.CANDIDATE)
     );
-    const data = querySnapshot.docs.map((doc) => ({
-      ...doc.data(),
-      id: doc.id,
-    }));
+    const data = querySnapshot.docs
+      .map((doc) => {
+        const originalCode = doc.data()?.candidateCode || "0"; // Default to "0" if undefined
+        const numericCode = originalCode.replace(/\D/g, ""); // Remove non-numeric characters
+
+        return {
+          ...doc.data(),
+          candidateCode: `ATC-FSWD${numericCode}`,
+          id: doc.id,
+          numericCandidateCode: Number(numericCode), // Store the numeric part for sorting
+        };
+      })
+      .sort((a, b) => a.numericCandidateCode - b.numericCandidateCode); // Sort by numeric value
+
     // data.map((doc) => {
     //   updateCandidate({...doc,password:"Acquiring@1001"},doc.testId)
     // })
@@ -59,7 +69,7 @@ async function getLatestCandidate() {
     const employeesRef = collection(db, DB_NAME?.CANDIDATE);
 
     // Query to get the latest employee based on the 'createdBy.date' timestamp
-    const q = query(employeesRef, orderBy("createdBy.date", "desc"), limit(1));
+    const q = query(employeesRef, orderBy("candidateCode", "desc"), limit(1));
 
     const querySnapshot = await getDocs(q);
 
@@ -70,21 +80,21 @@ async function getLatestCandidate() {
       console.log("querySnapshot.docs[0]---", querySnapshot.docs[0].data());
       const latestEmployee = querySnapshot.docs[0].data();
       const lastCode = latestEmployee.candidateCode; // Assuming employee code is the document ID
-
-      console.log('lastCode.replace("ATC-FSWD", "")---', lastCode);
       // Extract the numeric part of the code
-      const lastCodeNumber = parseInt(lastCode.replace("ATC-FSWD", "")) || 100; // Default to 100 if parsing fails
+      const lastCodeNumber = Number(lastCode) || 100; // Default to 100 if parsing fails
+
+      console.log("lastCodeNumber---", lastCodeNumber);
 
       // Generate the new employee code
       const newCodeNumber = lastCodeNumber + 1;
-      const newEmployeeCode =
-        "ATC-FSWD" + newCodeNumber.toString().padStart(3, "0");
+      console.log("newCodeNumber---", newCodeNumber);
+      const newEmployeeCode = newCodeNumber;
 
       console.log("New Employee Code:", newEmployeeCode);
       return newEmployeeCode;
     } else {
       // If no employee found, start from ATE101
-      return "ATC-FSWD01";
+      return "01";
     }
   } catch (e) {
     console.error("Error fetching employee:", e);
@@ -164,7 +174,7 @@ export const updateCandidate = async (body, id) => {
     //   fieldName: deleteField()
     // });
     Toast({ message: "Updated successfully" });
-    console.log(docRef,'pdated successfully');
+    console.log(docRef, "pdated successfully");
     return body;
   } catch (e) {
     console.error("Error fetching leads:", e);

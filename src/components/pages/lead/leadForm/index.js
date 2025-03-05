@@ -53,19 +53,15 @@ export const LeadForm = ({
     setLeadForm((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  const handleAddCommentsForm = (data, i) => {
-    const { comments = [] } = leadForm;
-    const commentsList = comments;
-    commentsList[i] = {
-      userId: 0,
-      notes: data,
-      date: new Date(),
-    };
-    setLeadForm({
-      ...leadForm,
-      comments: commentsList,
+  const handleAddCommentsForm = (data, index) => {
+    setLeadForm((prev) => {
+      const comments = [...(prev.comments || [])]; // Ensure immutability
+      comments[index] = { userId: 0, notes: data, date: new Date() };
+  
+      return { ...prev, comments };
     });
   };
+  
 
   const handleAddComments = () => {
     leadForm.comments.push({
@@ -92,6 +88,8 @@ export const LeadForm = ({
         const res = leadForm?.id
           ? await dispatch(updateLeadData(leadForm, leadForm.id))
           : await dispatch(createNewLead(leadForm));
+
+          setLeadForm({ ...candidateSchemaModule });
         onSucess();
       } else {
         simpleValidator.current.showMessages();

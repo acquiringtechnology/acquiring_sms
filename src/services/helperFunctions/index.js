@@ -210,6 +210,10 @@ export const convertStringToHTML = (htmlString) => {
                 if (key === 'projectId') {
                   return item?.projects?.some(project => project?.id === value) ?? false;
                 }
+
+                if (key === 'batchId') {
+                  return item?.batchIds?.some(batch => batch?.id === value) ?? false;
+                }
         
   
                 return item[key]
