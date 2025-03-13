@@ -25,13 +25,13 @@ export const getAllCandidate = async () => {
     const data = querySnapshot.docs
       .map((doc) => {
         const originalCode = doc.data()?.candidateCode || "0"; // Default to "0" if undefined
-        const numericCode = originalCode.replace(/\D/g, ""); // Remove non-numeric characters
+        // const numericCode = originalCode.replace(/\D/g, ""); // Remove non-numeric characters
 
         return {
           ...doc.data(),
-          candidateCode: `ATC-FSWD${numericCode}`,
+          candidateCode: `ATC-FSWD${originalCode}`,
           id: doc.id,
-          numericCandidateCode: Number(numericCode), // Store the numeric part for sorting
+          numericCandidateCode: Number(originalCode), // Store the numeric part for sorting
         };
       })
       .sort((a, b) => a.numericCandidateCode - b.numericCandidateCode); // Sort by numeric value
