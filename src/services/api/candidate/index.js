@@ -25,13 +25,14 @@ export const getAllCandidate = async () => {
     const data = querySnapshot.docs
       .map((doc) => {
         const originalCode = doc.data()?.candidateCode || "0"; // Default to "0" if undefined
-        const numericCode = originalCode.replace(/\D/g, ""); // Remove non-numeric characters
+        console.log('originalCode---',originalCode)
+        // const numericCode = originalCode?.replace(/\D/g, ""); // Remove non-numeric characters
 
-        return {
+        return doc.data()?.name && {
           ...doc.data(),
-          candidateCode: `ATC-FSWD${numericCode}`,
+          candidateCode: `ATC-FSWD${originalCode}`,
           id: doc.id,
-          numericCandidateCode: Number(numericCode), // Store the numeric part for sorting
+          numericCandidateCode: Number(originalCode), // Store the numeric part for sorting
         };
       })
       .sort((a, b) => a.numericCandidateCode - b.numericCandidateCode); // Sort by numeric value
@@ -69,17 +70,26 @@ async function getLatestCandidate() {
     const employeesRef = collection(db, DB_NAME?.CANDIDATE);
 
     // Query to get the latest employee based on the 'createdBy.date' timestamp
-    const q = query(employeesRef, orderBy("candidateCode", "desc"), limit(1));
+    const q = query(employeesRef, orderBy("candidateCode", "desc"));
 
     const querySnapshot = await getDocs(q);
 
     console.log("querySnapshot.empty----", querySnapshot.empty);
 
     if (!querySnapshot.empty) {
+      const data = querySnapshot.docs
+      .map((doc) => {
+        const originalCode = doc.data()?.candidateCode || "0"; // Default to "0" if undefined
+        console.log('originalCode---',originalCode)
+        // const numericCode = originalCode?.replace(/\D/g, ""); // Remove non-numeric characters
+
+        return doc.data()?.name && {
+          numericCandidateCode: Number(originalCode), // Store the numeric part for sorting
+        };
+      }).sort((a, b) => b.numericCandidateCode - a.numericCandidateCode); 
       // The first document (the most recent one)
-      console.log("querySnapshot.docs[0]---", querySnapshot.docs[0].data());
-      const latestEmployee = querySnapshot.docs[0].data();
-      const lastCode = latestEmployee.candidateCode; // Assuming employee code is the document ID
+      const maxValue = Math.max(...data.map(item => item.numericCandidateCode));
+      const lastCode = maxValue; // Assuming employee code is the document ID
       // Extract the numeric part of the code
       const lastCodeNumber = Number(lastCode) || 100; // Default to 100 if parsing fails
 
@@ -136,13 +146,14 @@ export const createCandidate = async (body) => {
       return null;
     }
 
-    const docRef = await addDoc(
-      collection(getFirestore(), DB_NAME?.CANDIDATE),
-      userReq
-    );
+    // const docRef = await addDoc(
+    //   collection(getFirestore(), DB_NAME?.CANDIDATE),
+    //   userReq
+    // );
     console.log("successfully");
     Toast({ message: "candidate Add successfully" });
-    return docRef.id;
+    // return docRef.id;
+    return '';
   } catch (e) {
     console.log("failer");
     console.error("Error fetching leads:", e);
@@ -166,6 +177,7 @@ export const updateCandidate = async (body, id) => {
       ],
     };
     delete userReq.id;
+    delete userReq.numericCandidateCode;
     const docRef = await updateDoc(
       doc(getFirestore(), DB_NAME.CANDIDATE, id),
       userReq

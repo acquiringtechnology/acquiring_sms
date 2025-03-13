@@ -31,5 +31,6 @@ export const leadSchemaModule = {
       date: new Date()
     }
   ],
-  updatedBy: []
+  updatedBy: [],
+  paymentStatus:''
 };

@@ -9,6 +9,9 @@ import {
   COURSE_LIST,
   COURSE_ENQUIRY_STATUS,
   STATUS,
+  PAYMENT_STATUS_LIST,
+  BANK_DETAILS_LIST,
+  PAYMENT_STATUS,
 } from "../../../../services/constants";
 import SimpleReactValidator from "simple-react-validator";
 import {
@@ -33,18 +36,27 @@ export const LeadForm = ({
   );
   const [, forceUpdate] = useState();
   const [leadForm, setLeadForm] = useState({
+    ...candidateSchemaModule,
     ...editLeadObject,
     ...leadSchemaModule,
   });
 
   useEffect(() => {
     if (!_.isEmpty(editLeadObject)) {
-      console.log("editLeadObject---", editLeadObject);
       if (!Array.isArray(editLeadObject?.comments)) {
-        setLeadForm({ ...editLeadObject, comments: leadSchemaModule.comments });
+        setLeadForm({
+          ...candidateSchemaModule,
+          ...leadSchemaModule,
+          ...editLeadObject,
+          comments: leadSchemaModule.comments,
+        });
         return;
       }
-      setLeadForm(editLeadObject);
+      setLeadForm({
+        ...candidateSchemaModule,
+        ...leadSchemaModule,
+        ...editLeadObject,
+      });
     }
   }, [editLeadObject]);
 
@@ -57,11 +69,20 @@ export const LeadForm = ({
     setLeadForm((prev) => {
       const comments = [...(prev.comments || [])]; // Ensure immutability
       comments[index] = { userId: 0, notes: data, date: new Date() };
-  
+
       return { ...prev, comments };
     });
   };
-  
+
+  const handlePaymentForm = (event, index) => {
+    const { name, value } = event.target;
+    setLeadForm((prev) => {
+      const billingInfo = [...(prev.billingInfo || [])]; // Ensure immutability
+      billingInfo[index] = { ...billingInfo[index], [name]: value };
+
+      return { ...prev, billingInfo };
+    });
+  };
 
   const handleAddComments = () => {
     leadForm.comments.push({
@@ -89,7 +110,7 @@ export const LeadForm = ({
           ? await dispatch(updateLeadData(leadForm, leadForm.id))
           : await dispatch(createNewLead(leadForm));
 
-          setLeadForm({ ...candidateSchemaModule });
+        setLeadForm({ ...candidateSchemaModule });
         onSucess();
       } else {
         simpleValidator.current.showMessages();
@@ -241,37 +262,133 @@ export const LeadForm = ({
           )}
         />
       </div>
-      {leadForm.status === COURSE_ENQUIRY_STATUS.JOINED &&  <div className="col-md-6">
-        <NormalSelect
-          label="Batch"
-          placeholder="Select batch"
-          name="batchId"
-          option={batchListData}
-          value={leadForm.batchId}
-          onChange={handleLeadFormChange}
-          errorMessage={simpleValidator.current.message(
-            "Batch",
-            leadForm.batchId,
-            "required"
-          )}
-        />
-      </div>}
-     
-      <div className="col-md-6">
-        <NormalInput
-          type="date"
-          label="Next Follow up"
-          placeholder="Next Follow up"
-          name="nextFollUp"
-          value={leadForm.nextFollUp}
-          onChange={handleLeadFormChange}
-          errorMessage={simpleValidator.current.message(
-            "Next Follow up",
-            leadForm.nextFollUp,
-            "required"
-          )}
-        />
-      </div>
+      {leadForm.status === COURSE_ENQUIRY_STATUS.JOINED && (
+        <div className="col-md-6">
+          <NormalSelect
+            label="Batch"
+            placeholder="Select batch"
+            name="batchId"
+            option={batchListData}
+            value={leadForm.batchId}
+            onChange={handleLeadFormChange}
+            errorMessage={simpleValidator.current.message(
+              "Batch",
+              leadForm.batchId,
+              "required"
+            )}
+          />
+        </div>
+      )}
+      {leadForm.status === COURSE_ENQUIRY_STATUS.JOINED && (
+        <div className="col-md-6">
+          <NormalSelect
+            label="Payment Status"
+            placeholder="Select Payment Status"
+            name="paymentStatus"
+            option={PAYMENT_STATUS_LIST}
+            value={leadForm.paymentStatus}
+            onChange={handleLeadFormChange}
+            errorMessage={simpleValidator.current.message(
+              "Payment Status",
+              leadForm.paymentStatus,
+              "required"
+            )}
+          />
+        </div>
+      )}
+
+      {leadForm.status !== COURSE_ENQUIRY_STATUS.JOINED && (
+        <div className="col-md-6">
+          <NormalInput
+            type="date"
+            label="Next Follow up"
+            placeholder="Next Follow up"
+            name="nextFollUp"
+            value={leadForm.nextFollUp}
+            onChange={handleLeadFormChange}
+            errorMessage={simpleValidator.current.message(
+              "Next Follow up",
+              leadForm.nextFollUp,
+              "required"
+            )}
+          />
+        </div>
+      )}
+      {leadForm.status === COURSE_ENQUIRY_STATUS.JOINED &&
+        (leadForm.paymentStatus === PAYMENT_STATUS.PARTIAL_PENDING ||
+          leadForm.paymentStatus === PAYMENT_STATUS.COMPLETED) && (
+          <div className="col-md-12 my-4">
+            <div className="card border">
+              <div className="card-body px-3">
+                {/* <h4 className="card-title">Payment Detais</h4> */}
+                {leadForm?.billingInfo?.map((payment, i) => (
+                  <div className="row">
+                    <div className="col-md-6">
+                      <NormalInput
+                        type="date"
+                        label="Paid Date"
+                        placeholder="Paid Date"
+                        name="payDate"
+                        value={payment.payDate}
+                        onChange={(e) => handlePaymentForm(e, i)}
+                        errorMessage={simpleValidator.current.message(
+                          "Paid Date",
+                          payment.payDate,
+                          "required"
+                        )}
+                      />
+                    </div>
+                    <div className="col-md-6">
+                      <NormalSelect
+                        label="Bank Name"
+                        placeholder="Bank Name"
+                        name="payedAccount"
+                        option={BANK_DETAILS_LIST}
+                        value={payment.payedAccount}
+                        onChange={(e) => handlePaymentForm(e, i)}
+                        errorMessage={simpleValidator.current.message(
+                          "Bank Name",
+                          payment.payedAccount,
+                          "required"
+                        )}
+                      />
+                    </div>
+                    <div className="col-md-6">
+                      <NormalInput
+                        type="number"
+                        label="Paid Amount"
+                        placeholder="Paid Amount"
+                        name="payFees"
+                        value={payment.payFees}
+                        onChange={(e) => handlePaymentForm(e, i)}
+                        errorMessage={simpleValidator.current.message(
+                          "Paid Amount",
+                          payment.payFees,
+                          "required"
+                        )}
+                      />
+                    </div>
+                    <div className="col-md-6">
+                      <NormalInput
+                        type="text"
+                        label="Paid Ref Number"
+                        placeholder="Paid Ref Number"
+                        name="payedRef"
+                        value={payment.payedRef}
+                        onChange={(e) => handlePaymentForm(e, i)}
+                        errorMessage={simpleValidator.current.message(
+                          "Paid Ref Number",
+                          payment.payedRef,
+                          "required"
+                        )}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
 
       <div className="col-md-12">
         <label className="form-label fw-medium">Comment</label>

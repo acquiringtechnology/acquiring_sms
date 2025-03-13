@@ -9,3 +9,4 @@ export { TrainerLoginPage, WhoIAmPage, CandidateLoginPage } from "./auth";
 export { AtQuizPageList, AtQuizPage } from "./atQuiz";
 export { ProfilePage } from "./profile";
 export { CertificateListPage } from "./certificate";
+export { PaymentListPage ,CourseInvoice } from "./payment";

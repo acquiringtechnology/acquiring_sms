@@ -26,11 +26,13 @@ export const candidateSchemaModule = {
   password: "",
   classEndDate: "",
   candidateCode: "",
+  paymentDueDate:"",
   billingInfo: [
     {
       payFees: "",
       payDate: "",
       payedAccount: null,
+      payedRef: null,
     },
   ],
 };

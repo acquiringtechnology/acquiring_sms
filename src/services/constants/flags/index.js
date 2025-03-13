@@ -69,3 +69,13 @@ export const PROJECT_STATUS = {
   APPROVAL: 1,
  
 };
+
+
+export const PAYMENT_STATUS = {
+  PENDING: 0,
+  PARTIAL_PENDING: 1,
+  COMPLETED: 2,
+  REFUNDED_PENDING: 3,
+  REFUNDED: 4
+};
+
