@@ -9,6 +9,7 @@ import {
   CLASS_MODE,
   CANDIDATE_COURSE_STATUS,
   STATUS,
+  PAYMENT_STATUS
 } from "../flags";
 import Ecom from '../../../assets/images/projects/Ecom.svg'
 import Restaurant from '../../../assets/images/projects//Restaurant.svg'
@@ -84,6 +85,35 @@ export const GENDER_TYPE = [
   {
     label: "Female",
     value: GENDER.FEMALE,
+  },
+];
+
+
+export const PAYMENT_STATUS_LIST = [
+  {
+    label: "Pending",
+    value: PAYMENT_STATUS.PENDING,
+    color: "primary",
+  },
+  {
+    label: "Partial Pending",
+    value: PAYMENT_STATUS.PARTIAL_PENDING,
+    color: "secondary",
+  },
+  {
+    label: "Completed",
+    value: PAYMENT_STATUS.COMPLETED,
+    color: "success",
+  },
+  {
+    label: "Refunded Pending",
+    value: PAYMENT_STATUS.REFUNDED_PENDING,
+    color: "warning",
+  },
+  {
+    label: "Refunded",
+    value: PAYMENT_STATUS.REFUNDED,
+    color: "warning",
   },
 ];
 
@@ -271,6 +301,21 @@ export const COURSE_LIST = [
   {
     label: "Full Stack Web Devlopment",
     value: "d5eb2822-507c-11ee-be56-0242ac120002",
+  },
+];
+
+export const BANK_DETAILS_LIST = [
+  {
+    label: "Jayashree (Canara )",
+    value: 1,
+  },
+  {
+    label: "Jayashree (HDFC)",
+    value: 2,
+  },
+  {
+    label: "Jayashree (SBI)",
+    value: 3,
   },
 ];
 

@@ -1,2 +1,6 @@
 export {MyProjectStatus} from './myProjectStatus'
 export {MyRanking} from './myRanking'
+export {LeadStatusCountCard} from './leadeStatusCountCard'
+export {LeadStatusDiscover} from './leadStatusDiscover'
+export {BatchStatusDiscover} from './batchStatusDiscover'
+export {PaymentStatusDiscover} from './paymentStatusDiscover'

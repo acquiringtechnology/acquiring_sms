@@ -7,10 +7,12 @@ import {
   EXIST_LOCAL_STORAGE,
   LOGIN_TYPE,
   PROJECTS_LIST,
-  PROJECT_STATUS
+  PROJECT_STATUS,
+  PAYMENT_STATUS_LIST,
 } from "../constants";
 import moment from "moment";
 import { employeeSchemaModule } from "../module/employee";
+import { indianStatesDistricts } from "../data/indianStatesDistricts";
 
 import CryptoJS from "crypto-js";
 
@@ -107,6 +109,27 @@ export const getBatchStatus = (status) => {
   }
 };
 
+export const gePaymentStatus = (data) => {
+  const value = PAYMENT_STATUS_LIST?.find((status) => status.value === data);
+
+  return value ? value : "No Status";
+};
+export const getOverAllPayment = (billingInfo = []) => {
+  if (billingInfo.length === 0) return 0; // Early return if empty
+
+  return billingInfo.reduce((total, { payFees }) => {
+    return total + (Number(payFees) || 0); // Convert to number, default to 0 if invalid
+  }, 0);
+};
+
+export const getPendingPayment = (billingInfo = [],totalAmount=0) => {
+  if (billingInfo.length === 0) return totalAmount; // Early return if empty
+
+  return Number(totalAmount) - billingInfo.reduce((total, { payFees }) => {
+    return total + (Number(payFees) || 0); // Convert to number, default to 0 if invalid
+  }, 0);
+};
+
 export const getYesNotStatus = (status) => {
   switch (status) {
     case 0:
@@ -175,65 +198,68 @@ export const convertStringToHTML = (htmlString) => {
   return html.body.toString();
 };
 
- export const formatTimestamp = (date) => {
-        if (date?.seconds && date?.nanoseconds) {
-          const timestampInMilliseconds =
-            date.seconds * 1000 + date.nanoseconds / 1000000;
-          return moment(timestampInMilliseconds).format("DD MMM YYYY");
+export const formatTimestamp = (date) => {
+  if (date?.seconds && date?.nanoseconds) {
+    const timestampInMilliseconds =
+      date.seconds * 1000 + date.nanoseconds / 1000000;
+    return moment(timestampInMilliseconds).format("DD MMM YYYY");
+  }
+  return moment(date).format("DD MMM YYYY");
+};
+
+export const multySearchObjects = (array = [], searchCriteria = {}) => {
+  // eslint-disable-next-line no-debugger
+  // debugger;
+  try {
+    const criteriaKeys = Object.keys(searchCriteria).filter(
+      (key) => searchCriteria[key] !== ""
+    );
+
+    return array.filter((item) => {
+      return criteriaKeys.every((key) => {
+        const value = searchCriteria[key];
+        if (typeof value === "string") {
+          if (key === "userName") {
+            const name = `${item?.fname} ${item?.lname}`;
+            return name?.toString().toLowerCase().includes(value.toLowerCase());
+          }
+          if (key === "createdBy") {
+            const createdByDate = item?.createdBy?.[0]?.date;
+            if (createdByDate) {
+              return moment(value).isSame(
+                moment(formatTimestamp(createdByDate)),
+                "month"
+              );
+            }
+          }
+          if (key === "projectId") {
+            return (
+              item?.projects?.some((project) => project?.id === value) ?? false
+            );
+          }
+
+          if (key === "batchId") {
+            return (
+              item?.batchIds?.some((batch) => batch?.id === value) ?? false
+            );
+          }
+
+          return item[key]
+            ?.toString()
+            .toLowerCase()
+            .includes(value.toLowerCase());
         }
-        return moment(date).format("DD MMM YYYY");
-      };
-
-
-      export const multySearchObjects = (array = [], searchCriteria = {}) => {
-        // eslint-disable-next-line no-debugger
-        // debugger;
-        try {
-          const criteriaKeys = Object.keys(searchCriteria).filter(
-            (key) => searchCriteria[key] !== ""
-          );
-      
-          return array.filter((item) => {
-            return criteriaKeys.every((key) => {
-              const value = searchCriteria[key];
-              if (typeof value === "string") {
-                if (key === "userName") {
-                  const name = `${item?.fname} ${item?.lname}`;
-                  return name?.toString().toLowerCase().includes(value.toLowerCase());
-                }
-                if (key === "createdBy") {
-                  const createdByDate = item?.createdBy?.[0]?.date;
-                  if (createdByDate) {
-                    return moment(value).isSame(moment(formatTimestamp(createdByDate)), 'month');
-                  }
-                }
-                if (key === 'projectId') {
-                  return item?.projects?.some(project => project?.id === value) ?? false;
-                }
-
-                if (key === 'batchId') {
-                  return item?.batchIds?.some(batch => batch?.id === value) ?? false;
-                }
-        
-  
-                return item[key]
-                  ?.toString()
-                  .toLowerCase()
-                  .includes(value.toLowerCase());
-              }
-              if (typeof value === "number" && Array.isArray(item[key])) {
-                return item[key]?.includes(value);
-              }
-              return item[key] === value;
-            });
-          });
-        } catch (e) {
-          console.log("-------", e);
-          return array;
+        if (typeof value === "number" && Array.isArray(item[key])) {
+          return item[key]?.includes(value);
         }
-      };
-
-   
+        return item[key] === value;
+      });
+    });
+  } catch (e) {
+    console.log("-------", e);
+    return array;
+  }
+};
 
 export const getRandomThreeDigitNumber = () => {
   return `${new Date().getSeconds()}-${Math.floor(Math.random() * 900) + 100}`;
@@ -422,24 +448,49 @@ export function calculateProfileStrength(obj = {}, requiredKeys = []) {
   } catch (e) {
     return 0;
   }
-};
+}
 
 export const handleGetProjectCompletedCount = (project = [], candidate) => {
-  const projects = PROJECTS_LIST?.find(({ id }) => id === candidate.liveClassId)?.projectList;
+  const projects = PROJECTS_LIST?.find(
+    ({ id }) => id === candidate.liveClassId
+  )?.projectList;
 
   // Return '0/0' if no projects or project list is not found
-  if (!projects || !Array.isArray(projects)) return '0/0';
+  if (!projects || !Array.isArray(projects)) return "0/0";
 
   const totalProjects = projects.length;
   const completedProjects = project.length;
-  const verifiedCount = project.filter(({ status }) => status === PROJECT_STATUS.APPROVAL).length;
+  const verifiedCount = project.filter(
+    ({ status }) => status === PROJECT_STATUS.APPROVAL
+  ).length;
   return (
     <span>
-      Completed <strong>{completedProjects}</strong> projects,{' '}
-      <strong>{verifiedCount}</strong> verified by management, out of{' '}
+      Completed <strong>{completedProjects}</strong> projects,{" "}
+      <strong>{verifiedCount}</strong> verified by management, out of{" "}
       <strong>{totalProjects}</strong> total.
     </span>
   );
 };
 
+export const getStateById = (stateId) => {
+  if (!indianStatesDistricts?.states) return "";
 
+  const state = indianStatesDistricts.states.find(
+    (state) => state.value === stateId
+  );
+  return state ? state.label : "";
+};
+
+export const getCityById = (stateId, districtId) => {
+  if (!indianStatesDistricts?.states) return "";
+
+  const state = indianStatesDistricts.states.find(
+    (state) => state.value === stateId
+  );
+  if (!state || !state.districts) return "";
+
+  const district = state.districts.find(
+    (district) => district.value === districtId
+  );
+  return district ? district.label : "";
+};

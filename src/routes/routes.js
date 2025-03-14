@@ -180,6 +180,33 @@ const routers = [
     ],
   },
   {
+    component: "AdminLayout",
+    path: "/invoice",
+    auth: true,
+    exact: false,
+    childrens: [
+      {
+        component: "PaymentListPage",
+        path: "/",
+        auth: true,
+        exact: true,
+      },
+      {
+        component: "course",
+        path: "/:candidateId",
+        auth: true,
+        exact: true,
+      },
+      
+    ],
+  },
+  {
+    component: "CourseInvoice",
+    path: "/invoiceByCandidate/:candidateId",
+    auth: false,
+    exact: false,
+  },
+  {
     component: "PageNotFoundPage",
     path: "*",
     auth: false,

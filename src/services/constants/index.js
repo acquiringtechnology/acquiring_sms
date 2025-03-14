@@ -8,7 +8,8 @@ export {
     YES_NO_STATUS,
     CLASS_MODE,
     LOGIN_TYPE,
-    PROJECT_STATUS
+    PROJECT_STATUS,
+    PAYMENT_STATUS
   } from './flags';
   export {
     GENDER_TYPE,
@@ -29,7 +30,8 @@ export {
     EMPLOYEE_STATUS_LIST,
     EMPLOYEE_DESIGNATION_LIST,
     USER_ROLE,
-    PROJECTS_LIST
-    
+    PROJECTS_LIST,
+    PAYMENT_STATUS_LIST,
+    BANK_DETAILS_LIST
   } from './options';
   export { EXIST_LOCAL_STORAGE, CURRENT_USER, DB_NAME } from './app';

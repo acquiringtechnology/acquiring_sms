@@ -94,6 +94,14 @@ export const MENU = [
   //     ]
   // },
   {
+    title: "Invoice",
+    exact: true,
+    icon: "mdi-invoice",
+    loginType:LOGIN_TYPE.EMPLOYEE,
+    path: "/invoice",
+    subMenu: [],
+  },
+  {
     title: "Payment 2",
     exact: true,
     icon: "mdi-user",

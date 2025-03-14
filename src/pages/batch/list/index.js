@@ -19,7 +19,9 @@ export const BatchPage = () => {
 
   function getEmployeeListData() {
     dispatch(getAllEmployee());
-    dispatch(getAllBatch());
+    if (batchSync?.batchListData.length === 0 || !batchSync?.batchListData) {
+      dispatch(getAllBatch());
+    }
   }
   const handleOpenEmployeForm = () => {
     setEditBatchObject(null);
