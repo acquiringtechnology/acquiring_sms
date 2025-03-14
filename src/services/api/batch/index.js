@@ -42,7 +42,7 @@ import {
       const docSnap = await getDoc(docRef); // Fetch document
       console.log('docSnap.data() getBatchById--',docSnap.data())
       if (docSnap.exists()) {
-        return docSnap.data();
+        return {...docSnap.data(),id:docSnap?.id};
       } else {
         console.log("No such document!");
         return null;

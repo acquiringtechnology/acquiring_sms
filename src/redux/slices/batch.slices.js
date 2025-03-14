@@ -5,7 +5,7 @@ const initialBatchState = {
   isBatchListLoader: false,
   isCreateUpdateLoader: false,
   batchDetail: '',
-  isBatchDetailByIdLoader: '',
+  isBatchDetailByIdLoader: false,
 };
 
 const batchStateSlice = createSlice({
