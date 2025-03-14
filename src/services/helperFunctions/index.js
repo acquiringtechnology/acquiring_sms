@@ -123,11 +123,11 @@ export const getOverAllPayment = (billingInfo = []) => {
 };
 
 export const getPendingPayment = (billingInfo = [],totalAmount=0) => {
-  if (billingInfo.length === 0) return 0; // Early return if empty
+  if (billingInfo.length === 0) return totalAmount; // Early return if empty
 
-  return billingInfo.reduce((total, { payFees }) => {
+  return Number(totalAmount) - billingInfo.reduce((total, { payFees }) => {
     return total + (Number(payFees) || 0); // Convert to number, default to 0 if invalid
-  }, 0) - Number(totalAmount);
+  }, 0);
 };
 
 export const getYesNotStatus = (status) => {

@@ -12,7 +12,12 @@ export const PaymentListPage = () => {
   }, []);
 
   function getInvoiceListData() {
-    dispatch(getAllInvoiceList());
+    if (
+      invoiceStateSlice?.invoiceListData?.length === 0 ||
+      !invoiceStateSlice?.invoiceListData
+    ) {
+      dispatch(getAllInvoiceList());
+    }
   }
 
   return (

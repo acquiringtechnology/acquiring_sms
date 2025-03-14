@@ -46,6 +46,7 @@ export const PaymentDetails = ({ userDetail = null }) => {
   const handleFormChange = (event) => {
     const { name, value } = event.target;
     setcandidateForm((prevState) => ({ ...prevState, [name]: value }));
+    simpleValidator.current.purgeFields();
   };
 
   const handleCandidateSubmit = async () => {
@@ -170,7 +171,7 @@ export const PaymentDetails = ({ userDetail = null }) => {
                 </div>
               </div>
             )}
-            <div className="row">
+   {candidateForm.paymentStatus !== PAYMENT_STATUS.PENDING && (          <div className="row">
               <div className="col-md-12 my-4">
                 <div className="card border">
                   <div className="card-body px-3">
@@ -266,7 +267,7 @@ export const PaymentDetails = ({ userDetail = null }) => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div>)}
           </div>
         </div>
       </div>

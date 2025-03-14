@@ -1,18 +1,22 @@
 import { useMemo } from "react";
 import { COURSE_ENQUIRY_STATUS } from "../../../../services/constants";
 
-export const LeadStatusCountCard = ({ candidateListData = [] }) => {
+export const LeadStatusCountCard = ({ leadListData = [] }) => {
   const handleGetLeadStatusCount = useMemo(() => {
-    // Ensure candidateListData is valid and handle undefined or null items
+    // Ensure leadListData is valid and handle undefined or null items
     return Object.keys(COURSE_ENQUIRY_STATUS).reduce((counts, key) => {
       const statusValue = COURSE_ENQUIRY_STATUS[key];
+     console.log('statusValue', statusValue);
+     console.log('statusValue',  leadListData?.filter(
+      (candidate) =>  candidate?.status == statusValue
+    ));
       counts[key] =
-        candidateListData.filter(({ status }) => status && status === statusValue)
-          ?.length || 0;
+      leadListData?.filter(
+          (candidate) => candidate?.status && candidate?.status === statusValue
+        )?.length || 0;
       return counts;
     }, {});
-  }, [candidateListData]);
-
+  }, [leadListData]);
 
   // Reusable Avatar component
   const AvatarIcon = () => (
@@ -41,18 +45,21 @@ export const LeadStatusCountCard = ({ candidateListData = [] }) => {
   );
 
   const statuses = [
-    { label: 'Requested', statusKey: 'REQUESTED' },
-    { label: 'Processing', statusKey: 'PROCESSING' },
-    { label: 'Interested', statusKey: 'INTERESTED' },
-    { label: 'Not Interested', statusKey: 'NOT_INTERESTED' },
-    { label: 'Joined', statusKey: 'JOINED' },
-    { label: 'Not Responding', statusKey: 'NOT_RESPONDING' },
+    { label: "Requested", statusKey: "REQUESTED" },
+    { label: "Processing", statusKey: "PROCESSING" },
+    { label: "Interested", statusKey: "INTERESTED" },
+    { label: "Not Interested", statusKey: "NOT_INTERESTED" },
+    { label: "Joined", statusKey: "JOINED" },
+    { label: "Not Responding", statusKey: "NOT_RESPONDING" },
   ];
 
   return (
     <div className="row">
       {statuses.map(({ label, statusKey }) => (
-        <div key={statusKey} className="col-12 col-md-6 col-xxl-3 mb-4 mb-xxl-0">
+        <div
+          key={statusKey}
+          className="col-12 col-md-6 col-xxl-3 mb-4 mb-xxl-0"
+        >
           <div className="card bg-body-tertiary border-transparent">
             <div className="card-body">
               <div className="row align-items-center">

@@ -1,4 +1,4 @@
-import { gePaymentStatus  ,getOverAllPayment} from "../../../../services/helperFunctions";
+import { gePaymentStatus  ,getPendingPayment} from "../../../../services/helperFunctions";
 // import { useNavigate } from "react-router";
 export const InvoiceList = ({ invoiceStateSlice = null }) => {
   // const navigate = useNavigate();
@@ -30,7 +30,7 @@ export const InvoiceList = ({ invoiceStateSlice = null }) => {
                       <td> 1 </td>
                       <td>{invoice?.name}</td>
                       <td> ₹ {invoice?.totfees}</td>
-                      <td> ₹ {getOverAllPayment(invoice?.billingInfo || [])}</td>
+                      <td> ₹ {getPendingPayment(invoice?.billingInfo || [],invoice?.totfees)}</td>
                       <td>
                         <label
                           className={`badge badge-${
