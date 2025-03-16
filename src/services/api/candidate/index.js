@@ -145,14 +145,13 @@ export const createCandidate = async (body) => {
       return null;
     }
 
-    // const docRef = await addDoc(
-    //   collection(getFirestore(), DB_NAME?.CANDIDATE),
-    //   userReq
-    // );
+    const docRef = await addDoc(
+      collection(getFirestore(), DB_NAME?.CANDIDATE),
+      userReq
+    );
     console.log("successfully");
     Toast({ message: "candidate Add successfully" });
-    // return docRef.id;
-    return '';
+    return docRef.id;
   } catch (e) {
     console.log("failer");
     console.error("Error fetching leads:", e);
