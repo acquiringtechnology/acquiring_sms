@@ -6,7 +6,6 @@ const PrivateRoutes = ({ Layout }) => {
   const AuthToken = getStorage(EXIST_LOCAL_STORAGE.AUTHTOKEN);
   let user = getStorage(EXIST_LOCAL_STORAGE.CURRENT_USER);
   user = JSON.parse(user);
-  console.log('user----',AuthToken)
   return (
     // <Layout>
     // <h4>fdfdfdfd</h4>

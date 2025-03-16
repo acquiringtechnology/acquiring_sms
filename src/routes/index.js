@@ -36,10 +36,6 @@ export const AllRoutes = () => {
                   {childrens.map(
                     ({ component: ChildrenComponent, path: childrenPath }) => {
                       const PageComponent = Pages[ChildrenComponent];
-                      console.log(
-                        'PageComponent---------',
-                        path + childrenPath
-                      );
                       return (
                         <Route
                           path={path + childrenPath}

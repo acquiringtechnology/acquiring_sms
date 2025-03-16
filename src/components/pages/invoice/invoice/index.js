@@ -12,10 +12,11 @@ import "./invoice.scss";
 export const CourseInvoiceDetail = ({
   candidateData = null,
   batchDetail = null,
+  ref=''
 }) => {
   return (
     // <div className="course-invoice-container">
-    <div className="invoice-box">
+    <div className="invoice-box" ref={ref}>
       <table cellPadding="0" cellSpacing="0" id="invoice-box">
         <tbody>
           <tr className="top">
