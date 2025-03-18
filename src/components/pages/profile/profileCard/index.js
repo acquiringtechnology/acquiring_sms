@@ -12,6 +12,7 @@ import { CandidateProjects } from "../candidateProjects";
 import { Normaltabs } from "../../../common";
 import { ChangePassword } from "../changePassword";
 import { PaymentDetails } from "../payment";
+import { CandidateSettings } from "../candidateSettings";
 import { useState } from "react";
 import {
   PROJECT_STATUS,
@@ -35,6 +36,10 @@ export const ProfileCard = ({ userDetail = null, isCandidate = false }) => {
     isCandidate &&  {
       label: "Payment",
       value: 3,
+    },
+    isCandidate &&  {
+      label: "Settings",
+      value: 4,
     },
   ];
 
@@ -153,6 +158,7 @@ export const ProfileCard = ({ userDetail = null, isCandidate = false }) => {
         {seletctTab === 1 && <CandidateProjects userDetail={userDetail} />}
         {seletctTab === 2 && <ChangePassword userDetail={userDetail} />}
         {seletctTab === 3 && <PaymentDetails userDetail={userDetail} />}
+        {seletctTab === 4 && <CandidateSettings userDetail={userDetail} />}
       </div>
     </div>
   );
