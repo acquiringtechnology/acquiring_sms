@@ -1,0 +1,1 @@
+export { WebinerListPage } from "./webinarList";

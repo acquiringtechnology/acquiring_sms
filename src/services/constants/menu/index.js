@@ -94,6 +94,14 @@ export const MENU = [
   //     ]
   // },
   {
+    title: "Webinar",
+    exact: true,
+    icon: "mdi-google-classroom",
+    loginType:LOGIN_TYPE.EMPLOYEE,
+    path: "/webinar",
+    subMenu: [],
+  },
+  {
     title: "Invoice",
     exact: true,
     icon: "mdi-invoice",

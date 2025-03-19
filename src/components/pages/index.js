@@ -18,3 +18,4 @@ export {
 export { CertificateList, CertificateDoc } from "./certificate";
 export { MyProjectStatus, MyRanking ,LeadStatusCountCard ,LeadStatusDiscover ,BatchStatusDiscover ,PaymentStatusDiscover} from "./dashboard";
 export { InvoiceList ,CourseInvoiceDetail } from "./invoice";
+export { WebinarList ,WebinarsRegisterForm } from "./webinar";

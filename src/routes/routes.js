@@ -181,6 +181,21 @@ const routers = [
   },
   {
     component: "AdminLayout",
+    path: "/webinar",
+    auth: true,
+    exact: false,
+    childrens: [
+      {
+        component: "WebinerListPage",
+        path: "/",
+        auth: true,
+        exact: true,
+      },
+      
+    ],
+  },
+  {
+    component: "AdminLayout",
     path: "/invoice",
     auth: true,
     exact: false,
