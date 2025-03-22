@@ -31,12 +31,13 @@ export const AtQuizPage = () => {
       const storedUser = getStorage(EXIST_LOCAL_STORAGE.CURRENT_USER);
       if (storedUser) {
         const candidateObject = JSON.parse(storedUser);
+        console.log('candidateObject-',candidateObject)
        
         const isAvilable = candidateObject?.quiz?.findIndex(
           ({ id }) => id == quizId
         );
         console.log(isAvilable)
-        if (isAvilable !== -1) {
+        if (isAvilable === -1) {
           Swal.fire({
             title: 'Quiz Completed!',
             text: 'Your quiz is already completed.',
