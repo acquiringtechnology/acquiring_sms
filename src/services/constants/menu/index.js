@@ -93,30 +93,48 @@ export const MENU = [
   //         }
   //     ]
   // },
+  // {
+  //   title: "Invoice",
+  //   exact: true,
+  //   icon: "mdi-invoice",
+  //   loginType:LOGIN_TYPE.EMPLOYEE,
+  //   path: "/invoice",
+  //   subMenu: [],
+  // },
   {
-    title: "Invoice",
+    title: "Accounts",
     exact: true,
-    icon: "mdi-invoice",
-    loginType:LOGIN_TYPE.EMPLOYEE,
-    path: "/invoice",
-    subMenu: [],
-  },
-  {
-    title: "Payment 2",
-    exact: true,
-    icon: "mdi-user",
+    icon: "mdi-account-cash",
     loginType:LOGIN_TYPE.EMPLOYEE,
     subMenu: [
       {
-        title: "Payment List",
-        path: "/candidate",
+        title: "Invoice",
+        path: "/invoice",
         exact: true,
       },
       {
-        title: "Payment Suces",
-        path: "/candidate",
+        title: "cash expenses",
+        path: "/accounts/cashExpenses",
         exact: true,
       },
     ],
   },
+  // {
+  //   title: "Payment 2",
+  //   exact: true,
+  //   icon: "mdi-user",
+  //   loginType:LOGIN_TYPE.EMPLOYEE,
+  //   subMenu: [
+  //     {
+  //       title: "Payment List",
+  //       path: "/candidate",
+  //       exact: true,
+  //     },
+  //     {
+  //       title: "Payment Suces",
+  //       path: "/candidate",
+  //       exact: true,
+  //     },
+  //   ],
+  // },
 ];

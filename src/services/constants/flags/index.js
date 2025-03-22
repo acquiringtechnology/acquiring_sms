@@ -79,3 +79,8 @@ export const PAYMENT_STATUS = {
   REFUNDED: 4
 };
 
+
+export const EXPENSE_TYPE = {
+  SALARY: 1,
+  OTHERS: 2,
+};

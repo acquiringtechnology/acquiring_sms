@@ -76,14 +76,14 @@ export const Sidebar = () => {
                 {menu.subMenu.length > 0 && (
                   <div className="collapse show" id={i + "menu"}>
                     <ul className="nav flex-column sub-menu">
-                      {menu.subMenu.map((menu, j) => (
+                      {menu.subMenu.map((subMenu, j) => (
                         <li className="nav-item" key={j}>
-                          <a
+                          <NavLink
                             className="nav-link"
-                            href="pages/ui-features/buttons.html"
+                            to={subMenu.path}
                           >
-                            {menu.title}
-                          </a>
+                            {subMenu.title}
+                          </NavLink>
                         </li>
                       ))}
                     </ul>

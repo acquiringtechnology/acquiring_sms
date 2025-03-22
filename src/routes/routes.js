@@ -201,6 +201,22 @@ const routers = [
     ],
   },
   {
+    component: "AdminLayout",
+    path: "/accounts",
+    auth: true,
+    exact: false,
+    childrens: [
+      {
+        component: "CashExpenses",
+        path: "/cashExpenses",
+        auth: true,
+        exact: true,
+      },
+     
+      
+    ],
+  },
+  {
     component: "CourseInvoice",
     path: "/invoiceByCandidate/:candidateId",
     auth: false,

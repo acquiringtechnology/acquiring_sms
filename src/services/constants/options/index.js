@@ -9,7 +9,8 @@ import {
   CLASS_MODE,
   CANDIDATE_COURSE_STATUS,
   STATUS,
-  PAYMENT_STATUS
+  PAYMENT_STATUS,
+  EXPENSE_TYPE
 } from "../flags";
 import Ecom from '../../../assets/images/projects/Ecom.svg'
 import Restaurant from '../../../assets/images/projects//Restaurant.svg'
@@ -366,4 +367,30 @@ export const PROJECTS_LIST = [
       },
     ],
   },
+];
+
+export const EXPENSE_TYPE_LIST=[
+  {
+    label: "Salary",
+    value: EXPENSE_TYPE.SALARY,
+    color: "primary",
+  },
+  {
+    label: "Others",
+    value: EXPENSE_TYPE.OTHERS,
+    color: "primary",
+  }
+];
+
+export const EXPENSE_CA_LIST=[
+  {
+    label: "Salary",
+    value: EXPENSE_TYPE.SALARY,
+    color: "primary",
+  },
+  {
+    label: "Others",
+    value: EXPENSE_TYPE.OTHERS,
+    color: "primary",
+  }
 ];
