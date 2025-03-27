@@ -1,5 +1,5 @@
 import { NormalSearch, NormalSelect, NormalButton } from "../../../common";
-import { CLASS_MODE_LIST,PROJECTS_LIST } from "../../../../services/constants";
+import { PAYMENT_STATUS_LIST,PROJECTS_LIST } from "../../../../services/constants";
 import { useState } from "react";
 
 export const CandidateFilter = ({ onChange = () => {}, batchListData = [] }) => {
@@ -7,7 +7,7 @@ export const CandidateFilter = ({ onChange = () => {}, batchListData = [] }) => 
     name: "",
     branch: "",
     batchId: "",
-    classMode: "",
+    paymentStatus: "",
     projectId:""
   });
 
@@ -31,7 +31,7 @@ export const CandidateFilter = ({ onChange = () => {}, batchListData = [] }) => 
       name: "",
       branch: "",
       batchId: "",
-      classMode: "",
+      paymentStatus: "",
       projectId:""
     };
     onChange(filterValue);
@@ -69,12 +69,12 @@ export const CandidateFilter = ({ onChange = () => {}, batchListData = [] }) => 
       </div>
       <div className="col-md-2">
         <NormalSelect
-          option={CLASS_MODE_LIST}
+          option={PAYMENT_STATUS_LIST}
           isLabel={false}
-          name="classMode"
-          value={filterObject.classMode}
+          name="paymentStatus"
+          value={filterObject.paymentStatus}
           onChange={handleInputChange}
-          label="Class Mode"
+          label="Payment Status"
         />
       </div>
       <div className="col-md-2">

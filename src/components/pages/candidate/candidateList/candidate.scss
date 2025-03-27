@@ -1,0 +1,18 @@
+.candidate-card {
+    .table {
+        &:not(caption) > * > * {
+            padding: 0.5rem;
+        }
+        tr {
+            td {
+                &:first-child {
+                    span {
+                        color: #a0a0a0;
+                        font-weight: 600;
+                    }
+                }
+                color: black;
+            }
+        }
+    }
+}
