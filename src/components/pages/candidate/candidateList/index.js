@@ -191,14 +191,14 @@ export const CandidateList = ({
                             <td>
                               <span>Total Fees</span>
                             </td>
-                            <td>{candidate?.totfees || ""}</td>
+                            <td>₹ {candidate?.totfees || ""}</td>
                           </tr>
                           <tr>
                             <td>
                               <span>Pending Fees:</span>
                             </td>
                             <td>
-                              {getPendingPayment(
+                            ₹ {getPendingPayment(
                                 candidate?.billingInfo || [],
                                 candidate?.totfees
                               )}
@@ -237,6 +237,14 @@ export const CandidateList = ({
                         </table>
                       </div>
                     </div>
+                    <div className="row mt-4">
+                      <div className="col-md-12">
+                      {handleGetProjectCompletedCount(
+                                candidate?.projects,
+                                candidate
+                              )}
+                        </div>
+                      </div>
                   </div>
                 </div>
               </div>
@@ -244,7 +252,7 @@ export const CandidateList = ({
         </div>
 
         {/* <button onClick={handleUp}>Handle UPdate</button> */}
-        {/* <div className="card">
+        <div className="card">
           <div className="card-body">
          
             <div className="table-responsive">
@@ -359,7 +367,7 @@ export const CandidateList = ({
               </table>
             </div>
           </div>
-        </div> */}
+        </div>
       </div>
     </div>
   );
