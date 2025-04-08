@@ -452,7 +452,7 @@ export function calculateProfileStrength(obj = {}, requiredKeys = []) {
 
 export const handleGetProjectCompletedCount = (project = [], candidate) => {
   const projects = PROJECTS_LIST?.find(
-    ({ id }) => id === candidate.liveClassId
+    ({ id }) => id === candidate?.liveClassId
   )?.projectList;
 
   // Return '0/0' if no projects or project list is not found
