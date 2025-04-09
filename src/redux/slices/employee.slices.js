@@ -22,8 +22,6 @@ const employeeStateSlice = createSlice({
     },
 
     setNewEmployeeData(state, action) {
-      console.log("action.payload,", action.payload);
-      console.log("action.payload,", [action.payload, ...state.employeeListData]);
       state.employeeListData = [action.payload, ...state.employeeListData];
       state.isCreateUpdateLoader = false;
     },
@@ -33,8 +31,6 @@ const employeeStateSlice = createSlice({
       const index = employeeList?.findIndex(
         (data) => data.id === action.payload?.id
       );
-      console.log("index---", index);
-      console.log("indeactionx---", action.payload);
       if (index !== -1) {
         employeeList[index] = action.payload;
       }

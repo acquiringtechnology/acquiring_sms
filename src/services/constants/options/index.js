@@ -3,7 +3,7 @@ import {
   USER_TYPE,
   // CLASS_TYPE,
   SETTLEMENT_TYPE,
-  // COURSE_STATUS,
+  EXPENSE_CATEGORY_TYPE,
   COURSE_ENQUIRY_STATUS,
   LEAD_TYPE,
   CLASS_MODE,
@@ -382,15 +382,25 @@ export const EXPENSE_TYPE_LIST=[
   }
 ];
 
-export const EXPENSE_CA_LIST=[
+export const EXPENSE_CATEGORY_LIST=[
   {
-    label: "Salary",
-    value: EXPENSE_TYPE.SALARY,
+    label: "Digital Markting",
+    value: EXPENSE_CATEGORY_TYPE.DIGITAL_MARKTING,
     color: "primary",
   },
   {
-    label: "Others",
-    value: EXPENSE_TYPE.OTHERS,
+    label: "Mobile Recharge",
+    value: EXPENSE_CATEGORY_TYPE.MOBILE_RECHARGE,
+    color: "primary",
+  },
+  {
+    label: "Transportation",
+    value: EXPENSE_CATEGORY_TYPE.TRANSPORTATION,
+    color: "primary",
+  },
+  {
+    label: "Meta Ads",
+    value: EXPENSE_CATEGORY_TYPE.META_ADS,
     color: "primary",
   }
 ];

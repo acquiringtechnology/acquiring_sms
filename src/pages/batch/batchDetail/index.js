@@ -3,15 +3,20 @@ import { BatchRecordList, BatchRecordForm } from "../../../components/pages";
 import { Breadcrumb, NormalModal } from "../../../components/common";
 import { getBatchRecordingById } from "../../../redux/action/batchRecording.action";
 import { useAppDispatch, useAppSelector } from "../../../hooks/reducHooks";
-import { useParams } from "react-router";
+import { useParams ,useLocation } from "react-router";
 export const BatchDetail = () => {
   const [isOpenRecordingForm, setIsOpenRecordForm] = useState(false);
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const BatchCode = queryParams.get("batchCode");
+  const [batchCode,setBatchCode] = useState(BatchCode)
   const { batchId } = useParams();
     const dispatch = useAppDispatch();
     const batchRecordingSync = useAppSelector((state) => state.batchRecordingSync);
 
 
  useEffect(() => {
+
   handleGetBatchRecordingList()
   }, []);
 
@@ -35,7 +40,7 @@ const handleAddRecordingSucess=()=>{
   return (
     <div>
       <Breadcrumb
-        label={`ATEFSWD1001`}
+        label={batchCode}
         icon="mdi-group"
         onClickRightButton={handleAddRecording}
         rightButtonLabel={

@@ -10,7 +10,8 @@ export {
     LOGIN_TYPE,
     PROJECT_STATUS,
     PAYMENT_STATUS,
-    EXPENSE_TYPE
+    EXPENSE_TYPE,
+    EXPENSE_CATEGORY_TYPE
   } from './flags';
   export {
     GENDER_TYPE,
@@ -34,6 +35,7 @@ export {
     PROJECTS_LIST,
     PAYMENT_STATUS_LIST,
     BANK_DETAILS_LIST,
-    EXPENSE_TYPE_LIST
+    EXPENSE_TYPE_LIST,
+    EXPENSE_CATEGORY_LIST
   } from './options';
   export { EXIST_LOCAL_STORAGE, CURRENT_USER, DB_NAME } from './app';

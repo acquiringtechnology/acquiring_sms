@@ -84,3 +84,10 @@ export const EXPENSE_TYPE = {
   SALARY: 1,
   OTHERS: 2,
 };
+
+export const EXPENSE_CATEGORY_TYPE = {
+  DIGITAL_MARKTING: 1,
+  MOBILE_RECHARGE: 2,
+  TRANSPORTATION: 3,
+  META_ADS: 4,
+};

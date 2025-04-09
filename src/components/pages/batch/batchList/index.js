@@ -37,8 +37,8 @@ export const BatchList = ({
     });
   };
 
-  const handleGoDetailPage = (id) => {
-    navigate(`/batch/detail/${id}`);
+  const handleGoDetailPage = (id,batchCode) => {
+    navigate(`/batch/detail/${id}?batchCode=${batchCode}`);
   };
 
   return (
@@ -58,7 +58,7 @@ export const BatchList = ({
                 </label>
                 <h4
                   className="card-title text-primary cursor-pointer"
-                  onClick={() => handleGoDetailPage(batch?.id)}
+                  onClick={() => handleGoDetailPage(batch?.id,batch?.batchCode)}
                 >
                   {batch?.batchCode}
                 </h4>
