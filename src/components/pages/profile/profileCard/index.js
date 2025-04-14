@@ -14,12 +14,13 @@ import { ChangePassword } from "../changePassword";
 import { PaymentDetails } from "../payment";
 import { CandidateSettings } from "../candidateSettings";
 import { useState } from "react";
+import { useParams } from "react-router";
 import {
   PROJECT_STATUS,
 } from "../../../../services/constants";
 export const ProfileCard = ({ userDetail = null, isCandidate = false }) => {
   const [seletctTab, setSelectTab] = useState(0);
-
+  const { candidateId } = useParams();
   const tabData = [
     {
       label: "overview",
@@ -69,6 +70,10 @@ export const ProfileCard = ({ userDetail = null, isCandidate = false }) => {
 
   }
 
+  const handleOpenInvoice=(candidateId)=>{
+    console.log('candidateId---',candidateId)
+    window.open(`${window.location.origin}/${`invoiceByCandidate/${candidateId}`}`)
+  }
 
   const findProfileStrength=()=>{
     const requiredKeys = ["projects", "name", "email", "phone", "age", "address","state","pincode","city",""];
@@ -147,7 +152,7 @@ export const ProfileCard = ({ userDetail = null, isCandidate = false }) => {
                 </div>
               </div>
               <div className="ms-auto">
-                <i className="mdi mdi-heart-outline text-muted"></i>
+                <a onClick={()=>handleOpenInvoice(userDetail?.userId || candidateId)}target="_blank" className="link-primary cursor-pointer">View Invoice</a>
               </div>
             </div>
             <Normaltabs data={tabData} onChange={handleChangeTab} />
