@@ -31,8 +31,9 @@ export const CANDIDATE_COURSE_STATUS = {
   YET_TO_START: 0,
   PROCESSING: 1,
   HOLD: 3,
-  COMPLETED: 4,
-  DELETE: 5
+  JOINED: 4,
+  COMPLETED: 5,
+  DELETE: 6
 };
 
 export const SETTLEMENT_TYPE = {

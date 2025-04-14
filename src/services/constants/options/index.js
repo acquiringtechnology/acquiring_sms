@@ -59,22 +59,31 @@ export const CANDIDATE_CLASS_STATUS_LIST = [
   {
     label: "yet to start",
     value: CANDIDATE_COURSE_STATUS.YET_TO_START,
-    color: "bg-warning",
+    color: "warning",
   },
+
   {
     label: "Processing",
     value: CANDIDATE_COURSE_STATUS.PROCESSING,
-    color: "bg-secondary",
+    color: "secondary",
   },
+
   {
-    label: "Hold",
-    value: CANDIDATE_COURSE_STATUS.DELETE,
-    color: "bg-info",
+    label: "Joined",
+    value: COURSE_ENQUIRY_STATUS.JOINED,
+    color: "success",
   },
+    
   {
-    label: "Complited",
+    label: "Completed",
+    value: CANDIDATE_COURSE_STATUS.COMPLETED,
+    color: "success",
+  },
+ 
+  {
+    label: "Delete",
     value: CANDIDATE_COURSE_STATUS.DELETE,
-    color: "bg-primary",
+    color: "danger",
   },
 ];
 

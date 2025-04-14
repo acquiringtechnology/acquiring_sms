@@ -16,6 +16,7 @@ import { updateCandidateDetailById } from "../../../../redux/action/candidate.ac
 import { useAppDispatch, useAppSelector } from "../../../../hooks/reducHooks";
 import {
   COURSE_ENQUIRY_STATUS_LIST,
+  CANDIDATE_CLASS_STATUS_LIST
 } from "../../../../services/constants";
 import _, { set } from "lodash";
 import { useParams } from "react-router";
@@ -90,7 +91,7 @@ export const CandidateSettings = ({ userDetail = null }) => {
                   label="Status"
                   placeholder="Select Candidate Status"
                   name="Candidate Status"
-                  option={COURSE_ENQUIRY_STATUS_LIST}
+                  option={CANDIDATE_CLASS_STATUS_LIST}
                   value={candidateForm.status}
                   onChange={handleFormChange}
                   errorMessage={simpleValidator.current.message(
