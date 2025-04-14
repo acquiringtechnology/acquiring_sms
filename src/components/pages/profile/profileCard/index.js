@@ -151,7 +151,7 @@ export const ProfileCard = ({ userDetail = null, isCandidate = false }) => {
                   </div>
                 </div>
               </div>
-              {isCandidate &&
+              {userDetail?.userId &&
               <div className="ms-auto">
                 <a onClick={()=>handleOpenInvoice(userDetail?.userId || candidateId)}target="_blank" className="link-primary cursor-pointer">View Invoice</a>
               </div>}
