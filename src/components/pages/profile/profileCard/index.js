@@ -17,6 +17,7 @@ import { useState } from "react";
 import { useParams } from "react-router";
 import {
   PROJECT_STATUS,
+  LOGIN_TYPE
 } from "../../../../services/constants";
 export const ProfileCard = ({ userDetail = null, isCandidate = false }) => {
   const [seletctTab, setSelectTab] = useState(0);
@@ -151,7 +152,7 @@ export const ProfileCard = ({ userDetail = null, isCandidate = false }) => {
                   </div>
                 </div>
               </div>
-              {userDetail?.userId &&
+              {LOGIN_TYPE.CANDIDATE  === userDetail?.loginType &&
               <div className="ms-auto">
                 <a onClick={()=>handleOpenInvoice(userDetail?.userId || candidateId)}target="_blank" className="link-primary cursor-pointer">View Invoice</a>
               </div>}
