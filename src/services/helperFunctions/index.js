@@ -499,11 +499,7 @@ export const getCityById = (stateId, districtId) => {
 };
 
 export const extractCandidateCode = (input) => {
-  const match = input.match(/\d+$/); // Matches digits at the end
-
-  if (match) {
-    return match[0];
-  } else {
-    return null;
-  }
+  const str = String(input);                // Convert input to string
+  const match = str.match(/\d+$/);          // Match digits at the end
+  return match ? Number(match[0]) : 0;      // Convert match to number or return 0
 };
