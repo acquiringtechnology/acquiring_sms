@@ -44,10 +44,10 @@ export const CashExpenses = () => {
       <Breadcrumb
         label={`Cash Expenses Total: ₹ ${totalExpense}`}
         onClickRightButton={handleOpenCashExpensesForm}
-        icon="mdi-account-star"
+        icon="mdi-currency-rupee"
         rightButtonLabel={
           <>
-            <span className="mdi mdi-group"></span> Add Expenses
+            <span className="mdi mdi-currency-rupee"></span> Add Expenses
           </>
         }
       />
