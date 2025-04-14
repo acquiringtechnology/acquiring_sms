@@ -15,6 +15,7 @@ import {
   getDoc,
 } from "firebase/firestore";
 import { Toast } from "../../../services/toast";
+import { extractCandidateCode } from "../../../services/helperFunctions";
 import { DB_NAME } from "../../constants";
 
 export const getAllCandidate = async () => {
@@ -26,13 +27,14 @@ export const getAllCandidate = async () => {
       .map((doc) => {
         const originalCode = doc.data()?.candidateCode || "0"; // Default to "0" if undefined
 
-
-        return doc.data()?.name && {
-          ...doc.data(),
-          candidateCode: `ATC-FSWD${originalCode}`,
-          id: doc.id,
-          numericCandidateCode: Number(originalCode), // Store the numeric part for sorting
-        };
+        return (
+          doc.data()?.name && {
+            ...doc.data(),
+            candidateCode: `ATC-FSWD${originalCode}`,
+            id: doc.id,
+            numericCandidateCode: Number(originalCode), // Store the numeric part for sorting
+          }
+        );
       })
       .sort((a, b) => a.numericCandidateCode - b.numericCandidateCode); // Sort by numeric value
 
@@ -77,17 +79,22 @@ async function getLatestCandidate() {
 
     if (!querySnapshot.empty) {
       const data = querySnapshot.docs
-      .map((doc) => {
-        const originalCode = doc.data()?.candidateCode || "0"; // Default to "0" if undefined
-        console.log('originalCode---',originalCode)
-        // const numericCode = originalCode?.replace(/\D/g, ""); // Remove non-numeric characters
+        .map((doc) => {
+          const originalCode = doc.data()?.candidateCode || "0"; // Default to "0" if undefined
+          console.log("originalCode---", originalCode);
+          // const numericCode = originalCode?.replace(/\D/g, ""); // Remove non-numeric characters
 
-        return doc.data()?.name && {
-          numericCandidateCode: Number(originalCode), // Store the numeric part for sorting
-        };
-      }).sort((a, b) => b.numericCandidateCode - a.numericCandidateCode); 
+          return (
+            doc.data()?.name && {
+              numericCandidateCode: Number(originalCode), // Store the numeric part for sorting
+            }
+          );
+        })
+        .sort((a, b) => b.numericCandidateCode - a.numericCandidateCode);
       // The first document (the most recent one)
-      const maxValue = Math.max(...data.map(item => item.numericCandidateCode));
+      const maxValue = Math.max(
+        ...data.map((item) => item.numericCandidateCode)
+      );
       const lastCode = maxValue; // Assuming employee code is the document ID
       // Extract the numeric part of the code
       const lastCodeNumber = Number(lastCode) || 100; // Default to 100 if parsing fails
@@ -165,6 +172,7 @@ export const updateCandidate = async (body, id) => {
   try {
     const userReq = {
       ...body, // Spread the properties of 'body'
+      candidateCode: extractCandidateCode(body?.candidateCode),
       updatedBy: [
         ...(body.updatedBy || []), // Ensure 'updatedBy' is an array
         {
@@ -175,6 +183,10 @@ export const updateCandidate = async (body, id) => {
       ],
     };
     delete userReq.id;
+    if (userReq.userId) {
+      delete userReq.userId;
+    }
+
     delete userReq.numericCandidateCode;
     const docRef = await updateDoc(
       doc(getFirestore(), DB_NAME.CANDIDATE, id),

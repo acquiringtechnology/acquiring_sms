@@ -122,12 +122,15 @@ export const getOverAllPayment = (billingInfo = []) => {
   }, 0);
 };
 
-export const getPendingPayment = (billingInfo = [],totalAmount=0) => {
+export const getPendingPayment = (billingInfo = [], totalAmount = 0) => {
   if (billingInfo.length === 0) return totalAmount; // Early return if empty
 
-  return Number(totalAmount) - billingInfo.reduce((total, { payFees }) => {
-    return total + (Number(payFees) || 0); // Convert to number, default to 0 if invalid
-  }, 0);
+  return (
+    Number(totalAmount) -
+    billingInfo.reduce((total, { payFees }) => {
+      return total + (Number(payFees) || 0); // Convert to number, default to 0 if invalid
+    }, 0)
+  );
 };
 
 export const getYesNotStatus = (status) => {
@@ -493,4 +496,14 @@ export const getCityById = (stateId, districtId) => {
     (district) => district.value === districtId
   );
   return district ? district.label : "";
+};
+
+export const extractCandidateCode = (input) => {
+  const match = input.match(/\d+$/); // Matches digits at the end
+
+  if (match) {
+    return match[0];
+  } else {
+    return null;
+  }
 };
