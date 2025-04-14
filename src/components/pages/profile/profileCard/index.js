@@ -151,9 +151,10 @@ export const ProfileCard = ({ userDetail = null, isCandidate = false }) => {
                   </div>
                 </div>
               </div>
+              {isCandidate &&
               <div className="ms-auto">
                 <a onClick={()=>handleOpenInvoice(userDetail?.userId || candidateId)}target="_blank" className="link-primary cursor-pointer">View Invoice</a>
-              </div>
+              </div>}
             </div>
             <Normaltabs data={tabData} onChange={handleChangeTab} />
           </div>
