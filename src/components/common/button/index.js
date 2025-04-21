@@ -5,13 +5,14 @@ export const NormalButton = (props) => {
     label = '',
     className = 'btn-primary',
     isLoader = false,
-    disabled
+    disabled,
+    type='button',
   } = props;
 
   return (
     <button
       {...props}
-      type="button"
+      type={type}
       disabled={isLoader || disabled}
       className={`btn  ${className}`}
     >
