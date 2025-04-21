@@ -62,6 +62,7 @@ export const LeadForm = ({
 
   const handleLeadFormChange = (event) => {
     const { name, value } = event.target;
+    simpleValidator.current.purgeFields();
     setLeadForm((prevState) => ({ ...prevState, [name]: value }));
   };
 
@@ -96,19 +97,19 @@ export const LeadForm = ({
   };
 
   const handleleadSubmit = async () => {
-    simpleValidator.current.purgeFields();
+    //
     try {
       const formValid = simpleValidator.current.allValid();
-
+console.log("formValid-----", formValid,candidateSchemaModule);
       if (formValid) {
-        if (leadForm.status === COURSE_ENQUIRY_STATUS.JOINED) {
-          handledMoveToCandidate();
-        }
+        // if (leadForm.status === COURSE_ENQUIRY_STATUS.JOINED) {
+        //   handledMoveToCandidate();
+        // }
 
         setIsLoadingFrom(true);
-        const res = leadForm?.id
-          ? await dispatch(updateLeadData(leadForm, leadForm.id))
-          : await dispatch(createNewLead(leadForm));
+        // const res = leadForm?.id
+        //   ? await dispatch(updateLeadData(leadForm, leadForm.id))
+        //   : await dispatch(createNewLead(leadForm));
 
         setLeadForm({ ...candidateSchemaModule });
         onSucess();
@@ -230,6 +231,11 @@ export const LeadForm = ({
           placeholder="Lead Type"
           value={leadForm.leadType}
           onChange={handleLeadFormChange}
+          errorMessage={simpleValidator.current.message(
+            "Lead Type",
+            leadForm.leadType,
+            "required"
+          )}
         />
       </div>
       <div className="col-md-6">

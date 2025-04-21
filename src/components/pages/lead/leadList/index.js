@@ -111,10 +111,10 @@ export const LeadList = ({
                         <td>
                           <label
                             className={`badge badge-gradient-${
-                              handleGetStatusTextColour(lead.status).color
+                              handleGetStatusTextColour(lead.status)?.color
                             }`}
                           >
-                            {handleGetStatusTextColour(lead.status).label}
+                            {handleGetStatusTextColour(lead.status)?.label}
                           </label>
                         </td>
                         <td>{handleLatestUpdate(lead)}</td>
