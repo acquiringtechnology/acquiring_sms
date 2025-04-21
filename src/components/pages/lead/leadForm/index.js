@@ -100,16 +100,15 @@ export const LeadForm = ({
     //
     try {
       const formValid = simpleValidator.current.allValid();
-console.log("formValid-----", formValid,candidateSchemaModule);
       if (formValid) {
-        // if (leadForm.status === COURSE_ENQUIRY_STATUS.JOINED) {
-        //   handledMoveToCandidate();
-        // }
+        if (leadForm.status === COURSE_ENQUIRY_STATUS.JOINED) {
+          handledMoveToCandidate();
+        }
 
         setIsLoadingFrom(true);
-        // const res = leadForm?.id
-        //   ? await dispatch(updateLeadData(leadForm, leadForm.id))
-        //   : await dispatch(createNewLead(leadForm));
+        const res = leadForm?.id
+          ? await dispatch(updateLeadData(leadForm, leadForm.id))
+          : await dispatch(createNewLead(leadForm));
 
         setLeadForm({ ...candidateSchemaModule });
         onSucess();
