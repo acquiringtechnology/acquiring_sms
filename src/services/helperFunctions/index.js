@@ -227,7 +227,9 @@ export const multySearchObjects = (array = [], searchCriteria = {}) => {
             return name?.toString().toLowerCase().includes(value.toLowerCase());
           }
           if (key === "createdBy") {
-            const createdByDate = item?.createdBy?.[0]?.date;
+            const createdByDate = Array.isArray(item?.createdBy)
+              ? item?.createdBy?.[0]?.date
+              : item?.createdBy?.date;
             if (createdByDate) {
               return moment(value).isSame(
                 moment(formatTimestamp(createdByDate)),
@@ -499,7 +501,7 @@ export const getCityById = (stateId, districtId) => {
 };
 
 export const extractCandidateCode = (input) => {
-  const str = String(input);                // Convert input to string
-  const match = str.match(/\d+$/);          // Match digits at the end
-  return match ? Number(match[0]) : 0;      // Convert match to number or return 0
+  const str = String(input); // Convert input to string
+  const match = str.match(/\d+$/); // Match digits at the end
+  return match ? Number(match[0]) : 0; // Convert match to number or return 0
 };

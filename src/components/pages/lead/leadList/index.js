@@ -41,8 +41,12 @@ export const LeadList = ({
       }
 
       // If no valid 'updatedBy' date, fall back to 'createdBy'
-      const createdByDate = lead?.createdBy?.[0]?.date;
+      const createdByDate = Array.isArray(lead?.createdBy)
+        ? lead?.createdBy?.[0]?.date
+        : lead?.createdBy?.date;
       if (createdByDate) {
+        return formatTimestamp(createdByDate);
+      } else {
         return formatTimestamp(createdByDate);
       }
 
@@ -142,7 +146,7 @@ export const LeadList = ({
                     </tr>
                   )}
 
-{!isLeadListLoader && leadListData?.length ===0 && (
+                  {!isLeadListLoader && leadListData?.length === 0 && (
                     <tr>
                       <td colSpan="7" className="text-center">
                         <h4>NO Data...</h4>

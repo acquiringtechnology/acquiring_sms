@@ -444,7 +444,7 @@ export const LeadForm = ({
           className="me-2  btn-gradient-success btn-fw"
           isLoader={leadSync.isCreateUpdateLoader}
           onClick={handleleadSubmit}
-          label="Update Changes"
+          label={`${leadForm.id ? "Update" : "Save"} Changes`}
         />
       </div>
     </div>

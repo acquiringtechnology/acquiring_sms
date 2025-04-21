@@ -59,7 +59,9 @@ export const LEAD_TYPE = {
   ADMIN: 1,
   TRAINER: 2,
   INSTAGRAM: 3,
-  BRANCH_ADMIN: 4
+  BRANCH_ADMIN: 4,
+  FROM_WEB_SITE: 5,
+  FROM_CANDIDATE_REF: 6,
 };
 export const CLASS_MODE = {
   OFFLINE: 0,

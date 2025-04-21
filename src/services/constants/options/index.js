@@ -156,6 +156,14 @@ export const LEAD_TYPE_LIST = [
     value: LEAD_TYPE.BRANCH,
   },
   {
+    label: "From Website",
+    value: LEAD_TYPE.FROM_WEB_SITE,
+  },
+  {
+    label: "From Candidiate Ref",
+    value: LEAD_TYPE.FROM_CANDIDATE_REF,
+  },
+  {
     label: "Trainer",
     value: LEAD_TYPE.TRAINER,
   },

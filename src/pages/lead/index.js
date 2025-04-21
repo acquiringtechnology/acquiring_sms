@@ -45,11 +45,19 @@ export const LeadPage = () => {
   const handleChangeFilter = (filterObj) => {
     setFilterObject(filterObj);
   };
+  
+
   return (
     <>
       <Breadcrumb
         label={`Lead ${multySearchObjects(leadSync?.leadListData, filterObject).length || 0}`}
         icon="mdi-account-star"
+        onClickRightButton={handleOpenLeadModal}
+        rightButtonLabel={
+          <>
+            <span className="mdi mdi-account-star"></span> Add Lead
+          </>
+        }
       />
 
       <LeadFilter leadListData={leadSync?.leadListData} onChange={handleChangeFilter} />
