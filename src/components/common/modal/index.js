@@ -21,13 +21,15 @@ export function NormalModal(props) {
     isShow = false,
     toggle = () => {},
     children = '',
-    title = ''
+    title = '',
+    rightModal = true,
+    modelStyle={}
   } = props;
 
   return (
     <>
-      <Modal open={isShow} onClose={toggle && toggle} className="app-modal">
-        <Box sx={{ ...style }}>
+      <Modal open={isShow} onClose={toggle && toggle} className={ "app-modal"}>
+        <Box sx={{ ...style,...modelStyle }}>
           <div className="modal-header">
             <h5 className="modal-title">{title}</h5>
             <IconButton className="text-dark" onClick={toggle && toggle}>

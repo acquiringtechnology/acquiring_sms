@@ -342,10 +342,26 @@ export const employeeListObjectMakeIdLabel = (list = []) => {
 
 export const letterAvatar = (name = "", size = 60, useColour = true) => {
   const colours = [
-    "#1abc9c", "#2ecc71", "#3498db", "#9b59b6", "#34495e",
-    "#16a085", "#27ae60", "#2980b9", "#8e44ad", "#2c3e50",
-    "#f1c40f", "#e67e22", "#e74c3c", "#ecf0f1", "#95a5a6",
-    "#f39c12", "#d35400", "#c0392b", "#bdc3c7", "#7f8c8d"
+    "#1abc9c",
+    "#2ecc71",
+    "#3498db",
+    "#9b59b6",
+    "#34495e",
+    "#16a085",
+    "#27ae60",
+    "#2980b9",
+    "#8e44ad",
+    "#2c3e50",
+    "#f1c40f",
+    "#e67e22",
+    "#e74c3c",
+    "#ecf0f1",
+    "#95a5a6",
+    "#f39c12",
+    "#d35400",
+    "#c0392b",
+    "#bdc3c7",
+    "#7f8c8d",
   ];
 
   const nameParts = name.toUpperCase().trim().split(" ");
@@ -379,7 +395,6 @@ export const letterAvatar = (name = "", size = 60, useColour = true) => {
 
   return canvas.toDataURL();
 };
-
 
 export const getLoginUserDetail = () => {
   return new Promise((resolve) => {
@@ -491,4 +506,28 @@ export const extractCandidateCode = (input) => {
   const str = String(input); // Convert input to string
   const match = str.match(/\d+$/); // Match digits at the end
   return match ? Number(match[0]) : 0; // Convert match to number or return 0
+};
+
+// Function to find the latest duplicates using forEach
+export const findLatestDuplicates = (dataArray = []) => {
+  try {
+    const seen = new Map();
+    const duplicates = [];
+
+    dataArray.forEach((item) => {
+      const key = item.phone || item.email; // use phone if present, else email
+
+      if (seen.has(key)) {
+        duplicates.push(item);
+      } else {
+        seen.set(key, item);
+      }
+    });
+    console.log("duplicates", duplicates);
+
+    return duplicates;
+  } catch (e) {
+    console.log(e);
+    return [];
+  }
 };
