@@ -342,57 +342,44 @@ export const employeeListObjectMakeIdLabel = (list = []) => {
 
 export const letterAvatar = (name = "", size = 60, useColour = true) => {
   const colours = [
-    "#1abc9c",
-    "#2ecc71",
-    "#3498db",
-    "#9b59b6",
-    "#34495e",
-    "#16a085",
-    "#27ae60",
-    "#2980b9",
-    "#8e44ad",
-    "#2c3e50",
-    "#f1c40f",
-    "#e67e22",
-    "#e74c3c",
-    "#ecf0f1",
-    "#95a5a6",
-    "#f39c12",
-    "#d35400",
-    "#c0392b",
-    "#bdc3c7",
-    "#7f8c8d",
+    "#1abc9c", "#2ecc71", "#3498db", "#9b59b6", "#34495e",
+    "#16a085", "#27ae60", "#2980b9", "#8e44ad", "#2c3e50",
+    "#f1c40f", "#e67e22", "#e74c3c", "#ecf0f1", "#95a5a6",
+    "#f39c12", "#d35400", "#c0392b", "#bdc3c7", "#7f8c8d"
   ];
 
-  const nameSplit = name.toUpperCase().split(" ");
+  const nameParts = name.toUpperCase().trim().split(" ");
   const initials =
-    nameSplit.length === 1
-      ? nameSplit[0].charAt(0)
-      : nameSplit[0].charAt(0) + nameSplit[1].charAt(0);
+    nameParts.length >= 2
+      ? nameParts[0][0] + nameParts[1][0]
+      : nameParts[0]?.[0] || "?";
 
   const pixelRatio = window.devicePixelRatio || 1;
-  size *= pixelRatio;
+  const canvasSize = size * pixelRatio;
 
-  const charIndex = initials === "?" ? 72 : initials.charCodeAt(0);
-  const colourIndex = (charIndex - 65) % 20;
+  const charCode = initials.charCodeAt(0);
+  const colourIndex = (charCode - 65 + colours.length) % colours.length;
 
   const canvas = document.createElement("canvas");
-  canvas.width = size;
-  canvas.height = size;
-  const context = canvas.getContext("2d");
+  canvas.width = canvasSize;
+  canvas.height = canvasSize;
 
-  context.fillStyle = useColour ? colours[colourIndex] : "transparent";
-  context.fillRect(0, 0, canvas.width, canvas.height);
+  const ctx = canvas.getContext("2d");
 
-  context.font = `${Math.round(canvas.width / 2.2)}px Arial`;
-  context.textAlign = "center";
-  context.fillStyle = useColour ? "#FFF" : "#454545";
-  context.fillText(initials, size / 2, size / 1.5);
+  // Background
+  ctx.fillStyle = useColour ? colours[colourIndex] : "transparent";
+  ctx.fillRect(0, 0, canvasSize, canvasSize);
 
-  const dataURI = canvas.toDataURL();
+  // Text
+  ctx.font = `${Math.round(canvasSize / 2.2)}px Arial`;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillStyle = useColour ? "#FFFFFF" : "#454545";
+  ctx.fillText(initials, canvasSize / 2, canvasSize / 2);
 
-  return dataURI;
+  return canvas.toDataURL();
 };
+
 
 export const getLoginUserDetail = () => {
   return new Promise((resolve) => {

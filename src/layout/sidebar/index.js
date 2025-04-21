@@ -6,6 +6,7 @@ import {
   getStorage,
   getIdByLabel,
   getDisplayName,
+  letterAvatar
 } from "../../services/helperFunctions";
 import { useEffect, useState } from "react";
 import {
@@ -37,7 +38,7 @@ export const Sidebar = () => {
         <li className="nav-item nav-profile">
           <a href="#" className="nav-link">
             <div className="nav-profile-image">
-              <img src={face1} alt="profile" />
+              <img src={letterAvatar(getDisplayName())} alt="profile" />
               <span className="login-status online"></span>
               {/* <!--change to offline or busy as needed--> */}
             </div>

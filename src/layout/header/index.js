@@ -7,7 +7,7 @@ import face2 from "../../assets/images/faces/face2.jpg";
 import face3 from "../../assets/images/faces/face3.jpg";
 import face4 from "../../assets/images/faces/face4.jpg";
 import { useEffect, useState, useRef } from "react";
-import { getStorage, getDisplayName } from "../../services/helperFunctions";
+import { getStorage, getDisplayName ,letterAvatar } from "../../services/helperFunctions";
 import { EXIST_LOCAL_STORAGE } from "../../services/constants";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
@@ -114,7 +114,7 @@ export const Header = () => {
               onClick={() => setIsProfileDropdown((prev) => !prev)}
             >
               <div className="nav-profile-img">
-                <img src={face1} alt="image" />
+                <img src={letterAvatar(getDisplayName(),32)} alt="image" />
                 <span className="availability-status online"></span>
               </div>
               <div className="nav-profile-text">
