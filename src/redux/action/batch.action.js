@@ -10,7 +10,7 @@ import batchStateSlice from "../slices/batch.slices";
 export const batchStateSliceActions = batchStateSlice.actions;
 
 export function getAllBatch() {
-  return async (dispatch) => {
+    return async (dispatch) => {
     try {
       dispatch(batchStateSliceActions.setisBatchListLoader(true)); // Set loading state to true
       const response = await getAllBatchList(); // Fetch leads

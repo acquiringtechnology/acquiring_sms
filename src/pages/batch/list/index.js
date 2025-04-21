@@ -1,47 +1,54 @@
+import { useState, useEffect, useCallback, useRef } from "react";
 import { BatchList, BatchFrom } from "../../../components/pages";
 import { Breadcrumb, NormalModal } from "../../../components/common";
-import { useState, useEffect } from "react";
-
 import { useAppDispatch, useAppSelector } from "../../../hooks/reducHooks";
 import { getAllEmployee } from "../../../redux/action/employee.action";
 import { getAllBatch } from "../../../redux/action/batch.action";
 
 export const BatchPage = () => {
-  const [isOpenBatchForm, setIsOpenBatchForm] = useState(false);
   const dispatch = useAppDispatch();
-  const employeeSync = useAppSelector((state) => state.employeeSync);
-  const batchSync = useAppSelector((state) => state.batchSync);
+  const hasFetched = useRef(false);
+  const [isOpenBatchForm, setIsOpenBatchForm] = useState(false);
   const [editBatchObject, setEditBatchObject] = useState(null);
 
-  useEffect(() => {
-    getEmployeeListData();
-  }, []);
+  const employeeSync = useAppSelector((state) => state.employeeSync);
+  const batchSync = useAppSelector((state) => state.batchSync);
 
-  function getEmployeeListData() {
+  const getEmployeeListData = useCallback(() => {
     dispatch(getAllEmployee());
-    if (batchSync?.batchListData.length === 0 || !batchSync?.batchListData) {
+
+    const batchListEmpty = !batchSync?.batchListData?.length;
+    if (batchListEmpty) {
       dispatch(getAllBatch());
     }
-  }
-  const handleOpenEmployeForm = () => {
+  }, [dispatch, batchSync?.batchListData]);
+
+  useEffect(() => {
+    if (!hasFetched.current) {
+      getEmployeeListData();
+      hasFetched.current = true;
+    }
+  }, [getEmployeeListData]);
+
+  const handleOpenBatchForm = () => {
     setEditBatchObject(null);
     setIsOpenBatchForm(true);
   };
 
-  const handleEditLead = (batch) => {
-    setIsOpenBatchForm(true);
+  const handleEditBatch = (batch) => {
     setEditBatchObject(batch);
+    setIsOpenBatchForm(true);
   };
 
   return (
     <div>
       <Breadcrumb
-        label={`Batch `}
+        label="Batch"
         icon="mdi-group"
-        onClickRightButton={handleOpenEmployeForm}
+        onClickRightButton={handleOpenBatchForm}
         rightButtonLabel={
           <>
-            <span class="mdi mdi-group"></span> Add Batch
+            <span className="mdi mdi-group"></span> Add Batch
           </>
         }
       />
@@ -50,11 +57,11 @@ export const BatchPage = () => {
         isBatchListLoader={batchSync?.isBatchListLoader}
         employeeListData={employeeSync?.employeeListData}
         batchListData={batchSync?.batchListData}
-        onEdit={handleEditLead}
+        onEdit={handleEditBatch}
       />
 
       <NormalModal
-        toggle={() => setIsOpenBatchForm((prevState) => !prevState)}
+        toggle={() => setIsOpenBatchForm((prev) => !prev)}
         title="Add Batch"
         isShow={isOpenBatchForm}
       >
@@ -62,10 +69,7 @@ export const BatchPage = () => {
           batchSync={batchSync}
           employeeListData={employeeSync?.employeeListData}
           editBatchObject={editBatchObject}
-          onSucess={() => {
-            console.log("clos");
-            setIsOpenBatchForm(false);
-          }}
+          onSucess={() => setIsOpenBatchForm(false)}
           onclose={() => setIsOpenBatchForm(false)}
         />
       </NormalModal>

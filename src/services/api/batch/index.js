@@ -14,25 +14,38 @@ import {
   } from "firebase/firestore";
   import { Toast } from "../../../services/toast";
   import { DB_NAME } from "../../constants";
+  // import { DB_NAME } from "../candidate";
 
 
   export const getAllBatchList = async () => {
     try {
-      const querySnapshot = await getDocs(
-        collection(getFirestore(), DB_NAME.BATCH)
+      const db = getFirestore();
+      const querySnapshot = await getDocs(collection(db, DB_NAME.BATCH));
+  
+      const data = await Promise.all(
+        querySnapshot.docs.map(async (doc) => {
+          const batchId = doc.id;
+          const candidateSnapshot = await getDocs(collection(db, DB_NAME.CANDIDATE));
+  
+          const filteredCandidates = candidateSnapshot.docs.filter((candidateDoc) => {
+            const batchIds = candidateDoc.data()?.batchIds || [];
+            return batchIds.find(({ id, status }) => id === batchId && status);
+          });
+          return {
+            ...doc.data(),
+            id: batchId,
+            value: batchId,
+            label: doc.data().batchCode,
+            candidateCount: filteredCandidates.length, // optional addition
+          };
+        })
       );
-      const data = querySnapshot.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-        value:doc.id,
-        label:doc.data().batchCode,
-      }));
+  
       return data;
     } catch (e) {
-      console.error("Error fetching leads:", e);
-      let message = e?.message || "Something went wrong";
-      Toast({ message, type: "error" });
-      throw e; // Propagate error to be handled by the caller
+      console.error("Error fetching batches:", e);
+      Toast({ message: e?.message || "Something went wrong", type: "error" });
+      throw e;
     }
   };
 

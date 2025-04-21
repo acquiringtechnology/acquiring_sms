@@ -89,7 +89,7 @@ export const BatchList = ({
                       <span className="text-batch-qu"> Total candidates :</span>
                       <span className="fw-semibold  ms-1">
                         {" "}
-                        {batch?.countCandidate || 0}
+                        {batch?.candidateCount || 0}
                       </span>
                     </p>
                   </div>
