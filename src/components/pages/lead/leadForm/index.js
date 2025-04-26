@@ -121,7 +121,7 @@ export const LeadForm = ({
     }
   };
 
-  const handledMoveToCandidate = () => {
+  const handledMoveToCandidate = async () => {
     const { batchId, batchIds, ...restOfLeadForm } = leadForm;
     const batchDtails = batchListData?.find(({ id }) => id === batchId);
     const trainerId = batchDtails?.trainerIds?.find(
@@ -146,7 +146,7 @@ export const LeadForm = ({
         },
       ],
     };
-    dispatch(createNewCandidate(candidateData));
+  await  dispatch(createNewCandidate(candidateData));
   };
 
   return (
