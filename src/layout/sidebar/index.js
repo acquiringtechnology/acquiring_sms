@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { NavLink } from "react-router";
+import { NavLink ,useLocation  } from "react-router";
 import { LOGIN_TYPE, MENU } from "../../services/constants";
 import face1 from "../../assets/images/faces/face1.jpg";
 import {
@@ -14,6 +14,9 @@ import {
   EMPLOYEE_DESIGNATION_LIST,
 } from "../../services/constants";
 export const Sidebar = () => {
+  const location = useLocation();
+    // Helper to check if path starts with
+    const isActive = (path) => location.pathname.startsWith(path);
   const [userDetail, setUserDetail] = useState(null);
   const handleOpenMenu = (menu) => {
     const subMenuDom = document.getElementById(menu);
@@ -58,7 +61,7 @@ export const Sidebar = () => {
           (menu, i) =>
             (menu?.loginType === userDetail?.loginType ||
               menu?.loginType === LOGIN_TYPE.BOTH) && (
-              <li className="nav-item " key={i}>
+              <li className={`nav-item ${isActive(menu.path) ? ' active' : ''}`} key={i}>
                 {menu.subMenu.length > 0 ? (
                   <span
                     className="nav-link "

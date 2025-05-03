@@ -94,9 +94,9 @@ export const BatchList = ({
                     </p>
                   </div>
 
-                  <div className="d-flex mt-4 justify-content-between text-body-tertiary fw-semibold">
+                  <div className="d-flex mt-4 justify-content-between text-body fw-semibold">
                     <p className="mb-2"> Progress</p>
-                    <p className="mb-2 text-body-emphasis">{getTimePeriodPercentage(
+                    <p className="mb-2 text-body">{getTimePeriodPercentage(
                           batch.stDate,
                           batch.endDate
                         )}</p>
@@ -121,14 +121,14 @@ export const BatchList = ({
                   <div className="mt-4">
                     <p className="mb-0 fw-bold fs-9 mb-2">
                       Started :
-                      <span className="fw-semibold text-body-tertiary text-opactity-85 ms-1">
+                      <span className="fw-semibold text-body text-opactity-85 ms-1">
                         {" "}
                         {moment(batch.stDate).format("DD MMM YYYY")}
                       </span>
                     </p>
                     <p className="mb-0 fw-bold fs-9">
                       Deadline :{" "}
-                      <span className="fw-semibold text-body-tertiary text-opactity-85 ms-1">
+                      <span className="fw-semibold text-body text-opactity-85 ms-1">
                         {moment(batch.endDate).format("DD MMM YYYY")}
                       </span>
                     </p>

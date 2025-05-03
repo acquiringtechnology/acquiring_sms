@@ -118,7 +118,7 @@ export const Header = () => {
                 <span className="availability-status online"></span>
               </div>
               <div className="nav-profile-text">
-                <p className="mb-1 text-black">{getDisplayName()}</p>
+                <p className="mb-1">{getDisplayName()}</p>
               </div>
             </a>
             <div
