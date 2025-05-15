@@ -68,14 +68,11 @@ export const MENU = [
     path: "/atQuiz",
     subMenu: [],
   },
-  // {
-  //   title: "Certificate",
-  //   exact: true,
-  //   icon: "mdi-certificate",
-  //   loginType:LOGIN_TYPE.EMPLOYEE,
-  //   path: "/certificate",
-  //   subMenu: [],
-  // },
+
+  
+
+
+  
   // {
   //     title: 'Candidate',
   //     exact: true,

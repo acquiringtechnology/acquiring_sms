@@ -1,33 +1,23 @@
 import { NormalButton } from "../../../common";
-import { CertificateDoc } from "../../../pages";
 import React, { useRef } from 'react';
 import {
-  getBatchStatus,
   getIdByLabel,
-  handleGetStatusTextColour,
-  getTimePeriodPercentage,
 } from "../../../../services/helperFunctions";
 import moment from "moment";
-import Swal from "sweetalert2";
-import { BATCH_STATUS_LIST, COURSE_LIST } from "../../../../services/constants";
+import { COURSE_LIST } from "../../../../services/constants";
 import Skeleton from "@mui/material/Skeleton";
-import { deleteBatchData } from "../../../../redux/action/batch.action";
-import { useAppDispatch } from "../../../../hooks/reducHooks";
-import { useNavigate } from "react-router";
-import sampleCertificate from "../../../../assets/images/Sample DOC.jpg";
+import {useNavigate} from 'react-router'
 export const CertificateList = ({
   isBatchListLoader = false,
   batchListData = [],
 }) => {
-
-  const certificateDownloadRef = useRef()
+  const navigate = useNavigate();
 
 
  
 
   const handleDownloadCertificate=()=>{
-    const content = certificateDownloadRef.current;
-    content.handleDownload();
+    navigate('/certificate/preview/122')
   }
   return (
     <>
@@ -99,7 +89,7 @@ export const CertificateList = ({
               <div className="card-footer text-center">
                 <NormalButton
                   className="btn btn-gradient-success me-2"
-                  label="Download"
+                  label="Preview"
                   onClick={handleDownloadCertificate}
                 />
               </div>
@@ -147,7 +137,7 @@ export const CertificateList = ({
 
        
     </div>
-     <CertificateDoc ref={certificateDownloadRef}/>
+   
      </>
   );
 };

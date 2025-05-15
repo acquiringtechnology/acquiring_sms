@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-duplicate-props */
 import { NormalInput, NormalButton } from "../../../components/common";
 import SimpleReactValidator from "simple-react-validator";
 import purple_logo from "../../../assets/images/purple_logo.svg";
@@ -5,10 +6,15 @@ import { useState, useRef, useEffect } from "react";
 import { userSignIn } from "../../../services/api/login";
 import { useNavigate } from "react-router";
 import { LOGIN_TYPE } from "../../../services/constants";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import InputAdornment from "@mui/material/InputAdornment";
+import IconButton from "@mui/material/IconButton";
 import _ from "lodash";
 
 export const LoginPage = ({ loginType = null }) => {
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [loginForm, setloginForm] = useState({
     email: "",
@@ -101,7 +107,6 @@ export const LoginPage = ({ loginType = null }) => {
             <div className="col-md-12">
               <NormalInput
                 label="Enter Password"
-                type="password"
                 value={loginForm.password}
                 placeholder="Enter Password"
                 name="password"
@@ -111,6 +116,19 @@ export const LoginPage = ({ loginType = null }) => {
                   loginForm.password,
                   "required"
                 )}
+                type={showPassword ? "text" : "password"}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={() => setShowPassword((p) => !p)}
+                      // onMouseDown={handleMouseDownPassword}
+                      // onMouseUp={handleMouseUpPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
               />
             </div>
             <div className="col-md-12 mt-3 d-grid gap-2">

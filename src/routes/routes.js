@@ -176,6 +176,12 @@ const routers = [
         auth: true,
         exact: true,
       },
+      {
+        component: "certificateDetailViewPage",
+        path: "/preview/:batchId",
+        auth: true,
+        exact: true,
+      },
       
     ],
   },
