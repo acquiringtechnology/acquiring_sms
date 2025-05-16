@@ -19,7 +19,7 @@ import {
   PROJECT_STATUS,
   LOGIN_TYPE
 } from "../../../../services/constants";
-export const ProfileCard = ({ userDetail = null, isCandidate = false }) => {
+export const ProfileCard = ({ userDetail = null, isCandidate = false ,batchListData=[] }) => {
   const [seletctTab, setSelectTab] = useState(0);
   const { candidateId } = useParams();
   const tabData = [
@@ -165,7 +165,7 @@ export const ProfileCard = ({ userDetail = null, isCandidate = false }) => {
         {seletctTab === 1 && <CandidateProjects userDetail={userDetail} />}
         {seletctTab === 2 && <ChangePassword userDetail={userDetail} />}
         {seletctTab === 3 && <PaymentDetails userDetail={userDetail} />}
-        {seletctTab === 4 && <CandidateSettings userDetail={userDetail} />}
+        {seletctTab === 4 && <CandidateSettings batchListData={batchListData} userDetail={userDetail} />}
       </div>
     </div>
   );

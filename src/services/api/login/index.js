@@ -13,7 +13,7 @@ import {
 } from "firebase/firestore";
 import { Toast } from "../../../services/toast";
 import { setStorage} from "../../helperFunctions";
-import { DB_NAME, LOGIN_TYPE,EXIST_LOCAL_STORAGE } from "../../constants";
+import { DB_NAME, LOGIN_TYPE,EXIST_LOCAL_STORAGE ,CANDIDATE_COURSE_STATUS } from "../../constants";
 
 export const sendLoginOtp = async (body) => {
   try {
@@ -67,7 +67,15 @@ export const userSignIn = async (body) => {
     // Extract the first user data
        // Extract the first document
        const userDoc = querySnapshot.docs[0];
+ 
+
+    
        const userData = userDoc.data();
+             console.log('userDoc---',userData)
+          if(userData.status === CANDIDATE_COURSE_STATUS.DELETE &&  body.loginType === LOGIN_TYPE.CANDIDATE){
+       Toast({ message: "Your login is blocked. Please contact the acquiring admin team at 9042771660.", type: "error" });
+return
+       }
        const userId = userDoc.id; // Get the document ID
        console.log("User Login Successful, Document ID:", userId);
     // Check if the password matches

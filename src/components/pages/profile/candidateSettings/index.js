@@ -15,13 +15,16 @@ import Swal from "sweetalert2";
 import { updateCandidateDetailById } from "../../../../redux/action/candidate.action";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/reducHooks";
 import {
-  COURSE_ENQUIRY_STATUS_LIST,
-  CANDIDATE_CLASS_STATUS_LIST
+  STATUS,
+  CANDIDATE_CLASS_STATUS_LIST,
 } from "../../../../services/constants";
 import _, { set } from "lodash";
 import { useParams } from "react-router";
 
-export const CandidateSettings = ({ userDetail = null }) => {
+export const CandidateSettings = ({
+  userDetail = null,
+  batchListData = [],
+}) => {
   const { candidateId } = useParams();
   const dispatch = useAppDispatch();
   const simpleValidator = useRef(
@@ -52,9 +55,33 @@ export const CandidateSettings = ({ userDetail = null }) => {
       const formValid = simpleValidator.current.allValid();
       if (formValid) {
         setIsLoading(true);
+
+        const { batchId, batchIds, ...restOfLeadForm } = candidateForm;
+        const batchDtails = batchListData?.find(({ id }) => id === batchId);
+        const trainerId = batchDtails?.trainerIds?.find(
+          ({ status }) => status === STATUS.ACTIVE
+        )?.trainerId;
+     const batchIdList=   batchIds.map((batchId)=>({...batchId,eDate: new Date(),status:STATUS.DE_ACTIVE}))
+        const candidateData = {
+          ...candidateSchemaModule,
+          ...restOfLeadForm,
+          batchId,
+          batchIds: [
+            ...batchIdList,
+            {
+              id: batchId,
+              trainerId,
+              sDate: new Date(),
+              status: STATUS.ACTIVE,
+              eDate: "",
+              totfees: 2000,
+            },
+          ],
+        };
+
         const userDetail = await dispatch(
           updateCandidateDetailById(
-            { ...candidateForm },
+            { ...candidateData },
             candidateForm?.userId || candidateId
           )
         );
@@ -70,7 +97,6 @@ export const CandidateSettings = ({ userDetail = null }) => {
     }
   };
 
-
   return (
     <div className="row">
       <div className="col-md-12">
@@ -85,12 +111,11 @@ export const CandidateSettings = ({ userDetail = null }) => {
             <h4 class="card-title mb-4">Candidate Setting</h4>
 
             <div class="row mb-7">
-             
               <div class="col-lg-4">
                 <NormalSelect
                   label="Status"
                   placeholder="Select Candidate Status"
-                  name="Candidate Status"
+                  name="status"
                   option={CANDIDATE_CLASS_STATUS_LIST}
                   value={candidateForm.status}
                   onChange={handleFormChange}
@@ -101,9 +126,24 @@ export const CandidateSettings = ({ userDetail = null }) => {
                   )}
                 />
               </div>
+               <div class="col-lg-4">
+               
+                <NormalSelect
+                  label="Batch"
+                  placeholder="Select batch"
+                  name="batchId"
+                  option={batchListData}
+                  value={candidateForm.batchId}
+                  onChange={handleFormChange}
+                  errorMessage={simpleValidator.current.message(
+                    "Batch",
+                    candidateForm.batchId,
+                    "required"
+                  )}
+                />
+              </div>
             </div>
-
-  
+          
           </div>
         </div>
       </div>

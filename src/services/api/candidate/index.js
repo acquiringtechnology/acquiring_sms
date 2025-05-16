@@ -16,7 +16,7 @@ import {
 } from "firebase/firestore";
 import { Toast } from "../../../services/toast";
 import { extractCandidateCode } from "../../../services/helperFunctions";
-import { DB_NAME } from "../../constants";
+import { DB_NAME, STATUS } from "../../constants";
 
 export const getAllCandidate = async () => {
   try {
@@ -55,8 +55,14 @@ export const getAllCandidate = async () => {
 export const getIdByCandidateDetail = async (id) => {
   try {
     const snap = await getDoc(doc(getFirestore(), DB_NAME.CANDIDATE, id));
-    if (snap.exists()) return snap.data();
-    else return null;
+    if (!snap.exists()) return null;
+
+    const data = snap.data();
+    const batchId = data.batchIds.find(
+      ({ status }) => status === STATUS.ACTIVE
+    )?.id;
+
+    return { ...data, batchId };
   } catch (e) {
     console.error("Error fetching leads:", e);
     let message = e?.message || "Something went wrong";
@@ -182,10 +188,10 @@ export const updateCandidate = async (body, id) => {
         },
       ],
     };
+    const { batchId } = {...userReq};
     delete userReq.id;
-    if (userReq.userId) {
-      delete userReq.userId;
-    }
+    delete userReq.batchId;
+    delete userReq.userId;
 
     delete userReq.numericCandidateCode;
     const docRef = await updateDoc(
@@ -195,9 +201,10 @@ export const updateCandidate = async (body, id) => {
     // await updateDoc(docRef, {
     //   fieldName: deleteField()
     // });
-    Toast({ message: "Updated successfully" });
-    console.log(docRef, "pdated successfully");
-    return body;
+      console.log({...body,batchId}, "pdated successfully");
+    Toast({ message: "Updated successfully tes" });
+  
+    return {...body,batchId};
   } catch (e) {
     console.error("Error fetching leads:", e);
     let message = e?.message || "Something went wrong";
