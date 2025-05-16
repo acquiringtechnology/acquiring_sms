@@ -46,7 +46,6 @@ export const LoginPage = ({ loginType = null }) => {
         setIsLoading(true);
         const resOpt = await userSignIn(body);
         setIsLoading(false);
-        console.log("resOpt------", JSON.stringify(resOpt));
         if (!_.isEmpty(resOpt)) {
           if (loginType === LOGIN_TYPE.EMPLOYEE) {
             navigate("/home", { replace: true });

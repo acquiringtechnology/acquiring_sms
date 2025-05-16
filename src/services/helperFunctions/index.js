@@ -201,13 +201,13 @@ export const convertStringToHTML = (htmlString) => {
   return html.body.toString();
 };
 
-export const formatTimestamp = (date) => {
+export const formatTimestamp = (date,format="DD MMM YYYY") => {
   if (date?.seconds && date?.nanoseconds) {
     const timestampInMilliseconds =
       date.seconds * 1000 + date.nanoseconds / 1000000;
-    return moment(timestampInMilliseconds).format("DD MMM YYYY");
+    return moment(timestampInMilliseconds).format(format);
   }
-  return moment(date).format("DD MMM YYYY");
+  return moment(date).format(format);
 };
 
 export const multySearchObjects = (array = [], searchCriteria = {}) => {

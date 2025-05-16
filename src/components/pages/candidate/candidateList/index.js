@@ -6,7 +6,8 @@ import {
   handleGetProjectCompletedCount,
   getPendingPayment,
   gePaymentStatus,
-  getIdByLabel
+  getIdByLabel,
+  formatTimestamp
 } from "../../../../services/helperFunctions";
 import * as moment from "moment";
 import Swal from "sweetalert2";
@@ -233,7 +234,12 @@ export const CandidateList = ({
                             </td>
                             <td>{candidate?.paymentDueDate}</td>
                           </tr>
-                         
+                           <tr>
+                            <td>
+                              <span>Last Login</span>
+                            </td>
+                            <td>{candidate?.lastLogin? formatTimestamp(candidate?.lastLogin,"DD MMM YYYY HH:mm:ss"):"NA"}</td>
+                          </tr>
                         </table>
                       </div>
                     </div>
